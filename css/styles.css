@@ -20,3 +20,11 @@ a{
     height: 100px;
     filter: invert(97%) sepia(3%) saturate(12%) hue-rotate(54deg) brightness(103%) contrast(105%);
 }
+
+.userProfile .profileHeader .avatar img{
+    height: 100px;
+}
+
+.userProfile .profileHeader .settings img{
+    height: 100px;
+}
