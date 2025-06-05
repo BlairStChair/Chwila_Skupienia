@@ -12,25 +12,26 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
     <!-- (dodaj inne, jeśli potrzebujesz np. firestore, storage itp.) -->
 
-    <!-- Twój skrypt JS -->
-    <script src="../js/firebase.js" defer></script>
 </head>
 <body>
     <div class="loginMainContainer">
-        <button><img src="../assets/img/moon-regular.svg"></button>
+        <button>darkmode<img src="../assets/img/moon-regular.svg"></button>
         <div class="title">
             <h1>Chwila </br> Skupienia</h1>
         </div>
         <div class="loginForm">
             <img src="../assets/img/diament-diament.svg"><h2>Zaloguj się</h2>
             <form action="">
-                <input type="text" class="userName" placeholder="Nazwa użytkownika">
+                <input type="text" class="userEmail" placeholder="Adres e-mail">
                 <input type="password" class="userPassword" placeholder="Hasło">
                 <a href="">Przypomnij hasło</a>
-                <button type="submit">Zaloguj się</button>
+                <button type="submit" class="loginBtn">Zaloguj się</button>
                 <a href="registrationPage.html">Nie masz konta? Zarejestruj się!</a>
             </form>
         </div>
     </div>
+    <!-- Twój skrypt JS -->
+    <script src="../js/firebase.js" defer></script>
+    <script src="../js/loginUser.js"></script>
 </body>
 </html>
