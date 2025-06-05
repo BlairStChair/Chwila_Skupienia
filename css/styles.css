@@ -1,0 +1,22 @@
+ @font-face {
+  font-family: SAOWelcomeTTRegular;
+  src: url(../assets/fonts/SAO/SAOWelcomeTTRegular.ttf);
+}
+
+body{
+    background-color: #65338A;
+    color: #FFF;
+}
+
+a{
+    color:white;
+}
+
+.title h1{
+    font-family: SAOWelcomeTTRegular;
+}
+
+.loginForm img{
+    height: 100px;
+    filter: invert(97%) sepia(3%) saturate(12%) hue-rotate(54deg) brightness(103%) contrast(105%);
+}
