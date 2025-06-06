@@ -8,12 +8,10 @@ const firebaseConfig = {
   measurementId: "G-KS1VB5ZX1K"
 };
 
-// Inicjalizacja
+// Inicjalizacja Firebase
 firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
 
-// Przykład odczytu danych
-const sessionRef = db.ref('sessions/');
-sessionRef.on('value', (snapshot) => {
-  console.log(snapshot.val());
-});
+// Udostępnij zmienne globalnie (dla innych skryptów)
+window.auth = firebase.auth();
+window.db = firebase.database();
+

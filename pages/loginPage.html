@@ -5,13 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chwila Skupienia</title>
     <link rel="stylesheet" href="../css/styles.css">
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
-    <!-- (dodaj inne, jeśli potrzebujesz np. firestore, storage itp.) -->
-
 </head>
 <body>
     <div class="loginMainContainer">
@@ -21,8 +14,8 @@
         </div>
         <div class="loginForm">
             <img src="../assets/img/diament-diament.svg"><h2>Zaloguj się</h2>
-            <form action="">
-                <input type="text" class="userEmail" placeholder="Adres e-mail">
+            <form>
+                <input type="email" class="userEmail" placeholder="Adres e-mail">
                 <input type="password" class="userPassword" placeholder="Hasło">
                 <a href="">Przypomnij hasło</a>
                 <button type="submit" class="loginBtn">Zaloguj się</button>
@@ -30,8 +23,14 @@
             </form>
         </div>
     </div>
-    <!-- Twój skrypt JS -->
-    <script src="../js/firebase.js" defer></script>
-    <script src="../js/loginUser.js"></script>
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+<!-- Twoje skrypty -->
+<script src="../js/firebase.js"></script> 
+<script src="../js/loginUser.js"></script> 
+
 </body>
 </html>

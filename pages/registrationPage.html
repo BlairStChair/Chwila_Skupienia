@@ -5,15 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chwila Skupienia</title>
     <link rel="stylesheet" href="../css/styles.css">
-
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
-    <!-- (dodaj inne, jeśli potrzebujesz np. firestore, storage itp.) -->
-
-    <!-- Twój skrypt JS -->
-    <script src="../js/firebase.js" defer></script>
 </head>
 <body>
     <div class="registrationMainContainer">
@@ -23,8 +14,9 @@
         </div>
         <div class="loginForm">
             <img src="../assets/img/diament-diament.svg"><h2>Zarejestruj się</h2>
-            <form action="">
-                <input type="text" class="newUserEmail" placeholder="Adres E-mail">
+            <a href="loginPage.html">Powrót do logowania</a>
+            <form>
+                <input type="email" class="newUserEmail" placeholder="Adres E-mail">
                 <input type="text" class="newUserName" placeholder="Nazwa użytkownika">
                 <input type="password" class="newUserPassword" placeholder="Hasło">
                 <input type="password" class="newUserPasswordConfirm" placeholder="Powtórz Hasło">
@@ -32,5 +24,14 @@
             </form>
         </div>
     </div>
+
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+<!-- Twoje skrypty -->
+<script src="../js/firebase.js" defer></script> 
+<script src="../js/registerUser.js" defer></script> 
 </body>
 </html>
