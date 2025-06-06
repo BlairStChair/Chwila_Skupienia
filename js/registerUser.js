@@ -6,7 +6,7 @@ const newUserPasswordConfirm = document.querySelector(".newUserPasswordConfirm")
 const registrationForm = document.querySelector("form");
 
 const invalidPassword = document.createElement("p");
-invalidPassword.textContent = "Hasla sa rozne!"
+invalidPassword.textContent = "Hasła są różne"
 invalidPassword.style.color = "red";
 
 console.log("Auth z window:", window.auth);

@@ -3,6 +3,10 @@ const userEmail = document.querySelector(".userEmail");
 const userPassword = document.querySelector(".userPassword");
 const loginForm = document.querySelector("form");
 
+const invalidLogin = document.createElement("p");
+invalidLogin.textContent = "Błędny login lub hasło"
+invalidLogin.style.color = "red";
+
 loginForm.addEventListener("submit", async(e) => {
     e.preventDefault();
 
@@ -18,8 +22,7 @@ loginForm.addEventListener("submit", async(e) => {
             alert("Zalogowano pomyślnie!");
             window.location.href = "dashboardPage.html";
         } catch (error) {
-            console.error("Błąd logowania:", error.message);
-            alert("Błędny e-mail lub hasło.");
+            loginForm.appendChild(invalidLogin);
         }
    
 });
