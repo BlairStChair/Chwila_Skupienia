@@ -1,4 +1,4 @@
-const timerContainer = document.querySelector(".timer");
+const timer = document.querySelector(".timer");
 const addTime = document.querySelector(".addTime");
 const subtractTime = document.querySelector(".subtractTime");
 const startTimer = document.querySelector(".startTimer");
@@ -6,9 +6,23 @@ const stopTimer = document.querySelector(".stopTimer");
 const resetTimer = document.querySelector(".resetTimer");
 
 var timeInSeconds = 60;
+const displayTime = document.createElement("p");
+displayTime.textContent = "01:00"
+timer.appendChild(displayTime);
+
+function updateDisplay() {
+    const minutes = Math.floor(timeInSeconds / 60);
+    const seconds = timeInSeconds % 60;
+    if(minutes < 10){
+        displayTime.textContent = `0${minutes}:${seconds.toString().padStart(2, "0")}`;
+    }else{
+        displayTime.textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`;
+    }
+}
 
 addTime.addEventListener("click", () => {
     timeInSeconds = timeInSeconds + 60;
+    updateDisplay();
     console.log(timeInSeconds);
 });
 
@@ -17,6 +31,8 @@ subtractTime.addEventListener("click", () => {
         timeInSeconds = 0;
     }else{
         timeInSeconds = timeInSeconds - 60;
+        updateDisplay();
         console.log(timeInSeconds);   
     }
 });
+
