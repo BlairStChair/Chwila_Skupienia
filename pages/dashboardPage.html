@@ -6,18 +6,11 @@
     <title>Chwila Skupienia</title>
     <link rel="stylesheet" href="../css/styles.css">
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
-    <!-- (dodaj inne, jeśli potrzebujesz np. firestore, storage itp.) -->
-
-    <!-- Twój skrypt JS -->
-    <script src="../js/firebase.js" defer></script>
 </head>
 <body>
     <div class="dashboardMainContainer">
         <button>darkmode<img src="../assets/img/moon-regular.svg"></button>
+        <button class="logoutBtn">Wyloguj się</button>
         <div class="navBar">
             <ul>
                 <li><a href="dashboardPage.html">Minutnik</a></li>
@@ -31,5 +24,15 @@
             Odtwarzacz muzyki
         </div>
     </div>
+
+    <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+
+<!-- Twoje skrypty -->
+<script src="../js/firebase.js"></script> 
+<script src="../js/logout.js"></script> 
+<script src="../js/timer.js"></script> 
 </body>
 </html>
