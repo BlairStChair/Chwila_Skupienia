@@ -39,7 +39,8 @@ subtractTime.addEventListener("click", () => {
 });
 
 startTimer.addEventListener("click", () => {
-    console.log("test");
+    console.log("starttest");
+
     if(intervalID) return;
 
     intervalID = setInterval(() => {
@@ -54,3 +55,14 @@ startTimer.addEventListener("click", () => {
     }, 1000);
 });
 
+stopTimer.addEventListener("click", () => {
+    console.log("stoptest");
+    if(intervalID) return;
+
+    intervalID = setInterval(() => {
+        
+            clearInterval(intervalID);
+            intervalID = null;
+         
+    }, 1000);
+});
