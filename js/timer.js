@@ -46,7 +46,7 @@ startTimer.addEventListener("click", () => {
     intervalID = setInterval(() => {
         if(timeInSeconds > 0){
             timeInSeconds = timeInSeconds - 1;
-            updateDisplay()
+            updateDisplay();
             console.log(timeInSeconds);
         }else{
             clearInterval(intervalID);
@@ -57,12 +57,14 @@ startTimer.addEventListener("click", () => {
 
 stopTimer.addEventListener("click", () => {
     console.log("stoptest");
-    if(intervalID) return;
 
-    intervalID = setInterval(() => {
-        
-            clearInterval(intervalID);
-            intervalID = null;
-         
-    }, 1000);
+    clearInterval(intervalID);
+    intervalID = null;
+});
+
+resetTimer.addEventListener("click", () => {
+    clearInterval(intervalID);
+    intervalID = null;
+    timeInSeconds = timeInSeconds;
+    updateDisplay();
 });
