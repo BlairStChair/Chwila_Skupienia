@@ -6,6 +6,7 @@ const stopTimer = document.querySelector(".stopTimer");
 const resetTimer = document.querySelector(".resetTimer");
 
 var timeInSeconds = 1500;
+let intervalID = null;
 const displayTime = document.createElement("p");
 timer.appendChild(displayTime);
 
@@ -35,5 +36,21 @@ subtractTime.addEventListener("click", () => {
         updateDisplay();
         console.log(timeInSeconds);   
     }
+});
+
+startTimer.addEventListener("click", () => {
+    console.log("test");
+    if(intervalID) return;
+
+    intervalID = setInterval(() => {
+        if(timeInSeconds > 0){
+            timeInSeconds = timeInSeconds - 1;
+            updateDisplay()
+            console.log(timeInSeconds);
+        }else{
+            clearInterval(intervalID);
+            intervalID = null;
+        }
+    }, 1000);
 });
 
