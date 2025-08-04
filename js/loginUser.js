@@ -4,6 +4,7 @@ const userPassword = document.querySelector(".userPassword");
 const loginForm = document.querySelector("form");
 
 const invalidLogin = document.createElement("p");
+invalidLogin.className = "error";
 invalidLogin.textContent = "Błędny login lub hasło"
 invalidLogin.style.color = "red";
 

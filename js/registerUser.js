@@ -6,6 +6,7 @@ const newUserPasswordConfirm = document.querySelector(".newUserPasswordConfirm")
 const registrationForm = document.querySelector("form");
 
 const invalidPassword = document.createElement("p");
+invalidPassword.className = "error";
 invalidPassword.textContent = "Hasła są różne"
 invalidPassword.style.color = "red";
 

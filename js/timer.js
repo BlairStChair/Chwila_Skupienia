@@ -5,9 +5,8 @@ const startTimer = document.querySelector(".startTimer");
 const stopTimer = document.querySelector(".stopTimer");
 const resetTimer = document.querySelector(".resetTimer");
 
-var timeInSeconds = 60;
+var timeInSeconds = 1500;
 const displayTime = document.createElement("p");
-displayTime.textContent = "01:00"
 timer.appendChild(displayTime);
 
 function updateDisplay() {
@@ -19,6 +18,8 @@ function updateDisplay() {
         displayTime.textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`;
     }
 }
+
+updateDisplay();
 
 addTime.addEventListener("click", () => {
     timeInSeconds = timeInSeconds + 60;
