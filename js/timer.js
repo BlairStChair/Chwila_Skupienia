@@ -44,6 +44,9 @@ addTime.addEventListener("click", () => {
 subtractTime.addEventListener("click", () => {
     if(timeInSeconds <= 0){
         timeInSeconds = 0;
+        startTimer.disabled = true;
+        stopTimer.disabled = true;
+        resetTimer.disabled = true;
     }else{
         timeInSeconds = timeInSeconds - 60;
         savedTime = timeInSeconds;
@@ -65,7 +68,7 @@ startTimer.addEventListener("click", () => {
 
     if (intervalID || shortBreakInterval) return;
 
-    if(sessionsCounter < 5){
+    if(sessionsCounter < 4){
     intervalID = setInterval(() => {
     
         if(timeInSeconds > 0){
@@ -80,6 +83,7 @@ startTimer.addEventListener("click", () => {
             console.log("liczba sesji:" + sessionsCounter);
 
             shortBreakInterval = setInterval(() => {
+
                 if(shortBreakSeconds > 0){
                 shortBreakSeconds = shortBreakSeconds - 1;
                 updateDisplay();
@@ -87,6 +91,8 @@ startTimer.addEventListener("click", () => {
                 }else{
                     clearInterval(shortBreakInterval);
                     shortBreakInterval = null;
+                    timeInSeconds = savedTime;
+                    updateDisplay();
                 }
             }, 1000);
         }
