@@ -10,19 +10,34 @@ var timeInMinutes = 25;
 let shortBreak = 0;
 let shortBreakSeconds = 0;
 let longBreak = 0;
+let longBreakSeconds = 0;
 
 let sessionsCounter = 0;
 
 let savedTime = 0;
 let intervalID = null;
 let shortBreakInterval = null;
+let longBreakInterval = null;
+
+let mode = "session";
 
 const displayTime = document.createElement("p");
 timer.appendChild(displayTime);
 
 function updateDisplay() {
-    const minutes = Math.floor(timeInSeconds / 60);
-    const seconds = timeInSeconds % 60;
+    let minutes;
+    let seconds;
+    
+    if(mode == "session"){
+        minutes = Math.floor(timeInSeconds / 60);
+        seconds = timeInSeconds % 60;
+    }else if(mode == "shortBreak"){
+        minutes = Math.floor(shortBreakSeconds / 60);
+        seconds = shortBreakSeconds % 60;
+    }else if(mode == "longBreak"){
+        minutes = Math.floor(longBreakSeconds / 60);
+        seconds = longBreakSeconds % 60;
+    }
 
     if(minutes < 10){
         displayTime.textContent = `0${minutes}:${seconds.toString().padStart(2, "0")}`;
@@ -75,18 +90,22 @@ subtractTime.addEventListener("click", () => {
 startTimer.addEventListener("click", () => {
     console.log("starttest");
 
-    let shortBreakSeconds = Math.floor(timeInSeconds / 5);
-    let longBreakSeconds = Math.floor((timeInSeconds * 4) / 5);
+    shortBreakSeconds = Math.floor(timeInSeconds / 5);
+    longBreakSeconds = Math.floor((timeInSeconds * 4) / 5);
+
+    console.log(timeInSeconds);
+    console.log(shortBreakSeconds);
+    console.log(longBreakSeconds);
 
     addTime.disabled = true;
     subtractTime.disabled = true;
 
     if (intervalID || shortBreakInterval) return;
 
-    if(sessionsCounter < 4){
     intervalID = setInterval(() => {
     
         if(timeInSeconds > 0){
+            mode = "session";
             timeInSeconds = timeInSeconds - 1;
             updateDisplay();
             console.log(timeInSeconds);
@@ -97,12 +116,15 @@ startTimer.addEventListener("click", () => {
             sessionsCounter++;
             console.log("liczba sesji:" + sessionsCounter);
 
+            if(sessionsCounter < 4){
+            mode = "shortBreak";
+            updateDisplay();
             shortBreakInterval = setInterval(() => {
 
                 if(shortBreakSeconds > 0){
-                shortBreakSeconds = shortBreakSeconds - 1;
-                updateDisplay();
-                console.log(shortBreakSeconds);
+                    shortBreakSeconds = shortBreakSeconds - 1;
+                    updateDisplay();
+                    console.log(shortBreakSeconds);
                 }else{
                     clearInterval(shortBreakInterval);
                     shortBreakInterval = null;
@@ -110,22 +132,24 @@ startTimer.addEventListener("click", () => {
                     updateDisplay();
                 }
             }, 1000);
+            }else{
+                mode = "longBreak";
+                updateDisplay();
+                longBreakInterval = setInterval(() => {
+                    if(longBreakSeconds > 0){
+                        longBreakSeconds = longBreakSeconds - 1;
+                        updateDisplay();
+                        console.log(longBreakSeconds);
+                }else{
+                        clearInterval(longBreakInterval);
+                        longBreakInterval = null;
+                        timeInSeconds = savedTime;
+                        updateDisplay();
+                    }
+                }, 1000);
+            }
         }
     },1000);
-    }else{
-        longBreakInterval = setInterval(() => {
-            if(longBreakSeconds > 0){
-                longBreakSeconds = longBreakSeconds - 1;
-                updateDisplay();
-                console.log(longBreakSeconds);
-                }else{
-                    clearInterval(longBreakInterval);
-                    longBreakInterval = null;
-                    timeInSeconds = savedTime;
-                    updateDisplay();
-                }
-        }, 1000);
-    }
 });
 
 stopTimer.addEventListener("click", () => {
