@@ -37,6 +37,12 @@ addTime.addEventListener("click", () => {
     timeInSeconds = timeInSeconds + 60;
     savedTime = timeInSeconds;
     updateDisplay();
+
+    startTimer.disabled = false;
+    stopTimer.disabled = false;
+    resetTimer.disabled = false;
+    subtractTime.disabled = false;
+
     console.log("time in seconds:" + timeInSeconds);
     console.log("short break:" + shortBreak);
     console.log("long break:" + longBreak);
