@@ -6,6 +6,7 @@ const stopTimer = document.querySelector(".stopTimer");
 const resetTimer = document.querySelector(".resetTimer");
 
 var timeInSeconds = 1500;
+var timeInMinutes = 25;
 let shortBreak = 0;
 let shortBreakSeconds = 0;
 let longBreak = 0;
@@ -42,15 +43,23 @@ addTime.addEventListener("click", () => {
 });
 
 subtractTime.addEventListener("click", () => {
-    if(timeInSeconds <= 0){
+    timeInMinutes = timeInMinutes - 1;
+    console.log("minuty:" + timeInMinutes);
+    if(timeInMinutes <= 0){
         timeInSeconds = 0;
         startTimer.disabled = true;
         stopTimer.disabled = true;
         resetTimer.disabled = true;
+        subtractTime.disabled = true;
     }else{
         timeInSeconds = timeInSeconds - 60;
         savedTime = timeInSeconds;
         updateDisplay();
+
+        startTimer.disabled = false;
+        stopTimer.disabled = false;
+        resetTimer.disabled = false;
+
         console.log("time in seconds:" + timeInSeconds);
         console.log("short break:" + shortBreak);
         console.log("long break:" + longBreak);
