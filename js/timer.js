@@ -6,14 +6,23 @@ const stopTimer = document.querySelector(".stopTimer");
 const resetTimer = document.querySelector(".resetTimer");
 
 var timeInSeconds = 1500;
+let shortBreak = 0;
+let shortBreakSeconds = 0;
+let longBreak = 0;
+
+let sessionsCounter = 0;
+
 let savedTime = 0;
 let intervalID = null;
+let shortBreakInterval = null;
+
 const displayTime = document.createElement("p");
 timer.appendChild(displayTime);
 
 function updateDisplay() {
     const minutes = Math.floor(timeInSeconds / 60);
     const seconds = timeInSeconds % 60;
+
     if(minutes < 10){
         displayTime.textContent = `0${minutes}:${seconds.toString().padStart(2, "0")}`;
     }else{
@@ -27,7 +36,9 @@ addTime.addEventListener("click", () => {
     timeInSeconds = timeInSeconds + 60;
     savedTime = timeInSeconds;
     updateDisplay();
-    console.log(timeInSeconds);
+    console.log("time in seconds:" + timeInSeconds);
+    console.log("short break:" + shortBreak);
+    console.log("long break:" + longBreak);
 });
 
 subtractTime.addEventListener("click", () => {
@@ -37,29 +48,50 @@ subtractTime.addEventListener("click", () => {
         timeInSeconds = timeInSeconds - 60;
         savedTime = timeInSeconds;
         updateDisplay();
-        console.log(timeInSeconds);   
+        console.log("time in seconds:" + timeInSeconds);
+        console.log("short break:" + shortBreak);
+        console.log("long break:" + longBreak);
     }
 });
 
 startTimer.addEventListener("click", () => {
     console.log("starttest");
 
+    let shortBreakSeconds = Math.floor(timeInSeconds / 5);
+    let longBreakSeconds = Math.floor((timeInSeconds * 4) / 5);
+
     addTime.disabled = true;
     subtractTime.disabled = true;
 
-    if(intervalID) return;
+    if (intervalID || shortBreakInterval) return;
 
+    if(sessionsCounter < 5){
     intervalID = setInterval(() => {
-        
+    
         if(timeInSeconds > 0){
             timeInSeconds = timeInSeconds - 1;
             updateDisplay();
             console.log(timeInSeconds);
+            
         }else{
             clearInterval(intervalID);
             intervalID = null;
+            sessionsCounter++;
+            console.log("liczba sesji:" + sessionsCounter);
+
+            shortBreakInterval = setInterval(() => {
+                if(shortBreakSeconds > 0){
+                shortBreakSeconds = shortBreakSeconds - 1;
+                updateDisplay();
+                console.log(shortBreakSeconds);
+                }else{
+                    clearInterval(shortBreakInterval);
+                    shortBreakInterval = null;
+                }
+            }, 1000);
         }
-    }, 1000);
+    },1000);
+    }
 });
 
 stopTimer.addEventListener("click", () => {
