@@ -112,6 +112,19 @@ startTimer.addEventListener("click", () => {
             }, 1000);
         }
     },1000);
+    }else{
+        longBreakInterval = setInterval(() => {
+            if(longBreakSeconds > 0){
+                longBreakSeconds = longBreakSeconds - 1;
+                updateDisplay();
+                console.log(longBreakSeconds);
+                }else{
+                    clearInterval(longBreakInterval);
+                    longBreakInterval = null;
+                    timeInSeconds = savedTime;
+                    updateDisplay();
+                }
+        }, 1000);
     }
 });
 
