@@ -161,66 +161,13 @@ subtractTime.addEventListener("click", () => {
 startTimer.addEventListener("click", () => {
     console.log("starttest");
 
-    shortBreakSeconds = Math.floor(timeInSeconds / 5);
-    longBreakSeconds = Math.floor((timeInSeconds * 4) / 5);
-
-    console.log(timeInSeconds);
-    console.log(shortBreakSeconds);
-    console.log(longBreakSeconds);
-
+    if (intervalID || shortBreakInterval || longBreakInterval) return;
+    
     addTime.disabled = true;
     subtractTime.disabled = true;
 
-    if (intervalID || shortBreakInterval) return;
-
-    intervalID = setInterval(() => {
-    
-        if(timeInSeconds > 0){
-            mode = "session";
-            timeInSeconds = timeInSeconds - 1;
-            updateDisplay();
-            console.log(timeInSeconds);
-            
-        }else{
-            clearInterval(intervalID);
-            intervalID = null;
-            sessionsCounter++;
-            console.log("liczba sesji:" + sessionsCounter);
-
-            if(sessionsCounter < 4){
-            mode = "shortBreak";
-            updateDisplay();
-            shortBreakInterval = setInterval(() => {
-
-                if(shortBreakSeconds > 0){
-                    shortBreakSeconds = shortBreakSeconds - 1;
-                    updateDisplay();
-                    console.log(shortBreakSeconds);
-                }else{
-                    clearInterval(shortBreakInterval);
-                    shortBreakInterval = null;
-                    timeInSeconds = savedTime;
-                    updateDisplay();
-                }
-            }, 1000);
-            }else{
-                mode = "longBreak";
-                updateDisplay();
-                longBreakInterval = setInterval(() => {
-                    if(longBreakSeconds > 0){
-                        longBreakSeconds = longBreakSeconds - 1;
-                        updateDisplay();
-                        console.log(longBreakSeconds);
-                }else{
-                        clearInterval(longBreakInterval);
-                        longBreakInterval = null;
-                        timeInSeconds = savedTime;
-                        updateDisplay();
-                    }
-                }, 1000);
-            }
-        }
-    },1000);
+    savedTime = timeInSeconds;
+    startSession();
 });
 
 stopTimer.addEventListener("click", () => {
