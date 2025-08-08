@@ -47,7 +47,7 @@ function updateDisplay() {
 }
 
 function startShortBreak() {
-    shortBreakSeconds = Math.floor(timeInSeconds / 5);
+    shortBreakSeconds = Math.floor(savedTime / 5);
     console.log(shortBreakSeconds);
 
     mode = "shortBreak";
@@ -64,12 +64,13 @@ function startShortBreak() {
             shortBreakInterval = null;
             timeInSeconds = savedTime;
             updateDisplay();
+            startSession();
             }
     }, 1000);
 }
 
 function startLongBreak() {
-    longBreakSeconds = Math.floor((timeInSeconds * 4) / 5);
+    longBreakSeconds = Math.floor((savedTime * 4) / 5);
     console.log(longBreakSeconds);
 
     mode = "longBreak";
@@ -83,8 +84,10 @@ function startLongBreak() {
         }else{
             clearInterval(longBreakInterval);
             longBreakInterval = null;
+            sessionsCounter = 0;
             timeInSeconds = savedTime;
             updateDisplay();
+            startSession();
         }
     }, 1000);
 }
@@ -93,7 +96,7 @@ function startSession() {
     mode = "session";
     updateDisplay();
 
-    intervalID - setInterval(() => {
+    intervalID = setInterval(() => {
         if(timeInSeconds > 0){
             mode = "session";
             timeInSeconds = timeInSeconds - 1;
