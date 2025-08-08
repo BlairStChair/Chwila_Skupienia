@@ -5,8 +5,6 @@ const startTimer = document.querySelector(".startTimer");
 const stopTimer = document.querySelector(".stopTimer");
 const resetTimer = document.querySelector(".resetTimer");
 
-
-//NAPRAW DZIAŁANIE PRZERW I ICH WYŚWIETLANIE ZAMIEŃ JE NA FUNKCJE ŻEBY SKRÓCIĆ KOD
 var timeInSeconds = 1500;
 var timeInMinutes = 25;
 let shortBreak = 0;
