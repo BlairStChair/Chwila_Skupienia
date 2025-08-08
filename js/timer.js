@@ -5,6 +5,8 @@ const startTimer = document.querySelector(".startTimer");
 const stopTimer = document.querySelector(".stopTimer");
 const resetTimer = document.querySelector(".resetTimer");
 
+
+//NAPRAW DZIAŁANIE PRZERW I ICH WYŚWIETLANIE ZAMIEŃ JE NA FUNKCJE ŻEBY SKRÓCIĆ KOD
 var timeInSeconds = 1500;
 var timeInMinutes = 25;
 let shortBreak = 0;
@@ -45,6 +47,19 @@ function updateDisplay() {
         displayTime.textContent = `${minutes}:${seconds.toString().padStart(2, "0")}`;
     }
 }
+
+function startSession() {
+
+}
+
+function startShortBreak() {
+
+}
+
+function startLongBreak() {
+    
+}
+
 
 updateDisplay();
 
