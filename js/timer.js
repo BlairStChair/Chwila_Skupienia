@@ -48,18 +48,35 @@ function updateDisplay() {
     }
 }
 
-function startSession() {
-
-}
-
 function startShortBreak() {
+    shortBreakSeconds = Math.floor(timeInSeconds / 5);
+    console.log(shortBreakSeconds);
 
+    mode = "shortBreak";
+    updateDisplay();
+    
+    shortBreakInterval = setInterval(() => {
+
+        if(shortBreakSeconds > 0){
+            shortBreakSeconds = shortBreakSeconds - 1;
+            updateDisplay();
+            console.log(shortBreakSeconds);
+        }else{
+            clearInterval(shortBreakInterval);
+            shortBreakInterval = null;
+            timeInSeconds = savedTime;
+            updateDisplay();
+            }
+    }, 1000);
 }
 
 function startLongBreak() {
     
 }
 
+function startSession() {
+
+}
 
 updateDisplay();
 
