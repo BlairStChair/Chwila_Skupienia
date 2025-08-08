@@ -92,7 +92,29 @@ function startLongBreak() {
 }
 
 function startSession() {
+    mode = "session";
+    updateDisplay();
 
+    intervalID - setInterval(() => {
+        if(timeInSeconds > 0){
+            mode = "session";
+            timeInSeconds = timeInSeconds - 1;
+            updateDisplay();
+            console.log(timeInSeconds);
+            
+        }else{
+            clearInterval(intervalID);
+            intervalID = null;
+            sessionsCounter++;
+            console.log("liczba sesji:" + sessionsCounter);
+
+            if(sessionsCounter < 4){
+                startShortBreak();
+            }else{
+                startLongBreak();
+            }
+        }
+    }, 1000);
 }
 
 updateDisplay();
