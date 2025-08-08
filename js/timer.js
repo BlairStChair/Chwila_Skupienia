@@ -54,7 +54,7 @@ function startShortBreak() {
 
     mode = "shortBreak";
     updateDisplay();
-    
+
     shortBreakInterval = setInterval(() => {
 
         if(shortBreakSeconds > 0){
@@ -71,7 +71,24 @@ function startShortBreak() {
 }
 
 function startLongBreak() {
-    
+    longBreakSeconds = Math.floor((timeInSeconds * 4) / 5);
+    console.log(longBreakSeconds);
+
+    mode = "longBreak";
+    updateDisplay();
+
+    longBreakInterval = setInterval(() => {
+        if(longBreakSeconds > 0){
+            longBreakSeconds = longBreakSeconds - 1;
+            updateDisplay();
+            console.log(longBreakSeconds);
+        }else{
+            clearInterval(longBreakInterval);
+            longBreakInterval = null;
+            timeInSeconds = savedTime;
+            updateDisplay();
+        }
+    }, 1000);
 }
 
 function startSession() {
