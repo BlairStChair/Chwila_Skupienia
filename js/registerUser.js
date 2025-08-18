@@ -18,15 +18,19 @@ invalidPassword.style.color = "red";
 console.log("Auth z window:", window.auth);
 console.log("Czy window.auth to obiekt:", typeof window.auth);
 
-function writeUsername(user){
-    db.collection("users").doc(user.uid).set({
-    displayName: newUserName.value,
-    email: user.email,
-    uid: user.uid
-    })
+async function writeUsername(user) {
+  try {
+    await db.collection("users").doc(user.uid).set({
+      displayName: newUserName.value,
+      email: user.email,
+      uid: user.uid
+    });
+    console.log("Sukces", user.uid);
+  } catch (err) {
+    console.error("Błąd", err);
+  }
+}
 
-    console.log("Zapisana nazwa użytkownika: ", user.uid);
-};
 
 registrationForm.addEventListener("submit", async(e) => {
     e.preventDefault();
@@ -61,7 +65,7 @@ console.log("Rejestruję użytkownika...");
     console.log(userCredential);
     console.log(user);
 
-    writeUsername(user);
+    await writeUsername(user);
     
     console.log("Zarejestrowano:", user);
             alert("Rejestracja przebiegła pomyślnie!");
