@@ -1,3 +1,5 @@
+import { getDatabase, ref, set } from "firebase/database";
+
 document.addEventListener("DOMContentLoaded", () => {
 const newUserEmail = document.querySelector(".newUserEmail");
 const newUserName = document.querySelector(".newUserName");
@@ -12,6 +14,13 @@ invalidPassword.style.color = "red";
 
 console.log("Auth z window:", window.auth);
 console.log("Czy window.auth to obiekt:", typeof window.auth);
+
+function writeUsername(userId, username){
+    const database = getDatabase();
+    set(ref(database, "users/" + userId), {
+        displayName: username
+    });
+};
 
 registrationForm.addEventListener("submit", async(e) => {
     e.preventDefault();
@@ -42,9 +51,17 @@ console.log("Rejestruję użytkownika...");
     // Signed up 
     const userCredential = await auth.createUserWithEmailAndPassword(newEmailValue, newPasswordValue);
     const user = userCredential.user;
+
+    console.log(userCredential);
+    console.log(user);
+
+    // writeUsername(userCredential, newUserNameValue);
+    
     console.log("Zarejestrowano:", user);
             alert("Rejestracja przebiegła pomyślnie!");
             window.location.href = "loginPage.html";
+
+    console.log("Zapisana nazwa użytkownika: ");
   }
   catch (error) {
             console.error("Błąd rejestracji:", error.message);
