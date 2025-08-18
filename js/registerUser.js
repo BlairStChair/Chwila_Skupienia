@@ -8,6 +8,7 @@ const registrationForm = document.querySelector("form");
 const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const database = firebase.database();
+const db = firebase.firestore();
 
 const invalidPassword = document.createElement("p");
 invalidPassword.className = "error";
@@ -18,11 +19,11 @@ console.log("Auth z window:", window.auth);
 console.log("Czy window.auth to obiekt:", typeof window.auth);
 
 function writeUsername(user){
-    firebase.database().ref("users/" + user.uid).set({
+    db.collection("users").doc(user.uid).set({
     displayName: newUserName.value,
     email: user.email,
     uid: user.uid
-    });
+    })
 
     console.log("Zapisana nazwa użytkownika: ", user.uid);
 };
