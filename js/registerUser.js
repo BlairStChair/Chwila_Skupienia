@@ -31,7 +31,6 @@ async function writeUsername(user) {
   }
 }
 
-
 registrationForm.addEventListener("submit", async(e) => {
     e.preventDefault();
 
