@@ -8,15 +8,23 @@ addTask.addEventListener("click", () => {
     taskNameContent = taskName.value
     console.log(taskNameContent);
 
+    let taskCompletion = document.createElement("input");
+    taskCompletion.setAttribute("type","checkbox");
+
     let addedTask = document.createElement("p");
     console.log(addedTask);
     addedTask.textContent = taskNameContent;
 
-    let deleteBtn = document.createElement("button");
-    deleteBtn.textContent = "-";
+    let deleteTaskBtn = document.createElement("button");
+    deleteTaskBtn.textContent = "-";
     
+    taskList.appendChild(taskCompletion);
     taskList.appendChild(addedTask);
-    taskList.appendChild(deleteBtn);
+    taskList.appendChild(deleteTaskBtn);
 
     taskName.value = "";
+});
+
+deleteTaskBtn.addEventListener("click", () => {
+
 });
