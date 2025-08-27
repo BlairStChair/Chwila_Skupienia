@@ -26,14 +26,14 @@
         </div>
         <div class="userProfile">
             <div class="profileHeader">
-                <div class="avatar"><img src="../assets/img/user-solid.svg"></div>
+                <div class="avatar"><img src="../assets/img/user-solid.svg" id="avatar"></div>
                 <div class="userName">@Typowy_user</div>
             </div>
             <div class="settingsContainer">
                 <a href="profilePage.html">Wróć do profilu</a>
                 <form>
                 <label>Zmień zdjęcie profilowe:</label>
-                    <input type="file" id="avatarFile" name="avatarFile"></input>
+                    <input type="file" accept="image/jpeg,image/png,image/jpg" id="avatarFile" name="avatarFile"></input>
                     <input type="submit" value="Potwierdź"></input>
                 <label>Zmień adres e-mail:</label>
                     <input type="text"></input>
@@ -49,5 +49,6 @@
             </div>
         </div>
     </div>
+    <script src="../js/profileSettings.js"></script>
 </body>
 </html>

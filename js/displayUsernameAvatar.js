@@ -12,3 +12,4 @@ auth.onAuthStateChanged(async (user) => {
     username.textContent = userName.displayName;
 });
 });
+
