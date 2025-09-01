@@ -10,6 +10,7 @@ avatarFile.addEventListener("change", () => {
 })
 
 submitAvatar.addEventListener("click", async () => {
+    try{
     let isUserLogged = auth.currentUser;
     if(!isUserLogged){
         alert("Zaloguj się, aby zmienić zdjęcie profilowe");
@@ -24,4 +25,8 @@ submitAvatar.addEventListener("click", async () => {
     });
 
     alert("Zdjęcie profilowe zostało zmienione pomyślnie!");
+    } catch(err){
+        console.error("Błąd", err);
+        alert("Wystąpił błąd podczas zmiany zdjęcia profilowego!")
+    }
 });
