@@ -1,8 +1,11 @@
+document.addEventListener("DOMContentLoaded", () => {
 const avatarFile = document.querySelector("#avatarFile");
 const avatar = document.querySelector("#avatar")
 const submitAvatar = document.querySelector("#submitAvatar");
 
+const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
+const database = firebase.database();
 const db = firebase.firestore();
 
 avatarFile.addEventListener("change", () => {
@@ -29,4 +32,5 @@ submitAvatar.addEventListener("click", async () => {
         console.error("Błąd", err);
         alert("Wystąpił błąd podczas zmiany zdjęcia profilowego!")
     }
+});
 });
