@@ -20,7 +20,7 @@ submitAvatar.addEventListener("click", async () => {
     let avatarURL = await storageRef.getDowloadURL();
 
     await db.collection("users").doc(user.uid).update({
-        photoURL: getDownloadURL
+        photoURL: avatarURL
     });
 
     alert("Zdjęcie profilowe zostało zmienione pomyślnie!");
