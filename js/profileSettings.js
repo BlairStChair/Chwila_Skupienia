@@ -7,7 +7,6 @@ const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const database = firebase.database();
 const db = firebase.firestore();
-const storage = firebase.storage();
 
 avatarFile.addEventListener("change", () => {
     avatar.src = URL.createObjectURL(avatarFile.files[0]);
@@ -23,16 +22,22 @@ submitAvatar.addEventListener("click", async (e) => {
             return;
         }
 
-        let storageRef = storage.ref().child(`avatars/${user.uid}.jpg`);
-        await storageRef.put(avatarFile.files[0]);
+        let file = avatarFile.files[0];
+        let fileReader = new FileReader();
 
-        let avatarURL = await storageRef.getDownloadURL();
+        fileReader.onloadend = async () => {
+            let base64String = fileReader.result;
 
-        await db.collection("users").doc(user.uid).update({
-            photoURL: avatarURL
-        });
+            await db.collection("users").doc(user.uid).update({
+                photoURL: base64String
+            });
+
+            avatar.src = base64String;
+        };
 
         alert("Zdjęcie profilowe zostało zmienione pomyślnie!");
+
+        fileReader.readAsDataURL(file);
         } catch(err){
             console.error("Błąd", err);
             alert("Wystąpił błąd podczas zmiany zdjęcia profilowego!")
