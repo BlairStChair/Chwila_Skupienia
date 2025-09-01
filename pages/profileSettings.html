@@ -34,7 +34,7 @@
                 <form>
                 <label>Zmień zdjęcie profilowe:</label>
                     <input type="file" accept="image/jpeg,image/png,image/jpg" id="avatarFile" name="avatarFile"></input>
-                    <input type="submit" value="Potwierdź"></input>
+                    <input type="submit" value="Potwierdź" id="submitAvatar"></input>
                 <label>Zmień adres e-mail:</label>
                     <input type="text"></input>
                     <input type="submit" value="Potwierdź"></input>
@@ -49,6 +49,13 @@
             </div>
         </div>
     </div>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+    <script src="../js/firebase.js" defer></script>
     <script src="../js/profileSettings.js"></script>
 </body>
 </html>
