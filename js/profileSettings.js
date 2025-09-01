@@ -6,9 +6,22 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 avatarFile.addEventListener("change", () => {
-    avatar.src = URL.createObjectURL(avatarFile.files[0]);
+    avatar.src = URL.createObjectURL(avatarFile.file[0]);
 })
 
-submitAvatar.addEventListener("click", () => {
+submitAvatar.addEventListener("click", async () => {
+    let isUserLogged = auth.currentUser;
+    if(!isUserLogged){
+        alert("Zaloguj się, aby zmienić zdjęcie profilowe");
+        return;
+    }
 
+    await storageRef.put(file);
+    let avatarURL = await storageRef.getDowloadURL();
+
+    await db.collection("users").doc(user.uid).update({
+        photoURL: getDownloadURL
+    });
+
+    alert("Zdjęcie profilowe zostało zmienione pomyślnie!");
 });
