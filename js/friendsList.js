@@ -6,12 +6,16 @@ const searchResults = document.querySelector(".searchResults")
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+let usernamesGlobal = [];
 async function getAllUsernames(){
     let snapshot = await db.collection("users").get();
-   
     console.log(snapshot);
-    let usernames = snapshot.docs.map(doc => doc.data().displayName);
+
+    let usernames = snapshot.docs.map(doc => doc.data().displayName).filter(name => !!name);
     console.log(usernames);
+
+    usernamesGlobal = usernames;
+    console.log("Global", usernamesGlobal);
 
     return usernames;
 }
@@ -29,13 +33,16 @@ userSearch.addEventListener("click", () => {
     userSearchField.focus();
 });
 
-getAllUsernames();  
-
 userSearchBtn.addEventListener("click", async () => {
-    let usernameInput = userSearchField.value;
+    let usernameInput = userSearchField.value.toLowerCase();
     console.log(usernameInput);
 
-     
+    await getAllUsernames();
 
+    let results = usernamesGlobal.filter(name => 
+        name.toLowerCase().includes(usernameInput)
+    );
+
+    console.log("Wyniki", results);
 });
 });
