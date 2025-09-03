@@ -7,10 +7,10 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 async function getAllUsernames(){
-    let snapshot = await db.ref("users").once("value");
-    let data = snapshot.val();
+    let snapshot = await db.collection("users").get();
+   
     console.log(snapshot);
-    let usernames = Object.values(data).map(user => user.displayName);
+    let usernames = snapshot.docs.map(doc => doc.data().displayName);
     console.log(usernames);
 
     return usernames;
