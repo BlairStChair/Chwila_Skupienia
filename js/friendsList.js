@@ -6,7 +6,6 @@ const searchResults = document.querySelector(".searchResults")
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-let clickCounter = 0; 
 let usernamesGlobal = [];
 
 async function getAllUsernames(){
@@ -36,9 +35,6 @@ userSearch.addEventListener("click", () => {
 });
 
 userSearchBtn.addEventListener("click", async () => {
-    clickCounter++;
-    console.log(clickCounter);
-
     let usernameInput = userSearchField.value.toLowerCase();
     console.log(usernameInput);
 
@@ -54,16 +50,14 @@ userSearchBtn.addEventListener("click", async () => {
 
     console.log("Wyniki", results);
 
-    if(clickCounter % 2 != 0){
+    searchResults.textContent = "";
+
     for(let i = 0; i < results.length; i++){
         let resultDisplay = document.createElement("li");
         resultDisplay.textContent = results[i];
         resultDisplay.id = "resultDisplay" + i;
 
         searchResults.appendChild(resultDisplay);
-    }
-    }else{
-        searchResults.removeChild(resultDisplay);
     }
     }
 });
