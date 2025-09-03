@@ -3,6 +3,15 @@ const usersFriends = document.querySelector(".usersFriends");
 const userSearch = document.querySelector(".userSearch");
 const searchResults = document.querySelector(".searchResults")
 
+const auth = firebase.auth();
+const db = firebase.firestore();
+
+async function getAllUsernames(){
+    let snapshot = await db.collection("users").get;
+    let usernames = snapshot.docs.map(doc => doc.data.displayName);
+    console.log(usernames);
+}
+
 let userSearchField = document.createElement("input");
 userSearchField.setAttribute("type", "text");
 
@@ -16,8 +25,11 @@ userSearch.addEventListener("click", () => {
     userSearchField.focus();
 });
 
-userSearchBtn.addEventListener("click", () => {
+userSearchBtn.addEventListener("click", async () => {
     let usernameInput = userSearchField.value;
     console.log(usernameInput);
+
+    getAllUsernames();   
+
 });
 });
