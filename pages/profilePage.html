@@ -40,8 +40,16 @@
             <div class="friendsList">
                 <h1>Znajomi</h1>
                 <ul>
-                    <li>Twoi znajomi</li>
-                    <li>Wyszukaj użytkownika</li>
+                    <li>
+                        <h3>Twoi znajomi</h3>
+                        <ul class="usersFriends">
+                            <li>Znajomy1</li>
+                            <li>Znajomy2</li>
+                        </ul>
+                    </li>
+                    <li class="userSearch">
+                        <h3>Wyszukaj użytkownika</h3>
+                    </li>
                     <li>Zaproszenia</li>
                 </ul>
                 <h2>Twoi znajomi</h2>
@@ -52,8 +60,6 @@
         </div>
     </div>
 
-
-
         <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
@@ -63,5 +69,6 @@
     <script src="../js/firebase.js" defer></script>
     <script src="../js/displayUsernameAvatar.js"></script>
     <script src="../js/todoList.js"></script>
+    <script src="../js/friendsList.js"></script>
 </body>
 </html>
