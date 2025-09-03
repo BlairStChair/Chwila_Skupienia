@@ -6,7 +6,9 @@ const searchResults = document.querySelector(".searchResults")
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+let clickCounter = 0; 
 let usernamesGlobal = [];
+
 async function getAllUsernames(){
     let snapshot = await db.collection("users").get();
     console.log(snapshot);
@@ -34,9 +36,16 @@ userSearch.addEventListener("click", () => {
 });
 
 userSearchBtn.addEventListener("click", async () => {
+    clickCounter++;
+    console.log(clickCounter);
+
     let usernameInput = userSearchField.value.toLowerCase();
     console.log(usernameInput);
 
+    if(usernameInput === null || usernameInput.length === 0){
+        alert("Pole wyszukiwania nie może być puste!")
+        return;
+    }else{
     await getAllUsernames();
 
     let results = usernamesGlobal.filter(name => 
@@ -45,12 +54,17 @@ userSearchBtn.addEventListener("click", async () => {
 
     console.log("Wyniki", results);
 
+    if(clickCounter % 2 != 0){
     for(let i = 0; i < results.length; i++){
         let resultDisplay = document.createElement("li");
         resultDisplay.textContent = results[i];
         resultDisplay.id = "resultDisplay" + i;
 
         searchResults.appendChild(resultDisplay);
+    }
+    }else{
+        searchResults.removeChild(resultDisplay);
+    }
     }
 });
 });
