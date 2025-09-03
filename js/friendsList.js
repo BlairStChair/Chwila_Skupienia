@@ -7,9 +7,13 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 async function getAllUsernames(){
-    let snapshot = await db.collection("users").get;
-    let usernames = snapshot.docs.map(doc => doc.data.displayName);
+    let snapshot = await db.ref("users").once("value");
+    let data = snapshot.val();
+    console.log(snapshot);
+    let usernames = Object.values(data).map(user => user.displayName);
     console.log(usernames);
+
+    return usernames;
 }
 
 let userSearchField = document.createElement("input");
@@ -25,11 +29,13 @@ userSearch.addEventListener("click", () => {
     userSearchField.focus();
 });
 
+getAllUsernames();  
+
 userSearchBtn.addEventListener("click", async () => {
     let usernameInput = userSearchField.value;
     console.log(usernameInput);
 
-    getAllUsernames();   
+     
 
 });
 });
