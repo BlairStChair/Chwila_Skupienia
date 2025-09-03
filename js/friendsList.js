@@ -44,5 +44,13 @@ userSearchBtn.addEventListener("click", async () => {
     );
 
     console.log("Wyniki", results);
+
+    for(let i = 0; i < results.length; i++){
+        let resultDisplay = document.createElement("li");
+        resultDisplay.textContent = results[i];
+        resultDisplay.id = "resultDisplay" + i;
+
+        searchResults.appendChild(resultDisplay);
+    }
 });
 });
