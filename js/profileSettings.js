@@ -49,6 +49,8 @@ submitAvatar.addEventListener("click", async (e) => {
 emailChangeConfirmBtn.addEventListener("click", () =>{
     let newEmail = emailChangeField.value;
     console.log(newEmail);
+
+    emailChangeField.value= "";
 });
 
 });
