@@ -23,9 +23,11 @@ async function getAllUsernames(){
 
 let userSearchField = document.createElement("input");
 userSearchField.setAttribute("type", "text");
+userSearchField.id = "userSearchField"
 
 let userSearchBtn = document.createElement("button");
 userSearchBtn.textContent = "Szukaj";
+userSearchBtn.id = "userSearchBtn"
 
 userSearch.addEventListener("click", () => {
     usersFriends.style.display = "none";
@@ -57,7 +59,12 @@ userSearchBtn.addEventListener("click", async () => {
         resultDisplay.textContent = results[i];
         resultDisplay.id = "resultDisplay" + i;
 
+        let inviteUserBtn = document.createElement("button");
+        inviteUserBtn.textContent = "Zaproś";
+        inviteUserBtn.id = "inviteUserBtn";
+
         searchResults.appendChild(resultDisplay);
+        resultDisplay.appendChild(inviteUserBtn);
     }
     }
 });
