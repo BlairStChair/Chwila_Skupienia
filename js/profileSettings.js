@@ -10,6 +10,11 @@ const auth = firebase.auth();
 const database = firebase.database();
 const db = firebase.firestore();
 
+function validateEmail(emailInput){
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(emailInput);
+};
+
 avatarFile.addEventListener("change", () => {
     avatar.src = URL.createObjectURL(avatarFile.files[0]);
 })
@@ -46,9 +51,24 @@ submitAvatar.addEventListener("click", async (e) => {
         }
 });
 
-emailChangeConfirmBtn.addEventListener("click", () =>{
+emailChangeConfirmBtn.addEventListener("click", async (e) =>{
+    e.preventDefault();
+
     let newEmail = emailChangeField.value;
     console.log(newEmail);
+
+    console.log(validateEmail(newEmail) ? true : false);
+
+    try{
+    await db.collection("users").doc(user.uid).update({
+                email: newEmail
+            });
+
+    alert("Adres email został zmieniony pomyślnie!");
+    }catch(err){
+            console.error("Błąd", err);
+            alert("Wystąpił błąd podczas zmiany adresu email!")
+        }
 
     emailChangeField.value= "";
 });
