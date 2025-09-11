@@ -57,9 +57,18 @@ emailChangeConfirmBtn.addEventListener("click", async (e) =>{
     let newEmail = emailChangeField.value;
     console.log(newEmail);
 
-    console.log(validateEmail(newEmail) ? true : false);
+    console.log(validateEmail(newEmail));
 
+    if(validateEmail(newEmail)){
     try{
+    const user = auth.currentUser;
+        if(!user){
+            alert("Zaloguj się, aby zmienić adres email");
+            return;
+        }
+
+    await user.updateEmail(newEmail);
+    
     await db.collection("users").doc(user.uid).update({
                 email: newEmail
             });
@@ -69,6 +78,9 @@ emailChangeConfirmBtn.addEventListener("click", async (e) =>{
             console.error("Błąd", err);
             alert("Wystąpił błąd podczas zmiany adresu email!")
         }
+    }else{
+        alert("Format adresu email jest niepoprawny!");
+    }
 
     emailChangeField.value= "";
 });
