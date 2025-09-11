@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
 const avatarFile = document.querySelector("#avatarFile");
 const avatar = document.querySelector("#avatar")
 const submitAvatar = document.querySelector("#submitAvatar");
+const emailChangeField = document.querySelector("#emailChangeField");
+const emailChangeConfirmBtn = document.querySelector("#emailChangeConfirmBtn");
 
 const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
@@ -43,4 +45,10 @@ submitAvatar.addEventListener("click", async (e) => {
             alert("Wystąpił błąd podczas zmiany zdjęcia profilowego!")
         }
 });
+
+emailChangeConfirmBtn.addEventListener("click", () =>{
+    let newEmail = emailChangeField.value;
+    console.log(newEmail);
+});
+
 });
