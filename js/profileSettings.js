@@ -132,6 +132,11 @@ passwordChangeBtn.addEventListener("click", async(e) => {
             alert("Zaloguj się, aby zmienić nazwę użytkownika");
             return;
         }
+        
+        if (newPasswordValue !== newPasswordConfirmValue) {
+            alert("Nowe hasła nie są takie same!");
+            return;
+        }
     
         await user.updatePassword(newPasswordValue);
 
