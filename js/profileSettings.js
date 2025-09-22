@@ -89,6 +89,30 @@ emailChangeConfirmBtn.addEventListener("click", async (e) => {
 
 usernameChangeBtn.addEventListener("click", async (e) => {
     e.preventDefault();
+
+    let newUsername = usernameChangeField.value;
+    console.log(newUsername);
+
+    try{
+    const user = auth.currentUser;
+        if(!user){
+            alert("Zaloguj się, aby zmienić nazwę użytkownika");
+            return;
+        }
+
+    await user.updateProfile(newUsername);
+    
+    await db.collection("users").doc(user.uid).update({
+                displayName: newUsername
+            });
+
+    alert("Nazwa użytkownika została zmieniona pomyślnie!");
+    }catch(err){
+            console.error("Błąd", err);
+            alert("Wystąpił błąd podczas zmiany nazwy użytkownika!")
+    }
+
+    emailChangeField.value= "";
 });
 
 });
