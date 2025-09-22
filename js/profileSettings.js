@@ -6,6 +6,10 @@ const emailChangeField = document.querySelector("#emailChangeField");
 const emailChangeConfirmBtn = document.querySelector("#emailChangeConfirmBtn");
 const usernameChangeField = document.querySelector("#usernameChangeField");
 const usernameChangeBtn = document.querySelector("#usernameChangeBtn");
+const oldPasswordField = document.querySelector("#oldPasswordField");
+const newPasswordField = document.querySelector("#newPasswordField");
+const newPasswordConfirmField = document.querySelector("#newPasswordConfirmField");
+const passwordChangeBtn = document.querySelector("#passwordChangeBtn");
 
 const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
@@ -94,7 +98,7 @@ usernameChangeBtn.addEventListener("click", async (e) => {
     console.log(newUsername);
 
     try{
-    const user = auth.currentUser;
+        const user = auth.currentUser;
         if(!user){
             alert("Zaloguj się, aby zmienić nazwę użytkownika");
             return;
@@ -112,7 +116,32 @@ usernameChangeBtn.addEventListener("click", async (e) => {
             alert("Wystąpił błąd podczas zmiany nazwy użytkownika!")
     }
 
-    emailChangeField.value= "";
+    usernameChangeField.value= "";
+});
+
+passwordChangeBtn.addEventListener("click", async(e) => {
+    e.preventDefault();;
+
+    const oldPasswordValue = oldPasswordField.value.trim();
+    const newPasswordValue = newPasswordField.value.trim();
+    const newPasswordConfirmValue = newPasswordConfirmField.value.trim();
+
+    try{
+        const user = auth.currentUser;
+        if(!user){
+            alert("Zaloguj się, aby zmienić nazwę użytkownika");
+            return;
+        }
+    
+        await user.updatePassword(newPasswordValue);
+
+        alert("Hasło zostało zmienione pomyślnie!");
+
+        newPasswordField.value = "";
+    }catch(err){
+            console.error("Błąd", err);
+            alert("Wystąpił błąd podczas zmiany hasła!")
+    }
 });
 
 });
