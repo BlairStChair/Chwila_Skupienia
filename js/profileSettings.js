@@ -4,6 +4,8 @@ const avatar = document.querySelector("#avatar")
 const submitAvatar = document.querySelector("#submitAvatar");
 const emailChangeField = document.querySelector("#emailChangeField");
 const emailChangeConfirmBtn = document.querySelector("#emailChangeConfirmBtn");
+const usernameChangeField = document.querySelector("#usernameChangeField");
+const usernameChangeBtn = document.querySelector("#usernameChangeBtn");
 
 const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
@@ -51,7 +53,7 @@ submitAvatar.addEventListener("click", async (e) => {
         }
 });
 
-emailChangeConfirmBtn.addEventListener("click", async (e) =>{
+emailChangeConfirmBtn.addEventListener("click", async (e) => {
     e.preventDefault();
 
     let newEmail = emailChangeField.value;
@@ -83,6 +85,10 @@ emailChangeConfirmBtn.addEventListener("click", async (e) =>{
     }
 
     emailChangeField.value= "";
+});
+
+usernameChangeBtn.addEventListener("click", async (e) => {
+    e.preventDefault();
 });
 
 });
