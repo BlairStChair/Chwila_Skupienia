@@ -135,14 +135,23 @@ passwordChangeBtn.addEventListener("click", async(e) => {
         
         if (newPasswordValue !== newPasswordConfirmValue) {
             alert("Nowe hasła nie są takie same!");
+            oldPasswordField.value = "";
+            newPasswordField.value = "";
+            newPasswordConfirmField.value = "";
             return;
         }
+
+        const credential = firebase.auth.EmailAuthProvider.credential(user.email, oldPasswordValue);
+
+        await user.reauthenticateWithCredential(credential);
     
         await user.updatePassword(newPasswordValue);
 
         alert("Hasło zostało zmienione pomyślnie!");
 
+        oldPasswordField.value = "";
         newPasswordField.value = "";
+        newPasswordConfirmField.value = "";
     }catch(err){
             console.error("Błąd", err);
             alert("Wystąpił błąd podczas zmiany hasła!")
