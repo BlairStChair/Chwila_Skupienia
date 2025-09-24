@@ -15,6 +15,7 @@ let longBreakSeconds = 0;
 let sessionsCounter = 0;
 
 let savedTime = 0;
+let originalSessionTime = 1500;
 let intervalID = null;
 let shortBreakInterval = null;
 let longBreakInterval = null;
@@ -31,7 +32,14 @@ let tipContentDiv = document.createElement("div");
 tipContentDiv.className = "tipContentDiv";
 let tipContentText = document.createElement("p");
 tipContentText.className = "tipContentText";
+tipContentDiv.appendChild(tipContentText);
 timer.appendChild(tipContentDiv);
+
+loadStudyTipsJson().then(() => {
+    console.log("Tips loaded successfully");
+}).catch(error => {
+    console.error("Failed to load tips:", error);
+});
 
 function updateDisplay() {
     let minutes;
@@ -55,12 +63,17 @@ function updateDisplay() {
     }
 }
 
-function startShortBreak() {
-    shortBreakSeconds = Math.floor(savedTime / 5);
+async function startShortBreak() {
+    shortBreakSeconds = Math.floor(originalSessionTime / 5);
     console.log(shortBreakSeconds);
 
     mode = "shortBreak";
     updateDisplay();
+
+    //test
+    await drawStudyTip();
+    tipContentText.textContent = drawedTip;
+    tipContentDiv.style.display = "block";
 
     shortBreakInterval = setInterval(() => {
 
@@ -72,6 +85,9 @@ function startShortBreak() {
             clearInterval(shortBreakInterval);
             shortBreakInterval = null;
             timeInSeconds = savedTime;
+
+            tipContentDiv.style.display = "none";
+
             updateDisplay();
             startSession();
             }
@@ -79,19 +95,15 @@ function startShortBreak() {
 }
 
 async function startLongBreak() {
-    longBreakSeconds = Math.floor((savedTime * 4) / 5);
+    longBreakSeconds = Math.floor((originalSessionTime * 4) / 5);
     console.log(longBreakSeconds);
 
     mode = "longBreak";
     updateDisplay();
 
-    if (tipContentDiv.contains(tipContentText)) {
-        tipContentDiv.removeChild(tipContentText);
-    }
-
     await drawStudyTip();
     tipContentText.textContent = drawedTip;
-    tipContentDiv.appendChild(tipContentText);
+    tipContentDiv.style.display = "block";
 
     longBreakInterval = setInterval(() => {
         if(longBreakSeconds > 0){
@@ -103,18 +115,18 @@ async function startLongBreak() {
             longBreakInterval = null;
             sessionsCounter = 0;
             timeInSeconds = savedTime;
-            updateDisplay();
 
-            if (tipContentDiv.contains(tipContentText)) {
-                tipContentDiv.removeChild(tipContentText);
-            }
-            
+            tipContentDiv.style.display = "none";
+
+            updateDisplay();
             startSession();
         }
     }, 1000);
 }
 
 function startSession() {
+    tipContentDiv.style.display = "none";
+
     mode = "session";
     updateDisplay();
 
@@ -148,13 +160,12 @@ async function loadStudyTipsJson(){
 }
 
 async function drawStudyTip(){
-    await loadStudyTipsJson();
-
     const tipIndex = Math.floor(Math.random() * tipPool.length);
 
     drawedTip = tipPool[tipIndex]
 
     console.log(drawedTip);
+    
 }
 
 updateDisplay();
@@ -162,6 +173,7 @@ updateDisplay();
 addTime.addEventListener("click", () => {
     timeInSeconds = timeInSeconds + 60;
     savedTime = timeInSeconds;
+    originalSessionTime = timeInSeconds;
     updateDisplay();
 
     startTimer.disabled = false;
@@ -186,6 +198,7 @@ subtractTime.addEventListener("click", () => {
     }else{
         timeInSeconds = timeInSeconds - 60;
         savedTime = timeInSeconds;
+        originalSessionTime = timeInSeconds;
         updateDisplay();
 
         startTimer.disabled = false;
@@ -205,6 +218,7 @@ startTimer.addEventListener("click", () => {
     subtractTime.disabled = true;
 
     savedTime = timeInSeconds;
+    originalSessionTime = timeInSeconds;
     startSession();
 });
 
@@ -212,16 +226,41 @@ stopTimer.addEventListener("click", () => {
     addTime.disabled = true;
     subtractTime.disabled = true;
 
-    clearInterval(intervalID);
-    intervalID = null;
+    if(intervalID){
+        clearInterval(intervalID);
+        intervalID = null;
+    }
+    if(shortBreakInterval){
+        clearInterval(shortBreakInterval);
+        shortBreakInterval = null;
+    }
+    if(longBreakInterval){
+        clearInterval(longBreakInterval);
+        longBreakInterval = null;
+    }
 });
 
 resetTimer.addEventListener("click", () => {
     addTime.disabled = false;
     subtractTime.disabled = false;
 
-    clearInterval(intervalID);
-    intervalID = null;
+    if(intervalID){
+        clearInterval(intervalID);
+        intervalID = null;
+    } 
+
+    if(shortBreakInterval){
+        clearInterval(shortBreakInterval);
+        shortBreakInterval = null;
+    } 
+
+    if(longBreakInterval){
+        clearInterval(longBreakInterval);
+        longBreakInterval = null;
+    }
+
     timeInSeconds = savedTime;
     updateDisplay();
+
+    tipContentDiv.style.display = "none";
 });
