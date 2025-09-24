@@ -24,7 +24,14 @@ let mode = "session";
 const displayTime = document.createElement("p");
 timer.appendChild(displayTime);
 
-tipPool = []
+let tipPool = [];
+let drawedTip = "";
+
+let tipContentDiv = document.createElement("div");
+tipContentDiv.className = "tipContentDiv";
+let tipContentText = document.createElement("p");
+tipContentText.className = "tipContentText";
+timer.appendChild(tipContentDiv);
 
 function updateDisplay() {
     let minutes;
@@ -48,12 +55,21 @@ function updateDisplay() {
     }
 }
 
-function startShortBreak() {
+async function startShortBreak() {
     shortBreakSeconds = Math.floor(savedTime / 5);
     console.log(shortBreakSeconds);
 
     mode = "shortBreak";
     updateDisplay();
+
+    if (tipContentDiv.contains(tipContentText)) {
+        tipContentDiv.removeChild(tipContentText);
+    }
+
+    //test
+    await drawStudyTip();
+    tipContentText.textContent = drawedTip;
+    tipContentDiv.appendChild(tipContentText);
 
     shortBreakInterval = setInterval(() => {
 
@@ -66,6 +82,11 @@ function startShortBreak() {
             shortBreakInterval = null;
             timeInSeconds = savedTime;
             updateDisplay();
+
+            if (tipContentDiv.contains(tipContentText)) {
+                tipContentDiv.removeChild(tipContentText);
+            }
+
             startSession();
             }
     }, 1000);
@@ -77,6 +98,9 @@ function startLongBreak() {
 
     mode = "longBreak";
     updateDisplay();
+
+    drawStudyTip();
+    tipContentText.textContent = drawedTip;
 
     longBreakInterval = setInterval(() => {
         if(longBreakSeconds > 0){
@@ -132,12 +156,10 @@ async function drawStudyTip(){
 
     const tipIndex = Math.floor(Math.random() * tipPool.length);
 
-    const drawedTip = tipPool[tipIndex]
+    drawedTip = tipPool[tipIndex]
 
     console.log(drawedTip);
 }
-
-drawStudyTip();
 
 updateDisplay();
 
@@ -181,8 +203,6 @@ subtractTime.addEventListener("click", () => {
 });
 
 startTimer.addEventListener("click", () => {
-    console.log("starttest");
-
     if (intervalID || shortBreakInterval || longBreakInterval) return;
     
     addTime.disabled = true;
@@ -193,8 +213,6 @@ startTimer.addEventListener("click", () => {
 });
 
 stopTimer.addEventListener("click", () => {
-    console.log("stoptest");
-
     addTime.disabled = true;
     subtractTime.disabled = true;
 
