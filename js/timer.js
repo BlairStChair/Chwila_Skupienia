@@ -55,21 +55,12 @@ function updateDisplay() {
     }
 }
 
-async function startShortBreak() {
+function startShortBreak() {
     shortBreakSeconds = Math.floor(savedTime / 5);
     console.log(shortBreakSeconds);
 
     mode = "shortBreak";
     updateDisplay();
-
-    if (tipContentDiv.contains(tipContentText)) {
-        tipContentDiv.removeChild(tipContentText);
-    }
-
-    //test
-    await drawStudyTip();
-    tipContentText.textContent = drawedTip;
-    tipContentDiv.appendChild(tipContentText);
 
     shortBreakInterval = setInterval(() => {
 
@@ -82,25 +73,25 @@ async function startShortBreak() {
             shortBreakInterval = null;
             timeInSeconds = savedTime;
             updateDisplay();
-
-            if (tipContentDiv.contains(tipContentText)) {
-                tipContentDiv.removeChild(tipContentText);
-            }
-
             startSession();
             }
     }, 1000);
 }
 
-function startLongBreak() {
+async function startLongBreak() {
     longBreakSeconds = Math.floor((savedTime * 4) / 5);
     console.log(longBreakSeconds);
 
     mode = "longBreak";
     updateDisplay();
 
-    drawStudyTip();
+    if (tipContentDiv.contains(tipContentText)) {
+        tipContentDiv.removeChild(tipContentText);
+    }
+
+    await drawStudyTip();
     tipContentText.textContent = drawedTip;
+    tipContentDiv.appendChild(tipContentText);
 
     longBreakInterval = setInterval(() => {
         if(longBreakSeconds > 0){
@@ -113,6 +104,11 @@ function startLongBreak() {
             sessionsCounter = 0;
             timeInSeconds = savedTime;
             updateDisplay();
+
+            if (tipContentDiv.contains(tipContentText)) {
+                tipContentDiv.removeChild(tipContentText);
+            }
+            
             startSession();
         }
     }, 1000);
