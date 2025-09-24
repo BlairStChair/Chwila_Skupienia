@@ -24,6 +24,8 @@ let mode = "session";
 const displayTime = document.createElement("p");
 timer.appendChild(displayTime);
 
+tipPool = []
+
 function updateDisplay() {
     let minutes;
     let seconds;
@@ -120,16 +122,22 @@ function startSession() {
 
 async function loadStudyTipsJson(){
     const json = await fetch("../data/studyTips.json");
-    const obj = await json.json();
+    tipPool = await json.json();
 
-    console.log(obj);
+    console.log(tipPool);
 }
-
-loadStudyTipsJson();
 
 async function drawStudyTip(){
+    await loadStudyTipsJson();
 
+    const tipIndex = Math.floor(Math.random() * tipPool.length);
+
+    const drawedTip = tipPool[tipIndex]
+
+    console.log(drawedTip);
 }
+
+drawStudyTip();
 
 updateDisplay();
 
