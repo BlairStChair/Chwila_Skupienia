@@ -118,6 +118,19 @@ function startSession() {
     }, 1000);
 }
 
+async function loadStudyTipsJson(){
+    const json = await fetch("../data/studyTips.json");
+    const obj = await json.json();
+
+    console.log(obj);
+}
+
+loadStudyTipsJson();
+
+async function drawStudyTip(){
+
+}
+
 updateDisplay();
 
 addTime.addEventListener("click", () => {
