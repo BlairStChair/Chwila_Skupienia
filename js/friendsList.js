@@ -61,7 +61,7 @@ userSearchBtn.addEventListener("click", async () => {
 
         let inviteUserBtn = document.createElement("button");
         inviteUserBtn.textContent = "Zaproś";
-        inviteUserBtn.id = "inviteUserBtn";
+        inviteUserBtn.id = "inviteUserBtn" + i;
 
         searchResults.appendChild(resultDisplay);
         resultDisplay.appendChild(inviteUserBtn);
