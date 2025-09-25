@@ -122,14 +122,29 @@ userInvites.addEventListener("click", async (e) => {
         }
             return null;
         }).filter(userRequest => userRequest !== null); 
-
     console.log(usersFriendsRequests);
 
-    // let invitesResults = db.collection("friendRequests").filter(request =>
-    //     request.to.includes(currentUserUID)
-    // );  
+    let invitesResults = usersFriendsRequests.filter(request =>
+        request.to.includes(currentUserUID)
+    );  
+    console.log(invitesResults);
 
-    // console.log(invitesResults);
+    for(let i = 0; i < invitesResults.length; i++){
+        let request = invitesResults[i];
+
+        let inviteResultDisplay = document.createElement("li");
+        inviteResultDisplay.textContent = request.fromDisplayName;
+        inviteResultDisplay.id = "inviteResultDisplay" + i;
+
+        let AcceptBtn = document.createElement("button");
+        AcceptBtn.textContent = "Akceptuj";
+        let RejectBtn = document.createElement("button");
+        RejectBtn.textContent = "Odrzuć";
+
+        invitesList.appendChild(inviteResultDisplay);
+        inviteResultDisplay.appendChild(AcceptBtn);
+        inviteResultDisplay.appendChild(RejectBtn);
+    }
 });
 
 });
