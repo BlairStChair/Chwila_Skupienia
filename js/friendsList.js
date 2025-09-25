@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
 const usersFriends = document.querySelector(".usersFriends");
 const userSearch = document.querySelector(".userSearch");
 const searchResults = document.querySelector(".searchResults")
+const userInvites = document.querySelector(".userInvites");
+const invitesList = document.querySelector(".invitesList");
 
 const auth = firebase.auth();
 const db = firebase.firestore();
@@ -102,4 +104,32 @@ userSearchBtn.addEventListener("click", async () => {
     }
     }
 });
+
+userInvites.addEventListener("click", async (e) => {
+    e.preventDefault;
+
+    const currentUserUID = auth.currentUser.uid;
+
+    console.log(currentUserUID);
+
+    let friendRequestsSnapshot = await db.collection("friendRequests").get();
+    console.log(friendRequestsSnapshot);
+
+    let usersFriendsRequests = friendRequestsSnapshot.docs.map(doc => {
+        let data = doc.data();
+        if (data.fromDisplayName){
+            return { fromDisplayName: data.fromDisplayName, to: data.to };
+        }
+            return null;
+        }).filter(userRequest => userRequest !== null); 
+
+    console.log(usersFriendsRequests);
+
+    // let invitesResults = db.collection("friendRequests").filter(request =>
+    //     request.to.includes(currentUserUID)
+    // );  
+
+    // console.log(invitesResults);
+});
+
 });
