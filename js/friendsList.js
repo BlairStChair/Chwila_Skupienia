@@ -6,19 +6,34 @@ const searchResults = document.querySelector(".searchResults")
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-let usernamesGlobal = [];
+let currentUserName = "";
+let usersGlobal = [];
+
+auth.onAuthStateChanged(async (user) => {
+    currentUserName = await db.collection("users").doc(user.uid).get();
+    const userData = currentUserName.data();
+
+    const userName = currentUserName.data();
+});
 
 async function getAllUsernames(){
     let snapshot = await db.collection("users").get();
     console.log(snapshot);
 
-    let usernames = snapshot.docs.map(doc => doc.data().displayName).filter(name => !!name);
-    console.log(usernames);
+    let users = snapshot.docs.map(doc => {
+        let data = doc.data();
+        if (data.displayName){
+            return { displayName: data.displayName, uid: doc.id };
+        }
+            return null;
+        }).filter(user => user !== null); //pobranie użytkowników i zapis displayName i uid w tablicy obiektów {displayName, uid}
 
-    usernamesGlobal = usernames;
-    console.log("Global", usernamesGlobal);
+    console.log(users);
 
-    return usernames;
+    usersGlobal = users;
+    console.log("Global", usersGlobal);
+
+    return users;
 }
 
 let userSearchField = document.createElement("input");
@@ -46,8 +61,8 @@ userSearchBtn.addEventListener("click", async () => {
     }else{
     await getAllUsernames();
 
-    let results = usernamesGlobal.filter(name => 
-        name.toLowerCase().includes(usernameInput)
+    let results = usersGlobal.filter(user => 
+        user.displayName.toLowerCase().includes(usernameInput)
     );
 
     console.log("Wyniki", results);
@@ -55,13 +70,32 @@ userSearchBtn.addEventListener("click", async () => {
     searchResults.textContent = "";
 
     for(let i = 0; i < results.length; i++){
+        let user = results[i];
+
         let resultDisplay = document.createElement("li");
-        resultDisplay.textContent = results[i];
+        resultDisplay.textContent = user.displayName;
         resultDisplay.id = "resultDisplay" + i;
 
         let inviteUserBtn = document.createElement("button");
         inviteUserBtn.textContent = "Zaproś";
-        inviteUserBtn.id = "inviteUserBtn" + i;
+        inviteUserBtn.dataset.uid = user.uid;
+
+        inviteUserBtn.addEventListener("click", async () => {
+            console.log("Zaproszono użytkownika:", user.displayName, " o uid:", inviteUserBtn.dataset.uid);
+
+            try{
+                await db.collection("friendRequests").add({
+                    fromUid: auth.currentUser.uid,
+                    fromDisplayName: currentUserName.data().displayName,
+                    to: inviteUserBtn.dataset.uid,
+                    status: "pending",
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+                alert("Zaproszenie wysłane!");
+            }catch(error){
+                console.error("Błąd przy wysyłaniu zaproszenia:", error);
+            }
+        });
 
         searchResults.appendChild(resultDisplay);
         resultDisplay.appendChild(inviteUserBtn);
