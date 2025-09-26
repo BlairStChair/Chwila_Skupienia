@@ -106,7 +106,9 @@ userSearchBtn.addEventListener("click", async () => {
 });
 
 userInvites.addEventListener("click", async (e) => {
-    e.preventDefault;
+    e.preventDefault();
+
+    invitesList.innerHTML = "";
 
     const currentUserUID = auth.currentUser.uid;
 
@@ -118,10 +120,15 @@ userInvites.addEventListener("click", async (e) => {
     let usersFriendsRequests = friendRequestsSnapshot.docs.map(doc => {
         let data = doc.data();
         if (data.fromDisplayName){
-            return { fromDisplayName: data.fromDisplayName, to: data.to };
+            return { 
+            id: doc.id,
+            fromDisplayName: data.fromDisplayName, 
+            to: data.to 
+            };
         }
-            return null;
+        return null;
         }).filter(userRequest => userRequest !== null); 
+
     console.log(usersFriendsRequests);
 
     let invitesResults = usersFriendsRequests.filter(request =>
@@ -133,15 +140,52 @@ userInvites.addEventListener("click", async (e) => {
         let request = invitesResults[i];
 
         let inviteResultDisplay = document.createElement("li");
-        inviteResultDisplay.textContent = request.fromDisplayName;
-        inviteResultDisplay.id = "inviteResultDisplay" + i;
+        
+        let nameSpan = document.createElement("span");
+        nameSpan.textContent = request.fromDisplayName; 
 
         let AcceptBtn = document.createElement("button");
         AcceptBtn.textContent = "Akceptuj";
         let RejectBtn = document.createElement("button");
         RejectBtn.textContent = "Odrzuć";
 
+        AcceptBtn.addEventListener("click", async (e) => {
+            e.preventDefault();
+
+            await db.collection("friendRequests").doc(request.id).update({
+                status: "accepted"
+            });
+
+            let updatedDoc = await db.collection("friendRequests").doc(request.id).get();
+            console.log(updatedDoc.data().status);
+
+            inviteResultDisplay.remove();
+
+        });
+
+        RejectBtn.addEventListener("click", async (e) => {
+            e.preventDefault();
+
+            await db.collection("friendRequests").doc(request.id).update({
+                status: "rejected"
+            });
+
+            let updatedDoc = await db.collection("friendRequests").doc(request.id).get();
+            console.log(updatedDoc.data().status);
+
+            inviteResultDisplay.remove();
+
+            if (inviteResultDisplay.parentNode) {
+    inviteResultDisplay.parentNode.removeChild(inviteResultDisplay);
+    console.log("Usunięto ręcznie:", inviteResultDisplay);
+} else {
+    console.warn("Nie znaleziono rodzica dla:", inviteResultDisplay);
+}
+
+        });
+
         invitesList.appendChild(inviteResultDisplay);
+        inviteResultDisplay.appendChild(nameSpan);
         inviteResultDisplay.appendChild(AcceptBtn);
         inviteResultDisplay.appendChild(RejectBtn);
     }
