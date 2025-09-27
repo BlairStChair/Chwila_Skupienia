@@ -4,6 +4,7 @@ const userSearch = document.querySelector(".userSearch");
 const searchResults = document.querySelector(".searchResults")
 const userInvites = document.querySelector(".userInvites");
 const invitesList = document.querySelector(".invitesList");
+const userInvitesTitle = document.querySelector(".userInvitesTitle");
 
 const auth = firebase.auth();
 const db = firebase.firestore();
@@ -105,10 +106,8 @@ userSearchBtn.addEventListener("click", async () => {
     }
 });
 
-userInvites.addEventListener("click", async (e) => {
+userInvitesTitle.addEventListener("click", async (e) => {
     e.preventDefault();
-
-    invitesList.innerHTML = "";
 
     const currentUserUID = auth.currentUser.uid;
 
@@ -160,7 +159,6 @@ userInvites.addEventListener("click", async (e) => {
             console.log(updatedDoc.data().status);
 
             inviteResultDisplay.remove();
-
         });
 
         RejectBtn.addEventListener("click", async (e) => {
@@ -174,14 +172,6 @@ userInvites.addEventListener("click", async (e) => {
             console.log(updatedDoc.data().status);
 
             inviteResultDisplay.remove();
-
-            if (inviteResultDisplay.parentNode) {
-    inviteResultDisplay.parentNode.removeChild(inviteResultDisplay);
-    console.log("Usunięto ręcznie:", inviteResultDisplay);
-} else {
-    console.warn("Nie znaleziono rodzica dla:", inviteResultDisplay);
-}
-
         });
 
         invitesList.appendChild(inviteResultDisplay);
@@ -189,6 +179,12 @@ userInvites.addEventListener("click", async (e) => {
         inviteResultDisplay.appendChild(AcceptBtn);
         inviteResultDisplay.appendChild(RejectBtn);
     }
+});
+
+usersFriends.addEventListener("click", () => {
+    const currentUserUID = auth.currentUser.uid;
+
+    
 });
 
 });
