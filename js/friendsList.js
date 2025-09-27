@@ -1,10 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
-const usersFriends = document.querySelector(".usersFriends");
 const userSearch = document.querySelector(".userSearch");
 const searchResults = document.querySelector(".searchResults")
 const userInvites = document.querySelector(".userInvites");
 const invitesList = document.querySelector(".invitesList");
 const userInvitesTitle = document.querySelector(".userInvitesTitle");
+const usersFriends = document.querySelector(".usersFriends");        // przycisk/sekcja, którą klikasz
+const usersFriendsList = document.querySelector(".usersFriendsList");
 
 const auth = firebase.auth();
 const db = firebase.firestore();
@@ -122,7 +123,8 @@ userInvitesTitle.addEventListener("click", async (e) => {
             return { 
             id: doc.id,
             fromDisplayName: data.fromDisplayName, 
-            to: data.to 
+            to: data.to,
+            status: data.status || "pending" 
             };
         }
         return null;
@@ -131,7 +133,7 @@ userInvitesTitle.addEventListener("click", async (e) => {
     console.log(usersFriendsRequests);
 
     let invitesResults = usersFriendsRequests.filter(request =>
-        request.to.includes(currentUserUID)
+        request.to.includes(currentUserUID) && request.status === "pending"
     );  
     console.log(invitesResults);
 
@@ -181,10 +183,47 @@ userInvitesTitle.addEventListener("click", async (e) => {
     }
 });
 
-usersFriends.addEventListener("click", () => {
+usersFriends.addEventListener("click", async (e) => {
+   e.preventDefault();
+
     const currentUserUID = auth.currentUser.uid;
 
-    
+    console.log(currentUserUID);
+
+    let friendRequestsSnapshot = await db.collection("friendRequests").get();
+    console.log(friendRequestsSnapshot);
+
+    let usersAcceptedFriends = friendRequestsSnapshot.docs.map(doc => {
+        let data = doc.data();
+        if (data.fromDisplayName){
+            return { 
+            id: doc.id,
+            fromDisplayName: data.fromDisplayName, 
+            to: data.to,
+            status: data.status  
+            };
+        }
+        return null;
+        }).filter(userRequest => userRequest !== null); 
+
+    console.log(usersAcceptedFriends);
+
+    let invitesResults = usersAcceptedFriends.filter(request =>
+        request.to.includes(currentUserUID) && request.status === "accepted"
+    );  
+    console.log(invitesResults);
+
+    for(let i = 0; i < invitesResults.length; i++){
+        let request = invitesResults[i];
+
+        let friendResultDisplay = document.createElement("li");
+        
+        let nameSpan = document.createElement("span");
+        nameSpan.textContent = request.fromDisplayName;
+
+        usersFriendsList.appendChild(friendResultDisplay);
+        friendResultDisplay.appendChild(nameSpan);
+    };
 });
 
 });
