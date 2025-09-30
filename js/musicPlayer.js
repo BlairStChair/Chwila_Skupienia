@@ -15,4 +15,15 @@ let songsArray = [
     "rainy lofi city lofic music"
 ]
 
+let songIndex = 0;
+
+loadSong(songsArray[songIndex]);
+
+function loadSong(song){
+    songTitle.textContent = song;
+audio.src = `../assets/songs/${song}.mp3`; 
+}
+
+
+
 });
