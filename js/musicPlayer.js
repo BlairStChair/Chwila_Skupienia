@@ -2,8 +2,6 @@ document.addEventListener("DOMContentLoaded", () => {
 const musicPlayer = document.querySelector(".musicPlayer");
 const songInfo = document.querySelector(".songInfo");
 const songTitle = document.querySelector(".songTitle");
-const durationProgress = document.querySelector(".durationProgress");
-const progressBar = document.querySelector(".progressBar");
 const audio = document.querySelector(".audio");
 const previousSong = document.querySelector(".previousSong");
 const playStop = document.querySelector(".playStop");
@@ -59,9 +57,7 @@ function nextSongFunction(){
     if(songIndex >= songsArray.length){
         songIndex = 0;
     }
-
-    console.log(songIndex);
-
+    
     loadSong(songsArray[songIndex])
 
     playSongFunction();   
