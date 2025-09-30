@@ -9,10 +9,10 @@ const playStop = document.querySelector(".playStop");
 const nextSong = document.querySelector(".nextSong");
 
 let songsArray = [
-    "lofi background music",
-    "lofi lofi song",
-    "lofi rain lofi music",
-    "rainy lofi city lofic music"
+    "lofi-background-music-314199",
+    "lofi-lofi-song-345371",
+    "lofi-rain-lofi-music-332732",
+    "rainy-lofi-city-lofi-music-332746"
 ]
 
 let songIndex = 0;
