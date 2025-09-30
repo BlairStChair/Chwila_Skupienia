@@ -30,11 +30,41 @@ function loadSong(song){
 function playSongFunction(){
     playSong.style.visibility = "hidden";
     pauseSong.style.visibility = "visible"; 
+
+    audio.play();
 }
 
 function pauseSongFunction(){
     pauseSong.style.visibility = "hidden"; 
     playSong.style.visibility = "visible";
+
+    audio.pause();
+}
+
+function previousSongFunction(){
+    songIndex--;
+
+    if(songIndex <= 0){
+        songIndex = songsArray.length - 1;
+    }
+
+    loadSong(songsArray[songIndex])
+
+    playSongFunction();
+}
+
+function nextSongFunction(){
+    songIndex++;
+
+    if(songIndex >= songsArray.length){
+        songIndex = 0;
+    }
+
+    console.log(songIndex);
+
+    loadSong(songsArray[songIndex])
+
+    playSongFunction();   
 }
 
 let clickCount = 1;
@@ -49,7 +79,9 @@ playStop.addEventListener("click", () => {
     }
 
     clickCount++;
-    console.log(clickCount);
 });
+
+previousSong.addEventListener("click", previousSongFunction);
+nextSong.addEventListener("click", nextSongFunction);
 
 });
