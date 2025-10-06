@@ -183,8 +183,14 @@ userInvitesTitle.addEventListener("click", async (e) => {
     }
 });
 
+let clickCounter = 0;
+
 usersFriends.addEventListener("click", async (e) => {
    e.preventDefault();
+
+    if(clickCounter % 2 !== 0){
+        return;
+    }else{
 
     const currentUserUID = auth.currentUser.uid;
 
@@ -223,7 +229,10 @@ usersFriends.addEventListener("click", async (e) => {
 
         usersFriendsList.appendChild(friendResultDisplay);
         friendResultDisplay.appendChild(nameSpan);
-    };
+    }
+    }
+    clickCounter++;
+    console.log(clickCounter);
 });
 
 });
