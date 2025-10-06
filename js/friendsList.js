@@ -49,7 +49,6 @@ userSearchBtn.textContent = "Szukaj";
 userSearchBtn.id = "userSearchBtn"
 
 userSearch.addEventListener("click", () => {
-    usersFriends.style.display = "none";
     userSearch.appendChild(userSearchField);
     userSearch.appendChild(userSearchBtn);
     userSearchField.focus();
