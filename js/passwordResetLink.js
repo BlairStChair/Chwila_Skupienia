@@ -4,7 +4,6 @@ const passwordAfterResetConfirm = document.querySelector(".passwordAfterResetCon
 const passwordResetBtn = document.querySelector(".passwordResetBtn");
 
 const auth = firebase.auth();
-const db = firebase.firestore();
 
 const params = new URLSearchParams(window.location.search);
 const mode = params.get('mode');      
@@ -47,7 +46,7 @@ passwordResetBtn.addEventListener("click", async(e) => {
 
         await auth.confirmPasswordReset(oobCode, newPasswordValue);
         alert("Hasło zmieniono pomyślnie");
-        setTimeout(() => { window.location.href = '/login.html'; }, 2000);
+        setTimeout(() => { window.location.href = '../pages/loginPage.html'; }, 2000);
     }catch(err){
             console.error("Błąd", err);
             alert("Wystąpił błąd podczas resetowania hasła!")
