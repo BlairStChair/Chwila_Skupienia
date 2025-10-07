@@ -120,7 +120,7 @@ usernameChangeBtn.addEventListener("click", async (e) => {
 });
 
 passwordChangeBtn.addEventListener("click", async(e) => {
-    e.preventDefault();;
+    e.preventDefault();
 
     const oldPasswordValue = oldPasswordField.value.trim();
     const newPasswordValue = newPasswordField.value.trim();
