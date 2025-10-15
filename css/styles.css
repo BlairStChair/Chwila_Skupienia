@@ -2,29 +2,227 @@
   font-family: SAOWelcomeTTRegular;
   src: url(../assets/fonts/SAO/SAOWelcomeTTRegular.ttf);
 }
-
-body{
-    background-color: #65338A;
-    color: #FFF;
+@font-face {
+  font-family: 'BigShouldersDisplay';
+  src: url(../assets/fonts/Big_Shoulders/BigShouldersDisplay-Regular.ttf);
 }
 
-a{
-    color:white;
+html,body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(243deg, #081935 0%, #31255B 72.18%, #65338A 99.99%);
 }
 
-.title h1{
-    font-family: SAOWelcomeTTRegular;
+h1 {
+    color: #fff;
+    font-size: 8rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 12.8px;
+    font-family: 'SAOWelcomeTTRegular';
+    text-align: left;
 }
 
-.loginForm img{
-    height: 100px;
-    filter: invert(97%) sepia(3%) saturate(12%) hue-rotate(54deg) brightness(103%) contrast(105%);
+.formContainer {
+  display: flex;
+  justify-content: space-between; /* rozdziela lewą i prawą sekcję */
+  align-items: flex-start;
+  gap: 4rem;
 }
 
-.userProfile .profileHeader .avatar img{
-    height: 100px;
+
+h2{
+    margin-top: -4rem;
+    color: #fff;
+    font-size: 3.5rem;
+    font-family: 'BigShouldersDisplay';
+    font-weight: 300;
+    text-transform: uppercase;
 }
 
-.userProfile .profileHeader .settings img{
-    height: 100px;
+h2 img{
+    width: 60px;
+    height: 50px;
+    color: #f8f8f8;
+}
+
+.decor-line{
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    margin-top: -2.5rem;
+    margin-bottom: 1rem;
+}
+
+.input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-wrapper input {
+    width: 500px;
+    padding-top: 0.3rem;
+    padding-bottom: 0.2rem;
+    padding-left: 3rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    border: none;
+    border-radius: 6px;
+    font-size: 2rem;
+    font-family: 'BigShouldersDisplay';
+    text-transform: uppercase;
+    background:  rgba(217, 217, 217, 0.50);
+    color: #141414;
+}
+
+input::placeholder{
+    color: #141414;
+}
+
+.input-wrapper img {
+    position: absolute;
+    left: 0.5rem;
+    width: 30px;
+    height: 40px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+.btn-wrapper{
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem; 
+    margin-top: 1rem;
+}
+
+.btn-column{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.gradient-btn{
+    font-size: 2.25rem ;
+    font-family: 'BigShouldersDisplay';
+    text-transform: uppercase;
+    width: 240px;
+    height: 45px;
+    border-radius: 10px;
+    border: none;
+    background: #D9D9D9;
+    flex: 1;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+.gradient-text{
+    background: linear-gradient(180deg, #381D5C 0%, #141414 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-color: transparent;
+}
+
+.button-link1{
+    background: none;
+    border: none;
+    color: #141414;
+    font-size: 20px;
+    font-family: 'BigShouldersDisplay';
+    text-align: left;
+    text-transform: uppercase;
+}
+
+.button-link2{
+    background: none;
+    border: none;
+    color: #141414;
+    font-size: 20px;
+    font-family: 'BigShouldersDisplay';
+    align-self: center;
+    text-transform: uppercase;
+}
+.button-link1:hover{
+    background: none;
+    text-decoration: underline;
+}
+.button-link2:hover{
+    background: none;
+    text-decoration: underline;
+}
+button:hover {
+    background: #bdbdbd;
+}
+
+.leftSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transform: scale(0.85);
+}
+
+.rightSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 4rem;
+  padding-right: 15%;
+  padding-top: 5rem;
+}
+
+.imagePlaceholder {
+  width: 465px;
+  height: 695px;
+  border-radius: 50px;
+  background: rgba(217, 217, 217, 0.50);
+}
+
+.diamondPattern {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.darkmode-toggle {
+  position: fixed;
+  top: 2rem;
+  right: 2rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.darkmode-toggle img {
+  width: 30px;
+  height: 30px;
+  transition: opacity 0.3s ease;
+  position: absolute;
+}
+
+/* Domyślnie pokazujemy księżyc */
+.sun-icon {
+  opacity: 0;
+}
+
+.moon-icon {
+  opacity: 1;
+}
+
+/* Po najechaniu pokazujemy słońce */
+.darkmode-toggle:hover .sun-icon {
+  opacity: 1;
+}
+
+.darkmode-toggle:hover .moon-icon {
+  opacity: 0;
 }
