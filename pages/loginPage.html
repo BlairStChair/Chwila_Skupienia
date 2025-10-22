@@ -7,22 +7,66 @@
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <div class="loginMainContainer">
-        <button>darkmode<img src="../assets/img/moon-regular.svg"></button>
-        <div class="title">
-            <h1>Chwila </br> Skupienia</h1>
-        </div>
-        <div class="loginForm">
-            <img src="../assets/img/diament-diament.svg"><h2>Zaloguj się</h2>
-            <form>
-                <input type="email" class="userEmail" placeholder="Adres e-mail">
-                <input type="password" class="userPassword" placeholder="Hasło">
-                <a href="passwordRemindPage.html">Przypomnij hasło</a>
-                <button type="submit" class="loginBtn">Zaloguj się</button>
-                <a href="registrationPage.html">Nie masz konta? Zarejestruj się!</a>
-            </form>
-        </div>
+  <div class="loginMainContainer">
+  <!-- Przycisk darkmode -->
+<button class="darkmode-toggle">
+  <img src="../assets/img/moon-regular.svg" alt="Tryb nocny" class="moon-icon" />
+  <img src="../assets/img/sun-solid-white.svg" alt="Tryb dzienny" class="sun-icon" />
+</button>
+
+
+  <div class="formContainer">
+    <div class="leftSection">
+        
+      <div class="title">
+        <h1>Chwila<br />Skupienia</h1>
+      </div>
+
+      <!-- Sekcja logowania --> 
+      <div class="loginForm">
+        <h2>Zaloguj się</h2>
+        <div class="decor-line"></div>
+
+        <form>
+          <div class="input-wrapper">
+            <img src="../assets/img/diament.svg" alt="diament" />
+            <input type="email" placeholder="Adres e-mail" required />
+          </div>
+
+          <div class="input-wrapper">
+            <img src="../assets/img/diament.svg" alt="diament" />
+            <input type="password" placeholder="Hasło" required />
+          </div>
+
+          <a href="passwordRemindPage.html" class="button-link1">
+            Przypomnij hasło
+          </a>
+
+          <div class="btn-wrapper">
+            <button type="button" class="gradient-btn">
+              <span class="gradient-text">Wejdź jako gość</span>
+            </button>
+
+            <div class="btn-column">
+              <button type="submit" class="gradient-btn">
+                <span class="gradient-text">Zaloguj się</span>
+              </button>
+              <a href="registrationPage.html" class="button-link2">
+                Nie masz konta? Zarejestruj się!
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
+
+    <div class="rightSection">
+      <div class="imagePlaceholder"></div>
+      <div class="diamondPattern">
+      </div>
+    </div>
+  </div>
+</div>
     <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
