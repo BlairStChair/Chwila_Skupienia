@@ -223,11 +223,11 @@ usersFriends.addEventListener("click", async (e) => {
 
         let friendResultDisplay = document.createElement("li");
         
-        let nameSpan = document.createElement("span");
-        nameSpan.textContent = request.fromDisplayName;
+        let nameLink = document.createElement("a");
+        nameLink.textContent = request.fromDisplayName;
 
         usersFriendsList.appendChild(friendResultDisplay);
-        friendResultDisplay.appendChild(nameSpan);
+        friendResultDisplay.appendChild(nameLink);
     }
     }
     clickCounter++;

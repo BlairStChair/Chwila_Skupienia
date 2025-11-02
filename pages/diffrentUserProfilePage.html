@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chwila Skupienia</title>
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <div class="profileMainContainer">
+        <button class="darkmode-toggle">
+            <img src="../assets/img/moon-regular.svg" alt="Tryb nocny" class="moon-icon" />
+            <img src="../assets/img/sun-solid-white.svg" alt="Tryb dzienny" class="sun-icon" />
+        </button>
+        <div class="navBar">
+                <div class="navBar-wrapper">
+                <img src="../assets/img/diament-white.svg" alt="diament" />
+                <a href="dashboardPage.html" class="navBtn">Minutnik</a>
+                <img src="../assets/img/diament-diament-white.svg" alt="diament" />
+                <a href="profilePage.html" class="navBtn">Profil</a>
+                <img src="../assets/img/diament-white.svg" alt="diament" />
+                </div>
+            <div class="decor-line"></div>
+        </div>
+        <div class="userProfile">
+            <div class="profileHeader">
+                <div class="avatar"><img src="../assets/img/user-solid.svg"></div>
+                <div class="username">@ placeholder</div>
+            </div>
+            <div class="profileStatistics">
+                <div class="weeklyStatistics">
+                    <div class="weeklyStatisticsHeader">
+                    <h1>Ten Tydzień</h1>
+                    </div>
+                    <div class="weeklyStatisticsContent">
+                        wrzucam tu cokolwiek żebym widziała co robie
+                        <div class="statItem">
+                            <ul>
+                                <li class="statTitle">Sesje</li>
+                                <li class="sessionsCount">0</li>  
+                        </div>
+                    </div>
+                <div class="monthlyStatistics">
+                    <div class="monthlyStatisticsHeader">
+                    <h1>Ten Miesiąc</h1>
+                    </div>
+                    <div class="monthlyStatisticsContent">
+                        wrzucam tu cokolwiek żebym widziała co robie
+                        <div class="statItem">
+                            <ul>
+                                <li class="statTitle">Sesje</li>
+                                <li class="sessionsCount">0</li>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="profileTodoList">
+                <div class="todoListHeader">
+                    <h1>Cele</h1>
+                </div>
+                <div class="todoListContent">
+                    <input type="text" class="taskName" placeholder="Podaj nazwę zadania">
+                    <button type="submit" class="addTask">+</button>
+                    <div class="taskList"> </div>  
+                </div>
+            </div>
+            <div class="friendsList">
+                <h1>Znajomi</h1>
+                <ul>
+                    <li>
+                        <h3 class="usersFriends">Twoi znajomi</h3>
+                        <ul class="usersFriendsList">
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+        <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+    <script src="../js/firebase.js" defer></script>
+    <script src="../js/displayUsernameAvatar.js"></script>
+    <script src="../js/diffrentUserProfileLoad.js"></script>
+</body>
+</html>
