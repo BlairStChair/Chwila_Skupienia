@@ -12,6 +12,7 @@ const db = firebase.firestore();
 
 let currentUserName = "";
 let usersGlobal = [];
+let nameSpan;
 
 auth.onAuthStateChanged(async (user) => {
     currentUserName = await db.collection("users").doc(user.uid).get();
@@ -203,7 +204,8 @@ usersFriends.addEventListener("click", async (e) => {
         if (data.fromDisplayName){
             return { 
             id: doc.id,
-            fromDisplayName: data.fromDisplayName, 
+            fromDisplayName: data.fromDisplayName,
+            fromUid: data.fromUid, 
             to: data.to,
             status: data.status  
             };
@@ -223,11 +225,16 @@ usersFriends.addEventListener("click", async (e) => {
 
         let friendResultDisplay = document.createElement("li");
         
-        let nameLink = document.createElement("a");
-        nameLink.textContent = request.fromDisplayName;
+        nameSpan = document.createElement("span");
+        nameSpan.className = "nameSpan";
+        nameSpan.textContent = request.fromDisplayName;
 
         usersFriendsList.appendChild(friendResultDisplay);
-        friendResultDisplay.appendChild(nameLink);
+        friendResultDisplay.appendChild(nameSpan);
+
+        nameSpan.addEventListener("click", () => {
+            window.location.href = "../pages/diffrentUserProfilePage.html";
+        });
     }
     }
     clickCounter++;
