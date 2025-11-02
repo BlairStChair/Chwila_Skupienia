@@ -23,12 +23,11 @@ h1 {
     line-height: normal;
     letter-spacing: 12.8px;
     font-family: 'SAOWelcomeTTRegular';
-    text-align: left;
 }
 
 .formContainer {
   display: flex;
-  justify-content: space-between; /* rozdziela lewą i prawą sekcję */
+  justify-content: space-between; 
   align-items: flex-start;
   gap: 4rem;
 }
@@ -188,6 +187,11 @@ button:hover {
   height: 695px;
   border-radius: 50px;
   background: rgba(217, 217, 217, 0.50);
+}
+.title {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 .diamondPattern {
