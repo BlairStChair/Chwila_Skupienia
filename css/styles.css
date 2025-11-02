@@ -40,6 +40,7 @@ h2{
     font-family: 'BigShouldersDisplay';
     font-weight: 300;
     text-transform: uppercase;
+    
 }
 
 h2 img{
@@ -88,6 +89,19 @@ input::placeholder{
     width: 30px;
     height: 40px;
 }
+
+.header-wrapper {
+  display: flex;
+  align-items: center; /* wyrównanie pionowe */
+  gap: 1vh;
+}
+
+.header-wrapper img.header-icon {
+  height: 60px;
+  object-fit: contain;
+  margin-top: -110px; /* nie wiem czemu nie chce sie to wyrównać normalnie */
+}
+
 
 form {
   display: flex;
@@ -235,4 +249,25 @@ button:hover {
 
 .darkmode-toggle:hover .moon-icon {
   opacity: 0;
+}
+
+.navBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+  z-index: 999;
+}
+.navBtn {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.5rem;
+  margin-right: 20px;
+  font-family: 'BigShouldersDisplay';
+  text-transform: uppercase;
 }
