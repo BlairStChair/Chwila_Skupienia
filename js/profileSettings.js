@@ -142,7 +142,7 @@ passwordChangeBtn.addEventListener("click", async(e) => {
     try{
         const user = auth.currentUser;
         if(!user){
-            alert("Zaloguj się, aby zmienić nazwę użytkownika");
+            alert("Zaloguj się, aby zmienić hasło");
             return;
         }
         
