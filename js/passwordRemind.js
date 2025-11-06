@@ -24,6 +24,14 @@ remindPasswordForm.addEventListener("submit", async(e) => {
       return;
     }else{
         try{
+            const usersRef = db.collection("users");
+            const querySnapshot = await usersRef.where("email", "==", emailValue).get();
+
+            if(querySnapshot.empty){
+                remindPasswordForm.appendChild(invalidEmail);
+            return;
+            }
+
             await auth.sendPasswordResetEmail(emailValue);
             console.log("Wysłano email resetujący hasło do:", emailValue);
             alert("Wysłano wiadomość do resetowania hasła!");
