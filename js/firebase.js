@@ -11,7 +11,6 @@ const firebaseConfig = {
 // Inicjalizacja Firebase
 firebase.initializeApp(firebaseConfig);
 
-// Udostępnij zmienne globalnie (dla innych skryptów)
 window.auth = firebase.auth();
 window.db = firebase.database();
 

@@ -1,5 +1,9 @@
+document.addEventListener("DOMContentLoaded", () => {
 const userEmail = document.querySelector(".userEmail");
 const remindPasswordForm = document.querySelector("form");
+
+const auth = firebase.auth();
+const db = firebase.firestore();
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -15,6 +19,10 @@ invalidEmail.style.color = "red";
 remindPasswordForm.addEventListener("submit", async(e) => {
     e.preventDefault();
 
+    if(remindPasswordForm.contains(invalidEmailAlert)){
+    remindPasswordForm.removeChild(invalidEmailAlert);
+    }
+
     const emailValue = userEmail.value;
 
     console.log(emailValue);
@@ -24,18 +32,21 @@ remindPasswordForm.addEventListener("submit", async(e) => {
       return;
     }else{
         try{
-            const usersRef = db.collection("users");
+            const usersRef = await db.collection("users");
+            console.log(usersRef);
             const querySnapshot = await usersRef.where("email", "==", emailValue).get();
+            console.log(querySnapshot);
 
             if(querySnapshot.empty){
                 remindPasswordForm.appendChild(invalidEmail);
             return;
-            }
+            }else{
 
             await auth.sendPasswordResetEmail(emailValue);
             console.log("Wysłano email resetujący hasło do:", emailValue);
             alert("Wysłano wiadomość do resetowania hasła!");
             window.location.href = "loginPage.html";
+            }
         }catch(error){
             console.error("Błąd resetowania hasła:", error.message);
             if(!remindPasswordForm.contains(invalidEmail)) {
@@ -44,4 +55,5 @@ remindPasswordForm.addEventListener("submit", async(e) => {
             remindPasswordForm.appendChild(invalidEmail);
         }
     }
+});
 });
