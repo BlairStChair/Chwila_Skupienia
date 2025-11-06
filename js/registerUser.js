@@ -10,7 +10,6 @@ const auth = firebase.auth();
 const database = firebase.database();
 const db = firebase.firestore();
 
-let newUserEmailTrim = newUserEmail.value.trim();
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const invalidEmail = document.createElement("p");
