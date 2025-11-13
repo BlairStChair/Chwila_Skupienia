@@ -21,6 +21,19 @@ function validateEmail(emailInput){
     return emailPattern.test(emailInput);
 };
 
+function loadAvatar(){
+    const userDoc = db.collection("users").doc(user.uid).get();
+    const userData = userDoc.data();
+
+    if(userData && userData.photoURL){
+      avatar.src = userData.photoURL; 
+    }else{
+      avatar.src = "../assets/img/defaultAvatar.png";
+    }
+}
+
+loadAvatar();
+
 avatarFile.addEventListener("change", () => {
     avatar.src = URL.createObjectURL(avatarFile.files[0]);
 })
@@ -129,7 +142,7 @@ passwordChangeBtn.addEventListener("click", async(e) => {
     try{
         const user = auth.currentUser;
         if(!user){
-            alert("Zaloguj się, aby zmienić nazwę użytkownika");
+            alert("Zaloguj się, aby zmienić hasło");
             return;
         }
         

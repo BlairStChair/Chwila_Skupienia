@@ -10,6 +10,13 @@ const auth = firebase.auth();
 const database = firebase.database();
 const db = firebase.firestore();
 
+const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const invalidEmail = document.createElement("p");
+invalidEmail.className = "error";
+invalidEmail.textContent = "Format adresu e-mail jest niepoprawny"
+invalidEmail.style.color = "red";
+
 const invalidPassword = document.createElement("p");
 invalidPassword.className = "error";
 invalidPassword.textContent = "Hasła są różne"
@@ -43,7 +50,11 @@ registrationForm.addEventListener("submit", async(e) => {
     console.log(newUserNameValue);
     console.log(newPasswordValue);
 
-   if (newPasswordValue !== newPasswordConfirmValue) {
+    if(!emailPattern.test(newEmailValue)){
+      registrationForm.appendChild(invalidEmail);
+    }else{
+
+    if (newPasswordValue !== newPasswordConfirmValue) {
     if (!registrationForm.contains(invalidPassword)) {
         registrationForm.appendChild(invalidPassword);
     }
@@ -52,6 +63,7 @@ registrationForm.addEventListener("submit", async(e) => {
     if (registrationForm.contains(invalidPassword)) {
         registrationForm.removeChild(invalidPassword);
     }
+}
 }
     
   try{
