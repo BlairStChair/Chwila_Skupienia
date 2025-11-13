@@ -7,24 +7,57 @@
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 <body>
-    <div class="registrationMainContainer">
-        <button>darkmode<img src="../assets/img/moon-regular.svg"></button>
-        <div class="title">
-            <h1>Chwila </br> Skupienia</h1>
-        </div>
-        <div class="loginForm">
-            <img src="../assets/img/diament-diament.svg"><h2>Zarejestruj się</h2>
-            <a href="loginPage.html">Powrót do logowania</a>
-            <form>
-                <input type="email" class="newUserEmail" placeholder="Adres E-mail">
-                <input type="text" class="newUserName" placeholder="Nazwa użytkownika">
-                <input type="password" class="newUserPassword" placeholder="Hasło">
-                <input type="password" class="newUserPasswordConfirm" placeholder="Powtórz Hasło">
-                <button type="submit">Zarejestruj się</button>
-            </form>
+    <div class="loginMainContainer">
+        <button class="darkmode-toggle">
+            <img src="../assets/img/moon-regular.svg" alt="Tryb nocny" class="moon-icon" />
+            <img src="../assets/img/sun-solid-white.svg" alt="Tryb dzienny" class="sun-icon" />
+        </button>
+        <div class="formContainer">
+            <div class="leftSection">
+                <div class="title">
+                    <h1>Chwila </br> Skupienia</h1>
+                </div>
+            
+        
+                <div class="loginForm">
+                    <div class="header-wrapper">
+                        <img src="../assets/img/diament-diament-white.svg" alt="diament" class="header-icon">
+                        <h2>Zarejestruj się</h2>
+                    </div>
+                    <div class="decor-line"></div>
+
+                    <form>
+                        <div class="input-wrapper">
+                            <img src="../assets/img/diament.svg" alt="diament" />
+                            <input type="email" class="newUserEmail" placeholder="Adres E-mail">
+                        </div>
+                        <div class="input-wrapper">
+                            <img src="../assets/img/diament.svg" alt="diament" />
+                            <input type="text" class="newUserName" placeholder="Nazwa użytkownika">
+                        </div>
+                        <div class="input-wrapper">
+                            <img src="../assets/img/diament.svg" alt="diament" />
+                            <input type="password" class="newUserPassword" placeholder="Hasło">
+                        </div>
+                        <div class="input-wrapper">
+                            <img src="../assets/img/diament.svg" alt="diament" />
+                            <input type="password" class="newUserPasswordConfirm" placeholder="Powtórz Hasło">
+                        </div>
+                        <a href="loginPage.html" class="button-link1">Powrót do logowania</a>
+                        <div class="btn-wrapper">
+                            <button type="submit" class="gradient-btn">Zarejestruj się</button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+            <div class="rightSection">
+                <div class="imagePlaceholder"></div>
+                <div class="diamondPattern"></div>
+            </div>
         </div>
     </div>
-
+</div>
     <!-- Firebase SDK -->
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
