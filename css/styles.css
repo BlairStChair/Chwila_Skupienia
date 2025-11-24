@@ -74,7 +74,6 @@ h2 img{
     border-radius: 6px;
     font-size: 2rem;
     font-family: 'BigShouldersDisplay';
-    text-transform: uppercase;
     background:  rgba(217, 217, 217, 0.50);
     color: #141414;
 }
@@ -150,6 +149,7 @@ form {
     font-family: 'BigShouldersDisplay';
     text-align: left;
     text-transform: uppercase;
+    text-decoration: none;
 }
 
 .button-link2{
