@@ -51,16 +51,17 @@ registrationForm.addEventListener("submit", async(e) => {
     console.log(newPasswordValue);
 
     if(!emailPattern.test(newEmailValue)){
-      registrationForm.appendChild(invalidEmail);
+        registrationForm.appendChild(invalidEmail);
+        return;
     }else{
-
-    if (newPasswordValue !== newPasswordConfirmValue) {
-    if (!registrationForm.contains(invalidPassword)) {
+        invalidEmail.remove();
+    if(newPasswordValue !== newPasswordConfirmValue){
+    if(!registrationForm.contains(invalidPassword)){
         registrationForm.appendChild(invalidPassword);
     }
     return;
-} else {
-    if (registrationForm.contains(invalidPassword)) {
+    }else{
+    if(registrationForm.contains(invalidPassword)){
         registrationForm.removeChild(invalidPassword);
     }
 }
@@ -69,7 +70,6 @@ registrationForm.addEventListener("submit", async(e) => {
   try{
    
 console.log("Rejestruję użytkownika...");
-    // Signed up 
     const userCredential = await auth.createUserWithEmailAndPassword(newEmailValue, newPasswordValue);
     const user = userCredential.user;
 
