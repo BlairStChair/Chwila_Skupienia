@@ -20,6 +20,11 @@ diffrentPasswordsAlert.className = "error";
 diffrentPasswordsAlert.textContent = "Hasła nie są takie same"
 diffrentPasswordsAlert.style.color = "red";
 
+const oldPasswordAlert = document.createElement("p");
+oldPasswordAlert.className = "error";
+oldPasswordAlert.textContent = "Hasło musi być inne od starego!"
+oldPasswordAlert.style.color = "red";
+
 auth.verifyPasswordResetCode(oobCode)
     .then((email) => {
       const usersEmail = email;
@@ -50,6 +55,8 @@ passwordResetBtn.addEventListener("click", async(e) => {
             passwordAfterResetConfirm.value = "";
             return;
         }
+
+        if(newPasswordValue )
 
         await auth.confirmPasswordReset(oobCode, newPasswordValue);
         alert("Hasło zmieniono pomyślnie");
