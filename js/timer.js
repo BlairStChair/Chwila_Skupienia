@@ -4,6 +4,9 @@ const subtractTime = document.querySelector(".subtractTime");
 const startTimer = document.querySelector(".startTimer");
 const stopTimer = document.querySelector(".stopTimer");
 const resetTimer = document.querySelector(".resetTimer");
+const FifteenMinutes = document.querySelector("#FifteenMinutes");;
+const ThirtyMinutes = document.querySelector("#ThirtyMinutes");
+const FortyFiveMinutes = document.querySelector("#FortyFiveMinutes");
 
 var timeInSeconds = 1500;
 var timeInMinutes = 25;
