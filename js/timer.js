@@ -267,3 +267,24 @@ resetTimer.addEventListener("click", () => {
 
     tipContentDiv.style.display = "none";
 });
+
+FifteenMinutes.addEventListener("click", ()=> {
+    timeInSeconds = 900;
+    savedTime = timeInSeconds;
+    originalSessionTime = timeInSeconds;
+    updateDisplay();
+});
+
+ThirtyMinutes.addEventListener("click", ()=> {
+    timeInSeconds = 1800;
+    savedTime = timeInSeconds;
+    originalSessionTime = timeInSeconds;
+    updateDisplay();
+});
+
+FortyFiveMinutes.addEventListener("click", ()=> {
+    timeInSeconds = 2700;
+    savedTime = timeInSeconds;
+    originalSessionTime = timeInSeconds;
+    updateDisplay();
+});
