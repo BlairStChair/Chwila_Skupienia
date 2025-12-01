@@ -21,16 +21,15 @@ function validateEmail(emailInput){
     return emailPattern.test(emailInput);
 };
 
-function loadAvatar(){
-    const userDoc = db.collection("users").doc(user.uid).get();
+async function loadAvatar(){
+    const user = auth.currentUser;
+    
+    const userDoc = await db.collection("users").doc(user.uid).get();
     const userData = userDoc.data();
 
-    if(userData && userData.photoURL){
-      avatar.src = userData.photoURL; 
-    }else{
-      avatar.src = "../assets/img/defaultAvatar.png";
-    }
+    avatar.src = userData?.photoURL || "../assets/img/defaultAvatar.png";
 }
+
 
 loadAvatar();
 
