@@ -18,7 +18,7 @@ let longBreakSeconds = 0;
 let sessionsCounter = 0;
 let buttonsDisabled = false;
 
-let savedTime = 0;
+let savedTime = 1500;
 let originalSessionTime = 1500;
 let intervalID = null;
 let shortBreakInterval = null;
@@ -243,6 +243,10 @@ stopTimer.addEventListener("click", () => {
         clearInterval(longBreakInterval);
         longBreakInterval = null;
     }
+
+    
+
+    console.log("Zapisany czas: " + savedTime);
 });
 
 resetTimer.addEventListener("click", () => {
@@ -264,7 +268,7 @@ resetTimer.addEventListener("click", () => {
         longBreakInterval = null;
     }
 
-    timeInSeconds = savedTime;
+    timeInSeconds = originalSessionTime;
     updateDisplay();
 
     tipContentDiv.style.display = "none";
@@ -299,7 +303,7 @@ FortyFiveMinutes.addEventListener("click", ()=> {
     startTimer.disabled = false;
     stopTimer.disabled = false;
     resetTimer.disabled = false;
-    
+
     timeInSeconds = 2700;
     savedTime = timeInSeconds;
     originalSessionTime = timeInSeconds;
