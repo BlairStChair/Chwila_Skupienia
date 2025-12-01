@@ -4,6 +4,7 @@ const avatar = document.querySelector("#avatar")
 const submitAvatar = document.querySelector("#submitAvatar");
 const emailChangeField = document.querySelector("#emailChangeField");
 const emailChangeConfirmBtn = document.querySelector("#emailChangeConfirmBtn");
+const userName = document.querySelector("#userName");
 const usernameChangeField = document.querySelector("#usernameChangeField");
 const usernameChangeBtn = document.querySelector("#usernameChangeBtn");
 const oldPasswordField = document.querySelector("#oldPasswordField");
@@ -30,8 +31,23 @@ async function loadAvatar(){
     avatar.src = userData?.photoURL || "../assets/img/defaultAvatar.png";
 }
 
+async function loadUserName(){
+    const user = auth.currentUser;
+    
+    const userDoc = await db.collection("users").doc(user.uid).get();
+    const userData = userDoc.data();
 
-loadAvatar();
+    userName.textContent = userData?.displayName || "@TypowyUser";
+}
+
+auth.onAuthStateChanged(async (user) => {
+    if (user) {
+        await loadAvatar();
+        await loadUserName();
+    } else {
+        console.log("Brak zalogowanego użytkownika");
+    }
+});
 
 avatarFile.addEventListener("change", () => {
     avatar.src = URL.createObjectURL(avatarFile.files[0]);
@@ -123,6 +139,8 @@ usernameChangeBtn.addEventListener("click", async (e) => {
             });
 
     alert("Nazwa użytkownika została zmieniona pomyślnie!");
+
+    userName.textContent = newUsername;
     }catch(err){
             console.error("Błąd", err);
             alert("Wystąpił błąd podczas zmiany nazwy użytkownika!")
