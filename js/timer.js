@@ -16,6 +16,7 @@ let longBreak = 0;
 let longBreakSeconds = 0;
 
 let sessionsCounter = 0;
+let buttonsDisabled = false;
 
 let savedTime = 0;
 let originalSessionTime = 1500;
@@ -192,12 +193,13 @@ addTime.addEventListener("click", () => {
 subtractTime.addEventListener("click", () => {
     timeInMinutes = timeInMinutes - 1;
     console.log("minuty:" + timeInMinutes);
-    if(timeInMinutes <= 0){
-        timeInSeconds = 0;
+    if(timeInSeconds <= 60){
+        timeInSeconds = 60;
         startTimer.disabled = true;
         stopTimer.disabled = true;
         resetTimer.disabled = true;
         subtractTime.disabled = true;
+        buttonsDisabled = true;
     }else{
         timeInSeconds = timeInSeconds - 60;
         savedTime = timeInSeconds;
@@ -269,6 +271,11 @@ resetTimer.addEventListener("click", () => {
 });
 
 FifteenMinutes.addEventListener("click", ()=> {
+    subtractTime.disabled = false;
+    startTimer.disabled = false;
+    stopTimer.disabled = false;
+    resetTimer.disabled = false;
+
     timeInSeconds = 900;
     savedTime = timeInSeconds;
     originalSessionTime = timeInSeconds;
@@ -276,6 +283,11 @@ FifteenMinutes.addEventListener("click", ()=> {
 });
 
 ThirtyMinutes.addEventListener("click", ()=> {
+    subtractTime.disabled = false;
+    startTimer.disabled = false;
+    stopTimer.disabled = false;
+    resetTimer.disabled = false;
+
     timeInSeconds = 1800;
     savedTime = timeInSeconds;
     originalSessionTime = timeInSeconds;
@@ -283,6 +295,11 @@ ThirtyMinutes.addEventListener("click", ()=> {
 });
 
 FortyFiveMinutes.addEventListener("click", ()=> {
+    subtractTime.disabled = false;
+    startTimer.disabled = false;
+    stopTimer.disabled = false;
+    resetTimer.disabled = false;
+    
     timeInSeconds = 2700;
     savedTime = timeInSeconds;
     originalSessionTime = timeInSeconds;
