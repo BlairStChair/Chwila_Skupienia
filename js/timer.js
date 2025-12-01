@@ -74,10 +74,10 @@ async function startShortBreak() {
     mode = "shortBreak";
     updateDisplay();
 
-    //test
-    await drawStudyTip();
-    tipContentText.textContent = drawedTip;
-    tipContentDiv.style.display = "block";
+    // //test
+    // await drawStudyTip();
+    // tipContentText.textContent = drawedTip;
+    // tipContentDiv.style.display = "block";
 
     shortBreakInterval = setInterval(() => {
 
