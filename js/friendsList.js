@@ -233,7 +233,7 @@ usersFriends.addEventListener("click", async (e) => {
         friendResultDisplay.appendChild(nameSpan);
 
         nameSpan.addEventListener("click", () => {
-            window.location.href = "../pages/diffrentUserProfilePage.html";
+            window.location.href = `../pages/diffrentUserProfilePage.html?uid=${request.fromUid}`;
         });
     }
     }

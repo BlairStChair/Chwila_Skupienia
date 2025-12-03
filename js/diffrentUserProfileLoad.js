@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", () => {
 const avatar = document.querySelector(".avatar");
 const avatarImg = document.querySelector("#avatarImg")
 const username = document.querySelector(".username");
@@ -17,3 +18,5 @@ async function loadDiffrentUserProfile(){
 };
 
 loadDiffrentUserProfile();
+
+});
