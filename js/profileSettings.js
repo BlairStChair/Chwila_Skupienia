@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
 const avatarFile = document.querySelector("#avatarFile");
 const avatar = document.querySelector("#avatar")
 const submitAvatar = document.querySelector("#submitAvatar");
+const emailChangePasswordConfirm = document.querySelector(".emailChangePasswordConfirm");
 const emailChangeField = document.querySelector("#emailChangeField");
 const emailChangeConfirmBtn = document.querySelector("#emailChangeConfirmBtn");
 const userName = document.querySelector("#userName");
@@ -88,6 +89,8 @@ submitAvatar.addEventListener("click", async (e) => {
 emailChangeConfirmBtn.addEventListener("click", async (e) => {
     e.preventDefault();
 
+    const PasswordValue = emailChangePasswordConfirm.value.trim();
+
     let newEmail = emailChangeField.value;
     console.log(newEmail);
 
@@ -95,19 +98,25 @@ emailChangeConfirmBtn.addEventListener("click", async (e) => {
 
     if(validateEmail(newEmail)){
     try{
-    const user = auth.currentUser;
-        if(!user){
-            alert("Zaloguj się, aby zmienić adres email");
-            return;
-        }
-
-    await user.updateEmail(newEmail);
+        const user = auth.currentUser;
+            if(!user){
+                alert("Zaloguj się, aby zmienić adres email");
+                return;
+            }
     
-    await db.collection("users").doc(user.uid).update({
-                email: newEmail
-            });
+        const credential = firebase.auth.EmailAuthProvider.credential(user.email, PasswordValue);
 
-    alert("Adres email został zmieniony pomyślnie!");
+        await user.reauthenticateWithCredential(credential);
+
+        await user.updateEmail(newEmail);
+    
+        await db.collection("users").doc(user.uid).update({
+                email: newEmail
+        });
+
+        alert("Adres email został zmieniony pomyślnie!");
+
+        emailChangePasswordConfirm.value = "";
     }catch(err){
             console.error("Błąd", err);
             alert("Wystąpił błąd podczas zmiany adresu email!")
