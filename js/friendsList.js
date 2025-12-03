@@ -21,6 +21,13 @@ auth.onAuthStateChanged(async (user) => {
     const userName = currentUserName.data();
 });
 
+document.addEventListener("click", (e) => {
+    if (e.target.classList.contains("friend-name")) {
+        const uid = e.target.dataset.uid;
+        window.location.href = `../pages/diffrentUserProfilePage.html?uid=${uid}`;
+    }
+});
+
 async function getAllUsernames(){
     let snapshot = await db.collection("users").get();
     console.log(snapshot);
@@ -228,13 +235,15 @@ usersFriends.addEventListener("click", async (e) => {
         nameSpan = document.createElement("span");
         nameSpan.className = "nameSpan";
         nameSpan.textContent = request.fromDisplayName;
+        nameSpan.dataset.uid = request.fromUid;
 
         usersFriendsList.appendChild(friendResultDisplay);
         friendResultDisplay.appendChild(nameSpan);
 
         nameSpan.addEventListener("click", () => {
             window.location.href = `../pages/diffrentUserProfilePage.html?uid=${request.fromUid}`;
-        });
+            console.log("fromUid:", request.fromUid);
+        }); 
     }
     }
     clickCounter++;
