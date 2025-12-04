@@ -8,12 +8,16 @@ const FifteenMinutes = document.querySelector("#FifteenMinutes");;
 const ThirtyMinutes = document.querySelector("#ThirtyMinutes");
 const FortyFiveMinutes = document.querySelector("#FortyFiveMinutes");
 
+//IDŹ DO STARTTIMER I NAPRAW
+
 var timeInSeconds = 1500;
 var timeInMinutes = 25;
 let shortBreak = 0;
 let shortBreakSeconds = 0;
 let longBreak = 0;
 let longBreakSeconds = 0;
+let currentShortBreakTime = shortBreakSeconds;
+let currentLongBreakTime = longBreakSeconds;
 
 let sessionsCounter = 0;
 let buttonsDisabled = false;
@@ -97,6 +101,8 @@ async function startShortBreak() {
     shortBreakSeconds = Math.floor(originalSessionTime / 5);
     console.log(shortBreakSeconds);
 
+    currentShortBreakTime = shortBreakSeconds;
+
     mode = "shortBreak";
     updateDisplay();
 
@@ -108,8 +114,10 @@ async function startShortBreak() {
     shortBreakInterval = setInterval(() => {
 
         if(shortBreakSeconds > 0){
-            shortBreakSeconds = shortBreakSeconds - 1;
+            currentShortBreakTime--;
+            shortBreakSeconds = currentShortBreakTime;
             updateDisplay();
+
             console.log(shortBreakSeconds);
         }else{
             clearInterval(shortBreakInterval);
@@ -132,6 +140,8 @@ async function startLongBreak() {
     longBreakSeconds = Math.floor((originalSessionTime * 4) / 5);
     console.log(longBreakSeconds);
 
+    currentLongBreakTime = longBreakSeconds;
+
     mode = "longBreak";
     updateDisplay();
 
@@ -141,7 +151,8 @@ async function startLongBreak() {
 
     longBreakInterval = setInterval(() => {
         if(longBreakSeconds > 0){
-            longBreakSeconds = longBreakSeconds - 1;
+            currentLongBreakTime--;
+            longBreakSeconds = currentLongBreakTime;
             updateDisplay();
             console.log(longBreakSeconds);
         }else{
@@ -231,14 +242,39 @@ subtractTime.addEventListener("click", () => {
 });
 
 startTimer.addEventListener("click", () => {
-    if (intervalID || shortBreakInterval || longBreakInterval) return;
-    
+    if(intervalID !== null || shortBreakInterval !== null || longBreakInterval !== null){
+        return;
+    }
     addTime.disabled = true;
     subtractTime.disabled = true;
 
-    savedTime = timeInSeconds;
-    originalSessionTime = timeInSeconds;
-    startSession();
+//     if (timeInSeconds <= 0) {
+//         timeInSeconds = originalSessionTime;
+//     }
+
+//     savedTime = timeInSeconds;
+//     originalSessionTime = timeInSeconds;
+//     startSession();
+
+    //MUSZE TO ZMIENIC BO PSUJE TO PUSZCZENIE TIMERA
+    if(intervalID){
+        if (timeInSeconds <= 0) timeInSeconds = originalSessionTime;
+        savedTime = timeInSeconds;
+        originalSessionTime = timeInSeconds;
+        startSession();
+    }
+
+    else if(currentMode === "shortBreak"){
+        if (shortBreakSeconds <= 0) shortBreakSeconds = originalShortBreakTime;
+        savedTime = shortBreakSeconds;
+        startShortBreak();
+    }
+
+    else if(currentMode === "longBreak"){
+        if (longBreakSeconds <= 0) longBreakSeconds = originalLongBreakTime;
+        savedTime = longBreakSeconds;
+        startLongBreak();
+    }
 });
 
 stopTimer.addEventListener("click", () => {
@@ -252,10 +288,12 @@ stopTimer.addEventListener("click", () => {
     if(shortBreakInterval){
         clearInterval(shortBreakInterval);
         shortBreakInterval = null;
+        savedTime = currentShortBreakTime;
     }
     if(longBreakInterval){
         clearInterval(longBreakInterval);
         longBreakInterval = null;
+        savedTime = currentLongBreakTime;
     }
 
     
