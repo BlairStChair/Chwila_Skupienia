@@ -39,6 +39,28 @@ tipContentText.className = "tipContentText";
 tipContentDiv.appendChild(tipContentText);
 timer.appendChild(tipContentDiv);
 
+let totalMinutes = 0;
+
+async function countMinutes(addedMinutes){
+    totalMinutes = totalMinutes + addedMinutes;
+}
+
+async function loadStudyTipsJson(){
+    const json = await fetch("../data/studyTips.json");
+    tipPool = await json.json();
+
+    console.log(tipPool);
+}
+
+async function drawStudyTip(){
+    const tipIndex = Math.floor(Math.random() * tipPool.length);
+
+    drawedTip = tipPool[tipIndex]
+
+    console.log(drawedTip);
+    
+}
+
 loadStudyTipsJson().then(() => {
     console.log("Tips loaded successfully");
 }).catch(error => {
@@ -68,6 +90,10 @@ function updateDisplay() {
 }
 
 async function startShortBreak() {
+    countMinutes(timeInMinutes);
+
+    console.log("Ile minut się naliczyło: ", totalMinutes);
+
     shortBreakSeconds = Math.floor(originalSessionTime / 5);
     console.log(shortBreakSeconds);
 
@@ -99,6 +125,10 @@ async function startShortBreak() {
 }
 
 async function startLongBreak() {
+    countMinutes(timeInMinutes);
+
+    console.log("Ile minut się naliczyło: ", totalMinutes);
+
     longBreakSeconds = Math.floor((originalSessionTime * 4) / 5);
     console.log(longBreakSeconds);
 
@@ -154,22 +184,6 @@ function startSession() {
             }
         }
     }, 1000);
-}
-
-async function loadStudyTipsJson(){
-    const json = await fetch("../data/studyTips.json");
-    tipPool = await json.json();
-
-    console.log(tipPool);
-}
-
-async function drawStudyTip(){
-    const tipIndex = Math.floor(Math.random() * tipPool.length);
-
-    drawedTip = tipPool[tipIndex]
-
-    console.log(drawedTip);
-    
 }
 
 updateDisplay();
