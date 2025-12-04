@@ -34,12 +34,7 @@
                     <h1>Ten Tydzień</h1>
                     </div>
                     <div class="weeklyStatisticsContent">
-                        wrzucam tu cokolwiek żebym widziała co robie
-                        <div class="statItem">
-                            <ul>
-                                <li class="statTitle">Sesje</li>
-                                <li class="sessionsCount">0</li>  
-                        </div>
+                        <canvas id="weeklyChart" style="width:100%;max-width:700px"></canvas>
                     </div>
                 <div class="monthlyStatistics">
                     <div class="monthlyStatisticsHeader">
@@ -96,7 +91,10 @@
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
     <script src="../js/firebase.js" defer></script>
+    <script src="../js/charts.js"></script>
     <script src="../js/displayUsernameAvatar.js"></script>
     <script src="../js/todoList.js"></script>
     <script src="../js/friendsList.js"></script>
