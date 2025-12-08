@@ -1,3 +1,4 @@
+document.addEventListener("DOMContentLoaded", () => {
 const timer = document.querySelector(".timer");
 const addTime = document.querySelector(".addTime");
 const subtractTime = document.querySelector(".subtractTime");
@@ -64,6 +65,36 @@ async function loadSavedTime(){
 }
 
 loadSavedTime();
+
+async function sendSavedTimeToFirebase(newMinutes){
+    auth.onAuthStateChanged(async (user) => {
+    let uid = user.uid;
+
+    let todayDate = new Date().toISOString().split("T")[0];
+    console.log(todayDate);
+
+    let docRef = db.collection("sessionsInfo").doc(uid).collection("stats").doc(todayDate);
+    let docSnap = await docRef.get();
+
+    let currentMinutes = 0;
+    if(docSnap.exists){
+        currentMinutes = docSnap.data().minutes || 0;
+    }
+
+    let minutesToAdd = newMinutes - currentMinutes;
+
+    if(minutesToAdd > 0){
+        await docRef.set({
+            minutes: firebase.firestore.FieldValue.increment(minutesToAdd),
+            date: todayDate
+        }, {merge: true});
+
+        console.log("Dodany czas do firestore: " + minutesToAdd);
+    }else{
+        console.log("Nie ma nic do dodania");
+    }
+    });
+}
 
 async function loadStudyTipsJson(){
     const json = await fetch("../data/studyTips.json");
@@ -414,4 +445,8 @@ FortyFiveMinutes.addEventListener("click", ()=> {
     savedTime = timeInSeconds;
     originalSessionTime = timeInSeconds;
     updateDisplay();
+});
+
+sendSavedTimeToFirebase(totalMinutes);
+
 });
