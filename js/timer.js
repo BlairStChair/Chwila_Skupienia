@@ -8,8 +8,6 @@ const FifteenMinutes = document.querySelector("#FifteenMinutes");;
 const ThirtyMinutes = document.querySelector("#ThirtyMinutes");
 const FortyFiveMinutes = document.querySelector("#FortyFiveMinutes");
 
-//IDŹ DO STARTTIMER I NAPRAW
-
 stopTimer.disabled = true;
 resetTimer.disabled = true;
 
@@ -97,10 +95,6 @@ function updateDisplay() {
 }
 
 async function startShortBreak() {
-    countMinutes(shortBreakSeconds / 60);
-
-    console.log("Ile minut się naliczyło: ", totalMinutes);
-
     // shortBreakSeconds = Math.floor(originalSessionTime / 5);
     // console.log(shortBreakSeconds);
 
@@ -109,6 +103,28 @@ async function startShortBreak() {
     }else{
         shortBreakSeconds = Math.floor(originalSessionTime / 5);
     }
+
+//     timeInSeconds = 1500;
+// var timeInMinutes = 25;
+// let shortBreak = 0;
+// let shortBreakSeconds = 0;
+// let longBreak = 0;
+// let longBreakSeconds = 0;
+// let currentShortBreakTime = shortBreakSeconds;
+// let currentLongBreakTime
+// let savedTime = 1500;
+// let originalSessionTime = 1500;
+    console.log(timeInSeconds);
+    console.log(timeInMinutes);
+    console.log(shortBreak);
+    console.log(shortBreakSeconds);
+    console.log(currentShortBreakTime);
+    console.log(savedTime);
+    console.log(originalSessionTime);
+
+    countMinutes(originalSessionTime / 60);
+
+    console.log("Ile minut się naliczyło: ", totalMinutes);
 
     currentShortBreakTime = shortBreakSeconds;
 
@@ -142,7 +158,7 @@ async function startShortBreak() {
 }
 
 async function startLongBreak() {
-    countMinutes(longBreakSeconds / 60);
+    countMinutes(timeInSeconds / 60);
 
     console.log("Ile minut się naliczyło: ", totalMinutes);
 
@@ -154,6 +170,10 @@ async function startLongBreak() {
     }else{
         longBreakSeconds = Math.floor((originalSessionTime * 4) / 5);
     }
+
+    countMinutes(originalSessionTime / 60);
+
+    console.log("Ile minut się naliczyło: ", totalMinutes);
 
     currentLongBreakTime = longBreakSeconds;
 
@@ -185,7 +205,8 @@ async function startLongBreak() {
 }
 
 function startSession() {
-    countMinutes(originalSessionTime / 60);
+    // countMinutes(originalSessionTime / 60);
+
     tipContentDiv.style.display = "none";
 
     mode = "session";
@@ -271,7 +292,6 @@ startTimer.addEventListener("click", () => {
 //     originalSessionTime = timeInSeconds;
 //     startSession();
 
-    //MUSZE TO ZMIENIC BO PSUJE TO PUSZCZENIE TIMERA
     if(mode === "session"){
         if (timeInSeconds <= 0) {
         timeInSeconds = originalSessionTime;
