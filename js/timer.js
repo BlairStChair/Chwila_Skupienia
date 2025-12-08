@@ -337,7 +337,14 @@ resetTimer.addEventListener("click", () => {
         longBreakInterval = null;
     }
 
+    intervalID = null;
+    shortBreakInterval = null
+    longBreakInterval = null
+
+    mode = "session";
     timeInSeconds = originalSessionTime;
+    savedTime = 0;
+    
     updateDisplay();
 
     tipContentDiv.style.display = "none";
