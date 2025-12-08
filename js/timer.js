@@ -10,6 +10,8 @@ const FortyFiveMinutes = document.querySelector("#FortyFiveMinutes");
 
 //IDŹ DO STARTTIMER I NAPRAW
 
+stopTimer.disabled = true;
+
 var timeInSeconds = 1500;
 var timeInMinutes = 25;
 let shortBreak = 0;
@@ -242,6 +244,8 @@ subtractTime.addEventListener("click", () => {
 });
 
 startTimer.addEventListener("click", () => {
+    stopTimer.disabled = false;
+
     if(intervalID !== null || shortBreakInterval !== null || longBreakInterval !== null){
         return;
     }
@@ -258,19 +262,22 @@ startTimer.addEventListener("click", () => {
 
     //MUSZE TO ZMIENIC BO PSUJE TO PUSZCZENIE TIMERA
     if(intervalID){
-        if (timeInSeconds <= 0) timeInSeconds = originalSessionTime;
+        if (timeInSeconds <= 0) {
+        timeInSeconds = originalSessionTime;
+        }
+
         savedTime = timeInSeconds;
         originalSessionTime = timeInSeconds;
         startSession();
     }
 
-    else if(currentMode === "shortBreak"){
+    else if(shortBreakInterval){
         if (shortBreakSeconds <= 0) shortBreakSeconds = originalShortBreakTime;
         savedTime = shortBreakSeconds;
         startShortBreak();
     }
 
-    else if(currentMode === "longBreak"){
+    else if(longBreakInterval){
         if (longBreakSeconds <= 0) longBreakSeconds = originalLongBreakTime;
         savedTime = longBreakSeconds;
         startLongBreak();
