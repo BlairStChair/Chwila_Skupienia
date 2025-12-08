@@ -209,8 +209,6 @@ addTime.addEventListener("click", () => {
     updateDisplay();
 
     startTimer.disabled = false;
-    stopTimer.disabled = false;
-    resetTimer.disabled = false;
     subtractTime.disabled = false;
 
     console.log("time in seconds:" + timeInSeconds);
@@ -235,8 +233,6 @@ subtractTime.addEventListener("click", () => {
         updateDisplay();
 
         startTimer.disabled = false;
-        stopTimer.disabled = false;
-        resetTimer.disabled = false;
 
         console.log("time in seconds:" + timeInSeconds);
         console.log("short break:" + shortBreak);
