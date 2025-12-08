@@ -8,6 +8,9 @@ const FifteenMinutes = document.querySelector("#FifteenMinutes");;
 const ThirtyMinutes = document.querySelector("#ThirtyMinutes");
 const FortyFiveMinutes = document.querySelector("#FortyFiveMinutes");
 
+const auth = firebase.auth();
+const db = firebase.firestore();
+
 stopTimer.disabled = true;
 resetTimer.disabled = true;
 

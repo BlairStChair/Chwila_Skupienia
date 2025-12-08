@@ -26,7 +26,7 @@ function getWeeklyDates(){
 
         weeklyDates.push(date.toLocaleDateString("default",
             {
-                day: "numeric", month: "short"
+                day: "numeric", month: "long"
             }
         ));
     }
