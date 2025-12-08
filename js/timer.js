@@ -21,7 +21,6 @@ let currentShortBreakTime = shortBreakSeconds;
 let currentLongBreakTime = longBreakSeconds;
 
 let sessionsCounter = 0;
-let buttonsDisabled = false;
 
 let savedTime = 1500;
 let originalSessionTime = 1500;
@@ -30,6 +29,7 @@ let shortBreakInterval = null;
 let longBreakInterval = null;
 
 let mode = "session";
+let buttonsDisabled = false;
 
 const displayTime = document.createElement("p");
 timer.appendChild(displayTime);
@@ -48,7 +48,19 @@ let totalMinutes = 0;
 
 async function countMinutes(addedMinutes){
     totalMinutes = totalMinutes + addedMinutes;
+    localStorage.setItem("todaySavedMinutes", totalMinutes);
+    console.log(localStorage.getItem("todaySavedMinutes"));
 }
+
+async function loadSavedTime(){
+    let saved = localStorage.getItem("todaySavedMinutes");
+    if(saved){
+        totalMinutes = Number(saved);
+    }
+    console.log("Wczytany czas: " + localStorage.getItem("todaySavedMinutes"));
+}
+
+loadSavedTime();
 
 async function loadStudyTipsJson(){
     const json = await fetch("../data/studyTips.json");
