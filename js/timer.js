@@ -11,6 +11,7 @@ const FortyFiveMinutes = document.querySelector("#FortyFiveMinutes");
 //IDŹ DO STARTTIMER I NAPRAW
 
 stopTimer.disabled = true;
+resetTimer.disabled = true;
 
 var timeInSeconds = 1500;
 var timeInMinutes = 25;
@@ -245,6 +246,7 @@ subtractTime.addEventListener("click", () => {
 
 startTimer.addEventListener("click", () => {
     stopTimer.disabled = false;
+    resetTimer.disabled = false;
 
     if(intervalID !== null || shortBreakInterval !== null || longBreakInterval !== null){
         return;
@@ -261,7 +263,7 @@ startTimer.addEventListener("click", () => {
 //     startSession();
 
     //MUSZE TO ZMIENIC BO PSUJE TO PUSZCZENIE TIMERA
-    if(intervalID){
+    if(mode = "session"){
         if (timeInSeconds <= 0) {
         timeInSeconds = originalSessionTime;
         }
@@ -271,14 +273,14 @@ startTimer.addEventListener("click", () => {
         startSession();
     }
 
-    else if(shortBreakInterval){
-        if (shortBreakSeconds <= 0) shortBreakSeconds = originalShortBreakTime;
+    if(mode = "shortBreak"){
+        if (shortBreakSeconds <= 0) shortBreakSeconds = currentLongBreakTime;
         savedTime = shortBreakSeconds;
         startShortBreak();
     }
 
-    else if(longBreakInterval){
-        if (longBreakSeconds <= 0) longBreakSeconds = originalLongBreakTime;
+    else if(mode = "longBreak"){
+        if (longBreakSeconds <= 0) longBreakSeconds = currentLongBreakTime;
         savedTime = longBreakSeconds;
         startLongBreak();
     }
@@ -336,9 +338,7 @@ resetTimer.addEventListener("click", () => {
 FifteenMinutes.addEventListener("click", ()=> {
     subtractTime.disabled = false;
     startTimer.disabled = false;
-    stopTimer.disabled = false;
-    resetTimer.disabled = false;
-
+    
     timeInSeconds = 900;
     savedTime = timeInSeconds;
     originalSessionTime = timeInSeconds;
@@ -348,8 +348,6 @@ FifteenMinutes.addEventListener("click", ()=> {
 ThirtyMinutes.addEventListener("click", ()=> {
     subtractTime.disabled = false;
     startTimer.disabled = false;
-    stopTimer.disabled = false;
-    resetTimer.disabled = false;
 
     timeInSeconds = 1800;
     savedTime = timeInSeconds;
@@ -360,8 +358,6 @@ ThirtyMinutes.addEventListener("click", ()=> {
 FortyFiveMinutes.addEventListener("click", ()=> {
     subtractTime.disabled = false;
     startTimer.disabled = false;
-    stopTimer.disabled = false;
-    resetTimer.disabled = false;
 
     timeInSeconds = 2700;
     savedTime = timeInSeconds;
