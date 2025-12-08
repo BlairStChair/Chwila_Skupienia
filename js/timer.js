@@ -134,8 +134,8 @@ async function startShortBreak() {
             timeInSeconds = savedTime;
 
             tipContentDiv.style.display = "none";
-
-            updateDisplay();
+            timeInSeconds = originalSessionTime;
+            // updateDisplay();
             startSession();
             }
     }, 1000);
@@ -177,8 +177,8 @@ async function startLongBreak() {
             timeInSeconds = savedTime;
 
             tipContentDiv.style.display = "none";
-
-            updateDisplay();
+            timeInSeconds = originalSessionTime;
+            // updateDisplay();
             startSession();
         }
     }, 1000);
