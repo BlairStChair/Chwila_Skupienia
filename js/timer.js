@@ -343,8 +343,8 @@ startTimer.addEventListener("click", () => {
         timeInSeconds = originalSessionTime;
         }
 
-        savedTime = timeInSeconds;
-        originalSessionTime = timeInSeconds;
+        // savedTime = timeInSeconds;
+        // originalSessionTime = timeInSeconds;
         startSession();
     }
 
@@ -362,12 +362,21 @@ startTimer.addEventListener("click", () => {
 });
 
 stopTimer.addEventListener("click", () => {
+    console.log(timeInSeconds);
+    console.log(timeInMinutes);
+    console.log(shortBreak);
+    console.log(shortBreakSeconds);
+    console.log(currentShortBreakTime);
+    console.log(savedTime);
+    console.log(originalSessionTime);
+
     addTime.disabled = true;
     subtractTime.disabled = true;
 
     if(intervalID){
         clearInterval(intervalID);
         intervalID = null;
+        savedTime = timeInSeconds;
     }
     if(shortBreakInterval){
         clearInterval(shortBreakInterval);
@@ -380,12 +389,13 @@ stopTimer.addEventListener("click", () => {
         savedTime = currentLongBreakTime;
     }
 
-    
-
     console.log("Zapisany czas: " + savedTime);
 });
 
 resetTimer.addEventListener("click", () => {
+    console.log(savedTime);
+    console.log(originalSessionTime);
+
     addTime.disabled = false;
     subtractTime.disabled = false;
 
@@ -411,7 +421,12 @@ resetTimer.addEventListener("click", () => {
     mode = "session";
     timeInSeconds = originalSessionTime;
     savedTime = 0;
-    
+
+    shortBreakSeconds = Math.floor(originalSessionTime / 5);
+    longBreakSeconds = Math.floor((originalSessionTime * 4) / 5);
+    currentShortBreakTime = shortBreakSeconds;
+    currentLongBreakTime = longBreakSeconds;
+
     updateDisplay();
 
     tipContentDiv.style.display = "none";
