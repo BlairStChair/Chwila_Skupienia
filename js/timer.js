@@ -97,7 +97,7 @@ function updateDisplay() {
 }
 
 async function startShortBreak() {
-    countMinutes(timeInMinutes);
+    countMinutes(shortBreakSeconds / 60);
 
     console.log("Ile minut się naliczyło: ", totalMinutes);
 
@@ -142,7 +142,7 @@ async function startShortBreak() {
 }
 
 async function startLongBreak() {
-    countMinutes(timeInMinutes);
+    countMinutes(longBreakSeconds / 60);
 
     console.log("Ile minut się naliczyło: ", totalMinutes);
 
@@ -185,6 +185,7 @@ async function startLongBreak() {
 }
 
 function startSession() {
+    countMinutes(originalSessionTime / 60);
     tipContentDiv.style.display = "none";
 
     mode = "session";
