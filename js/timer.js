@@ -101,8 +101,14 @@ async function startShortBreak() {
 
     console.log("Ile minut się naliczyło: ", totalMinutes);
 
-    shortBreakSeconds = Math.floor(originalSessionTime / 5);
-    console.log(shortBreakSeconds);
+    // shortBreakSeconds = Math.floor(originalSessionTime / 5);
+    // console.log(shortBreakSeconds);
+
+    if(savedTime != 0 && savedTime < Math.floor(originalSessionTime / 5)){
+        shortBreakSeconds = savedTime;
+    }else{
+        shortBreakSeconds = Math.floor(originalSessionTime / 5);
+    }
 
     currentShortBreakTime = shortBreakSeconds;
 
@@ -140,8 +146,14 @@ async function startLongBreak() {
 
     console.log("Ile minut się naliczyło: ", totalMinutes);
 
-    longBreakSeconds = Math.floor((originalSessionTime * 4) / 5);
-    console.log(longBreakSeconds);
+    // longBreakSeconds = Math.floor((originalSessionTime * 4) / 5);
+    // console.log(longBreakSeconds);
+
+    if(savedTime != 0 && savedTime < Math.floor((originalSessionTime * 4) / 5)){
+        longBreakSeconds = savedTime;
+    }else{
+        longBreakSeconds = Math.floor((originalSessionTime * 4) / 5);
+    }
 
     currentLongBreakTime = longBreakSeconds;
 
@@ -259,7 +271,7 @@ startTimer.addEventListener("click", () => {
 //     startSession();
 
     //MUSZE TO ZMIENIC BO PSUJE TO PUSZCZENIE TIMERA
-    if(mode = "session"){
+    if(mode === "session"){
         if (timeInSeconds <= 0) {
         timeInSeconds = originalSessionTime;
         }
@@ -269,15 +281,15 @@ startTimer.addEventListener("click", () => {
         startSession();
     }
 
-    if(mode = "shortBreak"){
-        if (shortBreakSeconds <= 0) shortBreakSeconds = currentLongBreakTime;
-        savedTime = shortBreakSeconds;
+    else if(mode === "shortBreak"){
+        // if (shortBreakSeconds <= 0) shortBreakSeconds = savedTime;
+        // savedTime = shortBreakSeconds;
         startShortBreak();
     }
 
-    else if(mode = "longBreak"){
-        if (longBreakSeconds <= 0) longBreakSeconds = currentLongBreakTime;
-        savedTime = longBreakSeconds;
+    else if(mode === "longBreak"){
+        // if (longBreakSeconds <= 0) longBreakSeconds = savedTime;
+        // savedTime = longBreakSeconds;
         startLongBreak();
     }
 });
