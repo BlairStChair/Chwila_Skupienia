@@ -14,7 +14,16 @@ auth.onAuthStateChanged(async (user) => {
 
     getMonth();
 
-    await getUsersFriends(user.uid);
+    await getUsersList(user.uid);
+
+    friendsList.push({
+        id: user.uid, 
+        fromDisplayName: userData.displayName,
+        fromUid: user.uid,
+        to: [], 
+        status: "self"
+    });
+
     friendsList = await addMonthlyMinutesToFriendsList(friendsList);
 });
 
@@ -27,7 +36,7 @@ function getMonth(){
     console.log("rankingDate: ", rankingDate);
 }
 
-async function getUsersFriends(currentUserUID){
+async function getUsersList(currentUserUID){
     let friendRequestsSnapshot = await db.collection("friendRequests").get();
     console.log(friendRequestsSnapshot);
 
@@ -76,5 +85,11 @@ async function addMonthlyMinutesToFriendsList(friends) {
     }
     return friends;
   }
+
+function setRanking(){
+    for(let i = 0; i < friendsList.length(); i ++){
+        
+    }
+}
 
 });
