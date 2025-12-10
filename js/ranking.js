@@ -3,19 +3,29 @@ document.addEventListener("DOMContentLoaded", () => {
 const auth = firebase.auth();
 const db = firebase.firestore();
 
-let totalMonthlyMinutes = 0;
-
+let rankingDate;
 let currentUserName = "";
-let invitesResults = [];
+let friendsList = [];
 
 auth.onAuthStateChanged(async (user) => {
     currentUserName = await db.collection("users").doc(user.uid).get();
     const userData = currentUserName.data();
     const userName = currentUserName.data();
 
+    getMonth();
+
     await getUsersFriends(user.uid);
-    getMonthlyMinutes();
+    friendsList = await addMonthlyMinutesToFriendsList(friendsList);
 });
+
+function getMonth(){
+    let todayDate = new Date();
+    let year = todayDate.getFullYear()
+    let month = todayDate.getMonth() + 1;
+    rankingDate = year + "-" + month;
+
+    console.log("rankingDate: ", rankingDate);
+}
 
 async function getUsersFriends(currentUserUID){
     let friendRequestsSnapshot = await db.collection("friendRequests").get();
@@ -37,23 +47,34 @@ async function getUsersFriends(currentUserUID){
 
     console.log(usersAcceptedFriends);
 
-    invitesResults = usersAcceptedFriends.filter(request =>
+    friendsList = usersAcceptedFriends.filter(request =>
         request.to.includes(currentUserUID) && request.status === "accepted"
     );  
-    console.log(invitesResults);
+    console.log(friendsList);
 };
 
-function countUsersMinutes(){
+async function countUsersMinutes(uid){
+    let totalMonthlyMinutes = 0;
 
+    let userRef = db.collection("sessionsInfo").doc(uid).collection("stats");
+    let userSnapshot = await userRef.get();
+
+    userSnapshot.forEach(doc => {
+    let data = doc.data();
+    if(data.date && data.date.startsWith(rankingDate)){
+        totalMonthlyMinutes += data.minutes || 0;
+    }
+  });
+
+  console.log(totalMonthlyMinutes);
+  return totalMonthlyMinutes;
 }
 
-function getMonthlyMinutes(){
-    let todayDate = new Date();
-    let year = todayDate.getFullYear()
-    let month = todayDate.getMonth();
-    let rankingDate = year + "-" + month;
-
-    console.log("rankingDate: ", rankingDate);
-}
+async function addMonthlyMinutesToFriendsList(friends) {
+    for(let friend of friends){
+        friend.totalMonthlyMinutes = await countUsersMinutes(friend.fromUid);
+    }
+    return friends;
+  }
 
 });
