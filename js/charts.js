@@ -3,10 +3,11 @@ document.addEventListener("DOMContentLoaded", () => {
 const auth = firebase.auth();
 const db = firebase.firestore();
 
+let weeklyDatesToGetData = [];
+
 function getWeeklyDates(){
     let todayDate = new Date();
     let weeklyDatesToDisplay = [];
-    let weeklyDatesToGetData = [];
     let dayOfWeek = todayDate.getDay();
     let DaysToMonday = 0;
     let monday = new Date(todayDate);
@@ -46,10 +47,27 @@ function getWeeklyDates(){
 
 async function getUserTime(){
   auth.onAuthStateChanged(async (user) => {
+    let uid = user.uid;
+    let downloadedMinutes = []
+
+    for(let i = 0; i < 7; i++){
+      let docRef = db.collection("sessionsInfo").doc(uid).collection("stats").doc(weeklyDatesToGetData[i]);
+      let docSnap = await docRef.get();
+
+      //Wczesniej nie mialam takiego warunku ale musialam go dodac poniewaz dla jednego 
+      // dnia tygodnia nie mialam zadnego rekordu wiec wywalalo blad
+      if(docSnap.exists){
+        downloadedMinutes.push(docSnap.data().minutes | 0);
+      }else{
+        downloadedMinutes.push(0);
+      } 
+    }
+    console.log(downloadedMinutes);
     let TimeDataArray= [];
-    getWeeklyDates();
   });
 }
+
+getUserTime();
 
 yValues = [1,2,3,4,5,6,7];
 
