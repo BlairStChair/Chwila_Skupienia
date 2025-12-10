@@ -15,6 +15,12 @@ async function loadDiffrentUserProfile(){
 
   username.textContent = userData.displayName;
   avatarImg.src = userData.photoURL || "../assets/img/user-solid.svg";
+
+  let stats = await getUserStats(userUID);
+
+  console.log("Statystyki znajomego:", stats);
+
+  createChart(stats);
 };
 
 loadDiffrentUserProfile();

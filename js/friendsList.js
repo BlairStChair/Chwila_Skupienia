@@ -243,6 +243,7 @@ usersFriends.addEventListener("click", async (e) => {
         nameSpan.addEventListener("click", () => {
             window.location.href = `../pages/diffrentUserProfilePage.html?uid=${request.fromUid}`;
             console.log("fromUid:", request.fromUid);
+            
         }); 
     }
     }

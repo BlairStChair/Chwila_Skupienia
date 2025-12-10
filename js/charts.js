@@ -47,34 +47,73 @@ function getWeeklyDates(){
     return weeklyDatesToDisplay;
 }
 
-async function getUserTime(){
-  return new Promise(resolve => {
-  auth.onAuthStateChanged(async (user) => {
-    let uid = user.uid;
-    let downloadedMinutes = []
+// async function getUserTimeForLogged(){
+//   return new Promise(resolve => {
+//   auth.onAuthStateChanged(async (user) => {
+//     let uid = user.uid;
+//     let downloadedMinutes = [];
 
-    for(let i = 0; i < 7; i++){
-      let docRef = db.collection("sessionsInfo").doc(uid).collection("stats").doc(weeklyDatesToGetData[i]);
-      let docSnap = await docRef.get();
+//     for(let i = 0; i < 7; i++){
+//       let docRef = db.collection("sessionsInfo").doc(uid).collection("stats").doc(weeklyDatesToGetData[i]);
+//       let docSnap = await docRef.get();
 
-      //Wczesniej nie mialam takiego warunku ale musialam go dodac poniewaz dla jednego 
-      // dnia tygodnia nie mialam zadnego rekordu wiec wywalalo blad
-      if(docSnap.exists){
-        downloadedMinutes.push(docSnap.data().minutes | 0);
-      }else{
-        downloadedMinutes.push(0);
-      } 
-    }
-    console.log(downloadedMinutes);
-    let TimeDataArray= [];
-    resolve(downloadedMinutes);
-  });
-  });
+//       //Wczesniej nie mialam takiego warunku ale musialam go dodac poniewaz dla jednego 
+//       // dnia tygodnia nie mialam zadnego rekordu wiec wywalalo blad
+//       if(docSnap.exists){
+//         downloadedMinutes.push(docSnap.data().minutes | 0);
+//       }else{
+//         downloadedMinutes.push(0);
+//       } 
+//     }
+//     console.log(downloadedMinutes);
+    
+//     resolve(downloadedMinutes);
+//   });
+//   });
+// }
+
+async function getUserStats(uid){
+  let weeklyDates = getWeeklyDates();
+  let downloadedMinutes = [];
+
+  for(let i = 0; i < 7; i++){
+    let docRef = db.collection("sessionsInfo").doc(uid).collection("stats").doc(weeklyDatesToGetData[i]);
+    let docSnap = await docRef.get();
+
+    //Wczesniej nie mialam takiego warunku ale musialam go dodac poniewaz dla jednego 
+    // dnia tygodnia nie mialam zadnego rekordu wiec wywalalo blad
+    if(docSnap.exists){
+      downloadedMinutes.push(docSnap.data().minutes | 0);
+    }else{
+      downloadedMinutes.push(0);
+    } 
+  }
+  console.log(downloadedMinutes);
+  return downloadedMinutes;
 }
 
-async function createChart(){
+// async function createChart(){
+//   const labels = getWeeklyDates();
+//   const data = await getUserTime();
+//   var barColors = "#e4d4f8ff";
+
+//   new Chart("weeklyChart", {
+//     type: "bar",
+//     data: {
+//       labels: labels,
+//       datasets: [{
+//         backgroundColor: barColors,
+//         data: data
+//       }]
+//     },
+//     options: {
+//       legend: {display: false}
+//     }
+//   });
+  
+// }
+async function createChart(statsArray){
   const labels = getWeeklyDates();
-  const data = await getUserTime();
   var barColors = "#e4d4f8ff";
 
   new Chart("weeklyChart", {
@@ -83,7 +122,7 @@ async function createChart(){
       labels: labels,
       datasets: [{
         backgroundColor: barColors,
-        data: data
+        data: statsArray
       }]
     },
     options: {
@@ -93,5 +132,7 @@ async function createChart(){
   
 }
 
-createChart();
+// createChart();
+window.getUserStats = getUserStats;
+window.createChart = createChart;
 });
