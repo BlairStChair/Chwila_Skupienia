@@ -48,6 +48,7 @@ function getWeeklyDates(){
 }
 
 async function getUserTime(){
+  return new Promise(resolve => {
   auth.onAuthStateChanged(async (user) => {
     let uid = user.uid;
     let downloadedMinutes = []
@@ -66,29 +67,31 @@ async function getUserTime(){
     }
     console.log(downloadedMinutes);
     let TimeDataArray= [];
-    return downloadedMinutes;
+    resolve(downloadedMinutes);
+  });
   });
 }
 
 async function createChart(){
+  const labels = getWeeklyDates();
+  const data = await getUserTime();
+  var barColors = "#e4d4f8ff";
+
+  new Chart("weeklyChart", {
+    type: "bar",
+    data: {
+      labels: labels,
+      datasets: [{
+        backgroundColor: barColors,
+        data: data
+      }]
+    },
+    options: {
+      legend: {display: false}
+    }
+  });
   
 }
 
-yValues = [1,2,3,4,5,6,7];
-
-var barColors = "#e4d4f8ff";
-
-new Chart("weeklyChart", {
-  type: "bar",
-  data: {
-    labels: getWeeklyDates(),
-    datasets: [{
-      backgroundColor: barColors,
-      data: getUserTime()
-    }]
-  },
-  options: {
-    legend: {display: false}
-  }
-});
+createChart();
 });
