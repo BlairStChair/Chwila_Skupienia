@@ -18,6 +18,12 @@ auth.onAuthStateChanged(async (user) => {
     } else {
         avatarImg.src = "../assets/img/user-solid.svg"; 
     }
+
+    let stats = await getUserStats(userData.uid);
+
+    console.log("Statystyki znajomego:", stats);
+
+    createChart(stats);
 });
 });
 

@@ -47,7 +47,7 @@ function getWeeklyDates(){
     return weeklyDatesToDisplay;
 }
 
-// async function getUserTimeForLogged(){
+// async function getUserTime(){
 //   return new Promise(resolve => {
 //   auth.onAuthStateChanged(async (user) => {
 //     let uid = user.uid;
