@@ -1,7 +1,12 @@
 document.addEventListener("DOMContentLoaded", () => {
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+
 function getWeeklyDates(){
     let todayDate = new Date();
-    let weeklyDates = [];
+    let weeklyDatesToDisplay = [];
+    let weeklyDatesToGetData = [];
     let dayOfWeek = todayDate.getDay();
     let DaysToMonday = 0;
     let monday = new Date(todayDate);
@@ -24,19 +29,30 @@ function getWeeklyDates(){
         let date = new Date(monday);
         date.setDate(monday.getDate() - i);
 
-        weeklyDates.push(date.toLocaleDateString("default",
+        weeklyDatesToDisplay.push(date.toLocaleDateString("default",
             {
                 day: "numeric", month: "long"
             }
         ));
+
+        weeklyDatesToGetData.push(date.toISOString().split("T")[0]);
     }
 
     // weeklyDates.push("Today");
-    console.log(weeklyDates);
-    return weeklyDates;
+    console.log(weeklyDatesToDisplay);
+    console.log(weeklyDatesToGetData);
+    return weeklyDatesToDisplay;
 }
 
-var yValues = [10.5, 9, 7.5, 6, 4.5, 3, 1.5];
+async function getUserTime(){
+  auth.onAuthStateChanged(async (user) => {
+    let TimeDataArray= [];
+    getWeeklyDates();
+  });
+}
+
+yValues = [1,2,3,4,5,6,7];
+
 var barColors = "#e4d4f8ff";
 
 new Chart("weeklyChart", {
