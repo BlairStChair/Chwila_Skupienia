@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chwila Skupienia</title>
     <link rel="stylesheet" href="../css/styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
 <body>
     <div class="profileMainContainer">
@@ -33,12 +34,7 @@
                     <h1>Ten Tydzień</h1>
                     </div>
                     <div class="weeklyStatisticsContent">
-                        wrzucam tu cokolwiek żebym widziała co robie
-                        <div class="statItem">
-                            <ul>
-                                <li class="statTitle">Sesje</li>
-                                <li class="sessionsCount">0</li>  
-                        </div>
+                            <canvas id="weeklyChart" style="width:100%;max-width:700px"></canvas>
                     </div>
                 <div class="monthlyStatistics">
                     <div class="monthlyStatisticsHeader">
@@ -85,6 +81,7 @@
 
     <script src="../js/firebase.js"></script>
     <script src="../js/diffrentUserProfileLoad.js"></script>
+    <script src="../js/charts.js"></script>
     <!-- <script src="../js/displayUsernameAvatar.js"></script> -->
     
     <!-- <script src="../js/loginUser.js"></script>  -->
