@@ -12,6 +12,8 @@ function getWeeklyDates(){
     let DaysToMonday = 0;
     let monday = new Date(todayDate);
 
+    weeklyDatesToGetData = [];
+
     console.log("monday -", monday);
     console.log(todayDate);
     console.log(dayOfWeek);
@@ -64,10 +66,13 @@ async function getUserTime(){
     }
     console.log(downloadedMinutes);
     let TimeDataArray= [];
+    return downloadedMinutes;
   });
 }
 
-getUserTime();
+async function createChart(){
+  
+}
 
 yValues = [1,2,3,4,5,6,7];
 
@@ -79,7 +84,7 @@ new Chart("weeklyChart", {
     labels: getWeeklyDates(),
     datasets: [{
       backgroundColor: barColors,
-      data: yValues
+      data: getUserTime()
     }]
   },
   options: {
