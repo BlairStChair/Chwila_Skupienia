@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
+const monthlyRankingList = document.querySelector("#monthlyRankingList");
+console.log("monthlyRankingList element:", monthlyRankingList);
 
 const auth = firebase.auth();
 const db = firebase.firestore();
@@ -25,6 +27,7 @@ auth.onAuthStateChanged(async (user) => {
     });
 
     friendsList = await addMonthlyMinutesToFriendsList(friendsList);
+    setRanking();
 });
 
 function getMonth(){
@@ -87,8 +90,13 @@ async function addMonthlyMinutesToFriendsList(friends) {
   }
 
 function setRanking(){
-    for(let i = 0; i < friendsList.length(); i ++){
-        
+    friendsList.sort((a, b) => b.totalMonthlyMinutes - a.totalMonthlyMinutes);
+
+    for(let i = 0; i < friendsList.length; i++) {
+        console.log(`${i + 1}. ${friendsList[i].fromDisplayName} - ${friendsList[i].totalMonthlyMinutes} minut`);
+        let rankingListItem = document.createElement("li");
+        rankingListItem.textContent = `${friendsList[i].fromDisplayName} - ${friendsList[i].totalMonthlyMinutes} minut`;
+        monthlyRankingList.appendChild(rankingListItem);
     }
 }
 
