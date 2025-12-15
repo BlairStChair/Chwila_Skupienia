@@ -165,9 +165,15 @@ async function countUsersMinutes(uid){
   return totalMonthlyMinutes;
 }
 
-async function addMonthlyMinutesToFriendsList(friends) {
+async function addMonthlyMinutesToFriendsList(friends){
+    let totalWholeHours = 0;
+    let totalMinutesRest = 0;
+    let totalMonthlyHours = 0;
     for(let friend of friends){
         friend.totalMonthlyMinutes = await countUsersMinutes(friend.fromUid);
+        friend.totalMinutesRest = friend.totalMonthlyMinutes % 60;
+        friend.totalWholeHours = Math.floor(friend.totalMonthlyMinutes / 60);
+        friend.totalMonthlyHours = friend.totalWholeHours + " godz. " + friend.totalMinutesRest + " min. " 
     }
     return friends;
 }
@@ -189,9 +195,9 @@ function setRanking(){
     friendsList.sort((a, b) => b.totalMonthlyMinutes - a.totalMonthlyMinutes);
 
     for(let i = 0; i < friendsList.length; i++) {
-        console.log(`${i + 1}. ${friendsList[i].fromDisplayName} - ${friendsList[i].totalMonthlyMinutes} minut`);
+        console.log(`${i + 1}. ${friendsList[i].fromDisplayName} - ${friendsList[i].totalMonthlyHours}`);
         let rankingListItem = document.createElement("li");
-        rankingListItem.textContent = `${friendsList[i].fromDisplayName} - ${friendsList[i].totalMonthlyMinutes} minut`;
+        rankingListItem.textContent = `${friendsList[i].fromDisplayName} - ${friendsList[i].totalMonthlyHours}`;
         monthlyRankingList.appendChild(rankingListItem);
     }
 }
