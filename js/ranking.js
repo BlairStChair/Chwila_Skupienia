@@ -9,22 +9,29 @@ let rankingDate;
 let currentUserName = "";
 let friendsList = [];
 
-auth.onAuthStateChanged(async (user) => {
-    
+let profileUid;
+const urlParams = new URLSearchParams(window.location.search);
+const profileUidFromUrl = urlParams.get("uid");
 
+auth.onAuthStateChanged(async (user) => {
     getMonth();
 
-    await getUsersList(user.uid);
+    profileUid = profileUidFromUrl || user.uid;
+    
+    await getUsersList(profileUid);
 
-    friendsList.push({
-        id: user.uid, 
-        fromDisplayName: userData.displayName,
-        fromUid: user.uid,
-        to: [], 
-        status: "self"
-    });
+    const profileOwner = await addCurrentUserToList(profileUid);
+    friendsList.push(profileOwner);
+    // friendsList.push({
+    //     id: user.uid, 
+    //     fromDisplayName: userData.displayName,
+    //     fromUid: user.uid,
+    //     to: [], 
+    //     status: "self"
+    // });
 
     friendsList = await addMonthlyMinutesToFriendsList(friendsList);
+    monthlyRankingList.innerHTML = "";
     setRanking();
 });
 
@@ -37,7 +44,7 @@ function getMonth(){
     console.log("rankingDate: ", rankingDate);
 }
 
-async function getUsersList(currentUserUID){
+async function getUsersList(profileUid){
     let friendRequestsSnapshot = await db.collection("friendRequests").get();
     console.log(friendRequestsSnapshot);
 
@@ -58,7 +65,7 @@ async function getUsersList(currentUserUID){
     console.log(usersAcceptedFriends);
 
     friendsList = usersAcceptedFriends.filter(request =>
-        request.to.includes(currentUserUID) && request.status === "accepted"
+        request.to.includes(profileUid) && request.status === "accepted"
     );  
     console.log(friendsList);
 };
@@ -89,7 +96,7 @@ async function addMonthlyMinutesToFriendsList(friends) {
 
 async function addCurrentUserToList(uid){
     const userDoc = await db.collection("users").doc(uid).get();
-    const userData = UserDoc.data();
+    const userData = userDoc.data();
 
     return{
         id: uid,
