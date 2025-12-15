@@ -44,31 +44,104 @@ function getMonth(){
     console.log("rankingDate: ", rankingDate);
 }
 
-async function getUsersList(profileUid){
-    let friendRequestsSnapshot = await db.collection("friendRequests").get();
-    console.log(friendRequestsSnapshot);
+// async function getUsersList(profileUid){
+//     let friendRequestsSnapshot = await db.collection("friendRequests").get();
+//     console.log(friendRequestsSnapshot);
 
-    let usersAcceptedFriends = friendRequestsSnapshot.docs.map(doc => {
-        let data = doc.data();
-        if (data.fromDisplayName){
-            return { 
-            id: doc.id,
-            fromDisplayName: data.fromDisplayName,
-            fromUid: data.fromUid, 
-            to: data.to,
-            status: data.status  
-            };
+//     //Okazało się że ta funkcja nie działa przy profilu innego użytkownika
+//     //bo wcześniejszy kod uwzględniał znajomość jako jednokierunkową a nie
+//     //brał pod uwagę że ten użytkownik wysłał mi zaproszenie które zaakceptowałam
+//     //ale ja nigdy mu zaproszenia nie wysłałam przez co nie zostałam zaliczona jako jego przyjaciel
+//     let usersAcceptedFriends = friendRequestsSnapshot.docs.map(doc => {
+//         let data = doc.data();
+//         if (data.fromDisplayName){
+//             return { 
+//             id: doc.id,
+//             fromDisplayName: data.fromDisplayName,
+//             fromUid: data.fromUid, 
+//             to: data.to,
+//             status: data.status  
+//             };
+//         }
+//         return null;
+//         }).filter(userRequest => userRequest !== null && userRequest.status === "accepted"); 
+
+//     console.log(usersAcceptedFriends);
+
+//     const friendsMap = new Map();
+
+//     usersAcceptedFriends.forEach(request => {
+//         if(request.to.includes(profileUid)){
+//             friendsMap.set(request.fromUid, {
+//                 fromUid: request.fromUid,
+//                 fromDisplayName: request.fromDisplayName
+//             });
+//         }
+//         if(request.fromUid === profileUid){
+//             request.to.forEach(uid => {
+//                 friendsMap.set(uid, {
+//                     fromUid: uid,
+//                     fromDisplayName: request.fromDisplayName
+//                 });
+//             });
+//         }
+//     });
+
+//     friendsList = Array.from(friendsMap.values());
+
+//     console.log("friends: ", friendsList);
+
+//     // friendsList = usersAcceptedFriends.filter(request =>
+//     //     request.to.includes(profileUid) || request.fromUid === profileUid)
+//     //     .map(request => {
+//     //         if(request.to.includes(profileUid)){
+//     //             frie
+//     //             return{
+//     //                 fromUid: request.fromUid,
+//     //                 fromDisplayName: request.fromDisplayName
+//     //             };
+//     //         }else{
+//     //             return{
+//     //                 fromUid: request.to[0],
+//     //                 fromDisplayName: request.fromDisplayName
+//     //             }
+//     //         }
+//     //     });  
+//     // console.log(friendsList);
+// };
+
+async function getUsersList(profileUid) {
+    const snapshot = await db.collection("friendRequests").get();
+
+    const friendUids = new Set();
+
+    snapshot.docs.forEach(doc => {
+        const data = doc.data();
+        if(data.status !== "accepted") return;
+
+        if(data.to === profileUid){
+            friendUids.add(data.fromUid);
         }
-        return null;
-        }).filter(userRequest => userRequest !== null); 
 
-    console.log(usersAcceptedFriends);
+        if(data.fromUid === profileUid){
+            friendUids.add(data.to);
+        }
+    });
 
-    friendsList = usersAcceptedFriends.filter(request =>
-        request.to.includes(profileUid) && request.status === "accepted"
-    );  
-    console.log(friendsList);
-};
+    friendsList = [];
+
+    for (const uid of friendUids) {
+        const userDoc = await db.collection("users").doc(uid).get();
+        if(userDoc.exists){
+            friendsList.push({
+                fromUid: uid,
+                fromDisplayName: userDoc.data().displayName
+            });
+        }
+    }
+
+    console.log("friendsList:", friendsList);
+}
 
 async function countUsersMinutes(uid){
     let totalMonthlyMinutes = 0;
