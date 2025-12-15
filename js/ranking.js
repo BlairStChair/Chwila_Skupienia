@@ -10,9 +10,7 @@ let currentUserName = "";
 let friendsList = [];
 
 auth.onAuthStateChanged(async (user) => {
-    currentUserName = await db.collection("users").doc(user.uid).get();
-    const userData = currentUserName.data();
-    const userName = currentUserName.data();
+    
 
     getMonth();
 
@@ -87,7 +85,20 @@ async function addMonthlyMinutesToFriendsList(friends) {
         friend.totalMonthlyMinutes = await countUsersMinutes(friend.fromUid);
     }
     return friends;
-  }
+}
+
+async function addCurrentUserToList(uid){
+    const userDoc = await db.collection("users").doc(uid).get();
+    const userData = UserDoc.data();
+
+    return{
+        id: uid,
+        fromDisplayName: userData.displayName,
+        fromUid: uid,
+        to: [],
+        status: "userToAdd"
+    };
+}
 
 function setRanking(){
     friendsList.sort((a, b) => b.totalMonthlyMinutes - a.totalMonthlyMinutes);
