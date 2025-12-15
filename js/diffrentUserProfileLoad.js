@@ -1,12 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
-const avatar = document.querySelector(".avatar");
 const avatarImg = document.querySelector("#avatarImg")
 const username = document.querySelector(".username");
 
 const urlPar = new URLSearchParams(window.location.search);
 const userUID = urlPar.get("uid");
 
-const auth = firebase.auth();
 const db = firebase.firestore();
 
 async function loadDiffrentUserProfile(){
@@ -24,5 +22,4 @@ async function loadDiffrentUserProfile(){
 };
 
 loadDiffrentUserProfile();
-
 });
