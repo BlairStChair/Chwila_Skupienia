@@ -17,14 +17,13 @@ loginForm.addEventListener("submit", async(e) => {
     console.log(emailValue);
     console.log(passwordValue);
 
-        try {
-            const userCredential = await auth.signInWithEmailAndPassword(emailValue, passwordValue);
-            console.log("Zalogowano:", userCredential.user);
-            alert("Zalogowano pomyślnie!");
-            window.location.href = "dashboardPage.html";
-        } catch (error) {
+    try{
+        const userCredential = await auth.signInWithEmailAndPassword(emailValue, passwordValue);
+        console.log("Zalogowano:", userCredential.user);
+        alert("Zalogowano pomyślnie!");
+        window.location.href = "dashboardPage.html";
+    }catch(error){
             loginForm.appendChild(invalidLogin);
-        }
-   
+    }
 });
 });

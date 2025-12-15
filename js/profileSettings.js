@@ -13,9 +13,7 @@ const newPasswordField = document.querySelector("#newPasswordField");
 const newPasswordConfirmField = document.querySelector("#newPasswordConfirmField");
 const passwordChangeBtn = document.querySelector("#passwordChangeBtn");
 
-const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
-const database = firebase.database();
 const db = firebase.firestore();
 
 function validateEmail(emailInput){
@@ -25,7 +23,6 @@ function validateEmail(emailInput){
 
 async function loadAvatar(){
     const user = auth.currentUser;
-    
     const userDoc = await db.collection("users").doc(user.uid).get();
     const userData = userDoc.data();
 
@@ -42,17 +39,17 @@ async function loadUserName(){
 }
 
 auth.onAuthStateChanged(async (user) => {
-    if (user) {
+    if(user){
         await loadAvatar();
         await loadUserName();
-    } else {
+    }else{
         console.log("Brak zalogowanego użytkownika");
     }
 });
 
 avatarFile.addEventListener("change", () => {
     avatar.src = URL.createObjectURL(avatarFile.files[0]);
-})
+});
 
 submitAvatar.addEventListener("click", async (e) => {
     e.preventDefault();
@@ -80,7 +77,7 @@ submitAvatar.addEventListener("click", async (e) => {
         alert("Zdjęcie profilowe zostało zmienione pomyślnie!");
 
         fileReader.readAsDataURL(file);
-        } catch(err){
+        }catch(err){
             console.error("Błąd", err);
             alert("Wystąpił błąd podczas zmiany zdjęcia profilowego!")
         }
@@ -172,7 +169,7 @@ passwordChangeBtn.addEventListener("click", async(e) => {
             return;
         }
         
-        if (newPasswordValue !== newPasswordConfirmValue) {
+        if(newPasswordValue !== newPasswordConfirmValue){
             alert("Nowe hasła nie są takie same!");
             oldPasswordField.value = "";
             newPasswordField.value = "";
@@ -196,5 +193,4 @@ passwordChangeBtn.addEventListener("click", async(e) => {
             alert("Wystąpił błąd podczas zmiany hasła!")
     }
 });
-
 });

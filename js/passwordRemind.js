@@ -39,18 +39,17 @@ remindPasswordForm.addEventListener("submit", async(e) => {
 
             if(querySnapshot.empty){
                 remindPasswordForm.appendChild(invalidEmail);
-            return;
+                return;
             }else{
-
-            await auth.sendPasswordResetEmail(emailValue);
-            console.log("Wysłano email resetujący hasło do:", emailValue);
-            alert("Wysłano wiadomość do resetowania hasła!");
-            window.location.href = "loginPage.html";
+                await auth.sendPasswordResetEmail(emailValue);
+                console.log("Wysłano email resetujący hasło do:", emailValue);
+                alert("Wysłano wiadomość do resetowania hasła!");
+                window.location.href = "loginPage.html";
             }
         }catch(error){
             console.error("Błąd resetowania hasła:", error.message);
-            if(!remindPasswordForm.contains(invalidEmail)) {
-            remindPasswordForm.appendChild(invalidEmail);
+            if(!remindPasswordForm.contains(invalidEmail)){
+                remindPasswordForm.appendChild(invalidEmail);
             }
             remindPasswordForm.appendChild(invalidEmail);
         }

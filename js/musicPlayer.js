@@ -79,5 +79,4 @@ playStop.addEventListener("click", () => {
 
 previousSong.addEventListener("click", previousSongFunction);
 nextSong.addEventListener("click", nextSongFunction);
-
 });

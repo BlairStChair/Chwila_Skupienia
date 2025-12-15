@@ -6,7 +6,6 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 let rankingDate;
-let currentUserName = "";
 let friendsList = [];
 
 let profileUid;
@@ -22,13 +21,6 @@ auth.onAuthStateChanged(async (user) => {
 
     const profileOwner = await addCurrentUserToList(profileUid);
     friendsList.push(profileOwner);
-    // friendsList.push({
-    //     id: user.uid, 
-    //     fromDisplayName: userData.displayName,
-    //     fromUid: user.uid,
-    //     to: [], 
-    //     status: "self"
-    // });
 
     friendsList = await addMonthlyMinutesToFriendsList(friendsList);
     monthlyRankingList.innerHTML = "";
@@ -44,81 +36,15 @@ function getMonth(){
     console.log("rankingDate: ", rankingDate);
 }
 
-// async function getUsersList(profileUid){
-//     let friendRequestsSnapshot = await db.collection("friendRequests").get();
-//     console.log(friendRequestsSnapshot);
-
-//     //Okazało się że ta funkcja nie działa przy profilu innego użytkownika
-//     //bo wcześniejszy kod uwzględniał znajomość jako jednokierunkową a nie
-//     //brał pod uwagę że ten użytkownik wysłał mi zaproszenie które zaakceptowałam
-//     //ale ja nigdy mu zaproszenia nie wysłałam przez co nie zostałam zaliczona jako jego przyjaciel
-//     let usersAcceptedFriends = friendRequestsSnapshot.docs.map(doc => {
-//         let data = doc.data();
-//         if (data.fromDisplayName){
-//             return { 
-//             id: doc.id,
-//             fromDisplayName: data.fromDisplayName,
-//             fromUid: data.fromUid, 
-//             to: data.to,
-//             status: data.status  
-//             };
-//         }
-//         return null;
-//         }).filter(userRequest => userRequest !== null && userRequest.status === "accepted"); 
-
-//     console.log(usersAcceptedFriends);
-
-//     const friendsMap = new Map();
-
-//     usersAcceptedFriends.forEach(request => {
-//         if(request.to.includes(profileUid)){
-//             friendsMap.set(request.fromUid, {
-//                 fromUid: request.fromUid,
-//                 fromDisplayName: request.fromDisplayName
-//             });
-//         }
-//         if(request.fromUid === profileUid){
-//             request.to.forEach(uid => {
-//                 friendsMap.set(uid, {
-//                     fromUid: uid,
-//                     fromDisplayName: request.fromDisplayName
-//                 });
-//             });
-//         }
-//     });
-
-//     friendsList = Array.from(friendsMap.values());
-
-//     console.log("friends: ", friendsList);
-
-//     // friendsList = usersAcceptedFriends.filter(request =>
-//     //     request.to.includes(profileUid) || request.fromUid === profileUid)
-//     //     .map(request => {
-//     //         if(request.to.includes(profileUid)){
-//     //             frie
-//     //             return{
-//     //                 fromUid: request.fromUid,
-//     //                 fromDisplayName: request.fromDisplayName
-//     //             };
-//     //         }else{
-//     //             return{
-//     //                 fromUid: request.to[0],
-//     //                 fromDisplayName: request.fromDisplayName
-//     //             }
-//     //         }
-//     //     });  
-//     // console.log(friendsList);
-// };
-
 async function getUsersList(profileUid) {
     const snapshot = await db.collection("friendRequests").get();
 
     const friendUids = new Set();
 
-    //     //Okazało się że ta funkcja nie działa przy profilu innego użytkownika
-//     //bo wcześniejszy kod uwzględniał znajomość jako jednokierunkową a nie
-//     //brał pod uwagę że ten użytkownik wysłał mi zaproszenie które zaakceptowałam
-//     //ale ja nigdy mu zaproszenia nie wysłałam przez co nie zostałam zaliczona jako jego przyjaciel
+    //Okazało się że ta funkcja nie działa przy profilu innego użytkownika
+    //bo wcześniejszy kod uwzględniał znajomość jako jednokierunkową a nie
+    //brał pod uwagę że ten użytkownik wysłał mi zaproszenie które zaakceptowałam
+    //ale ja nigdy mu zaproszenia nie wysłałam przez co nie zostałam zaliczona jako jego przyjaciel
 
     snapshot.docs.forEach(doc => {
         const data = doc.data();
@@ -201,5 +127,4 @@ function setRanking(){
         monthlyRankingList.appendChild(rankingListItem);
     }
 }
-
 });

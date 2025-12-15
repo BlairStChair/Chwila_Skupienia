@@ -56,13 +56,12 @@ passwordResetBtn.addEventListener("click", async(e) => {
             return;
         }
 
-        if(newPasswordValue )
-
+        if(newPasswordValue)
         await auth.confirmPasswordReset(oobCode, newPasswordValue);
         alert("Hasło zmieniono pomyślnie");
         setTimeout(() => { window.location.href = '../pages/loginPage.html'; }, 2000);
     }catch(err){
-            console.error("Błąd", err);
+        console.error("Błąd", err);
     }
 });
 });

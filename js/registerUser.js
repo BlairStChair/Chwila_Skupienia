@@ -5,9 +5,7 @@ const newUserPassword = document.querySelector(".newUserPassword");
 const newUserPasswordConfirm = document.querySelector(".newUserPasswordConfirm");
 const registrationForm = document.querySelector("form");
 
-const app = firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
-const database = firebase.database();
 const db = firebase.firestore();
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -26,14 +24,14 @@ console.log("Auth z window:", window.auth);
 console.log("Czy window.auth to obiekt:", typeof window.auth);
 
 async function writeUsername(user) {
-  try {
+  try{
     await db.collection("users").doc(user.uid).set({
       displayName: newUserName.value,
       email: user.email,
       uid: user.uid
     });
     console.log("Sukces", user.uid);
-  } catch (err) {
+  } catch(err){
     console.error("Błąd", err);
   }
 }
@@ -56,20 +54,20 @@ registrationForm.addEventListener("submit", async(e) => {
     }else{
         invalidEmail.remove();
     if(newPasswordValue !== newPasswordConfirmValue){
-    if(!registrationForm.contains(invalidPassword)){
-        registrationForm.appendChild(invalidPassword);
-    }
+      if(!registrationForm.contains(invalidPassword)){
+          registrationForm.appendChild(invalidPassword);
+      }
     return;
     }else{
-    if(registrationForm.contains(invalidPassword)){
+      if(registrationForm.contains(invalidPassword)){
         registrationForm.removeChild(invalidPassword);
-    }
+      }
 }
 }
     
   try{
    
-console.log("Rejestruję użytkownika...");
+    console.log("Rejestruję użytkownika...");
     const userCredential = await auth.createUserWithEmailAndPassword(newEmailValue, newPasswordValue);
     const user = userCredential.user;
 
@@ -79,13 +77,11 @@ console.log("Rejestruję użytkownika...");
     await writeUsername(user);
     
     console.log("Zarejestrowano:", user);
-            alert("Rejestracja przebiegła pomyślnie!");
-            window.location.href = "loginPage.html";
+    alert("Rejestracja przebiegła pomyślnie!");
+    window.location.href = "loginPage.html";
+  }catch(error){
+    console.error("Błąd rejestracji:", error.message);
+    alert("Coś jest nie tak.");
   }
-  catch (error) {
-            console.error("Błąd rejestracji:", error.message);
-            alert("Coś jest nie tak.");
-        }
-   
 });
 });

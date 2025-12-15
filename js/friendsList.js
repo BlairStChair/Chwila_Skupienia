@@ -206,27 +206,6 @@ usersFriends.addEventListener("click", async (e) => {
     let friendRequestsSnapshot = await db.collection("friendRequests").get();
     console.log(friendRequestsSnapshot);
 
-    // let usersAcceptedFriends = friendRequestsSnapshot.docs.map(doc => {
-    //     let data = doc.data();
-    //     if (data.fromDisplayName){
-    //         return { 
-    //         id: doc.id,
-    //         fromDisplayName: data.fromDisplayName,
-    //         fromUid: data.fromUid, 
-    //         to: data.to,
-    //         status: data.status  
-    //         };
-    //     }
-    //     return null;
-    //     }).filter(userRequest => userRequest !== null); 
-
-    // console.log(usersAcceptedFriends);
-
-    // let invitesResults = usersAcceptedFriends.filter(request =>
-    //     request.to.includes(currentUserUID) && request.status === "accepted"
-    // );  
-    // console.log(invitesResults);
-
     const friendUids = new Set();
 
     friendRequestsSnapshot.docs.forEach(doc => {
@@ -277,5 +256,4 @@ usersFriends.addEventListener("click", async (e) => {
     clickCounter++;
     console.log(clickCounter);
 });
-
 });

@@ -150,16 +150,6 @@ async function startShortBreak() {
         shortBreakSeconds = Math.floor(originalSessionTime / 5);
     }
 
-//     timeInSeconds = 1500;
-// var timeInMinutes = 25;
-// let shortBreak = 0;
-// let shortBreakSeconds = 0;
-// let longBreak = 0;
-// let longBreakSeconds = 0;
-// let currentShortBreakTime = shortBreakSeconds;
-// let currentLongBreakTime
-// let savedTime = 1500;
-// let originalSessionTime = 1500;
     console.log(timeInSeconds);
     console.log(timeInMinutes);
     console.log(shortBreak);
@@ -177,11 +167,6 @@ async function startShortBreak() {
     mode = "shortBreak";
     updateDisplay();
 
-    // //test
-    // await drawStudyTip();
-    // tipContentText.textContent = drawedTip;
-    // tipContentDiv.style.display = "block";
-
     shortBreakInterval = setInterval(() => {
 
         if(shortBreakSeconds > 0){
@@ -197,7 +182,6 @@ async function startShortBreak() {
 
             tipContentDiv.style.display = "none";
             timeInSeconds = originalSessionTime;
-            // updateDisplay();
             startSession();
             }
     }, 1000);
@@ -207,9 +191,6 @@ async function startLongBreak() {
     countMinutes(timeInSeconds / 60);
 
     console.log("Ile minut się naliczyło: ", totalMinutes);
-
-    // longBreakSeconds = Math.floor((originalSessionTime * 4) / 5);
-    // console.log(longBreakSeconds);
 
     if(savedTime != 0 && savedTime < Math.floor((originalSessionTime * 4) / 5)){
         longBreakSeconds = savedTime;
@@ -251,8 +232,6 @@ async function startLongBreak() {
 }
 
 function startSession() {
-    // countMinutes(originalSessionTime / 60);
-
     tipContentDiv.style.display = "none";
 
     mode = "session";
@@ -330,33 +309,19 @@ startTimer.addEventListener("click", () => {
     addTime.disabled = true;
     subtractTime.disabled = true;
 
-//     if (timeInSeconds <= 0) {
-//         timeInSeconds = originalSessionTime;
-//     }
-
-//     savedTime = timeInSeconds;
-//     originalSessionTime = timeInSeconds;
-//     startSession();
-
     if(mode === "session"){
         if (timeInSeconds <= 0) {
         timeInSeconds = originalSessionTime;
         }
 
-        // savedTime = timeInSeconds;
-        // originalSessionTime = timeInSeconds;
         startSession();
     }
 
     else if(mode === "shortBreak"){
-        // if (shortBreakSeconds <= 0) shortBreakSeconds = savedTime;
-        // savedTime = shortBreakSeconds;
         startShortBreak();
     }
 
     else if(mode === "longBreak"){
-        // if (longBreakSeconds <= 0) longBreakSeconds = savedTime;
-        // savedTime = longBreakSeconds;
         startLongBreak();
     }
 });
@@ -463,5 +428,4 @@ FortyFiveMinutes.addEventListener("click", ()=> {
 });
 
 sendSavedTimeToFirebase(totalMinutes);
-
 });

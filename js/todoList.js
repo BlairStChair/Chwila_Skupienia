@@ -17,9 +17,9 @@ addTask.addEventListener("click", () => {
     taskCompletion.setAttribute("type","checkbox");
 
     taskCompletion.addEventListener("change", () => {
-        if (taskCompletion.checked) {
+        if(taskCompletion.checked){
             addedTask.style.textDecoration = "line-through";
-        } else {
+        }else{
             addedTask.style.textDecoration = "none";
         }
     });
