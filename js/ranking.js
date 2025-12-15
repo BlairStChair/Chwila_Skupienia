@@ -115,6 +115,11 @@ async function getUsersList(profileUid) {
 
     const friendUids = new Set();
 
+    //     //Okazało się że ta funkcja nie działa przy profilu innego użytkownika
+//     //bo wcześniejszy kod uwzględniał znajomość jako jednokierunkową a nie
+//     //brał pod uwagę że ten użytkownik wysłał mi zaproszenie które zaakceptowałam
+//     //ale ja nigdy mu zaproszenia nie wysłałam przez co nie zostałam zaliczona jako jego przyjaciel
+
     snapshot.docs.forEach(doc => {
         const data = doc.data();
         if(data.status !== "accepted") return;
