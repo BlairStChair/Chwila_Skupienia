@@ -206,29 +206,56 @@ usersFriends.addEventListener("click", async (e) => {
     let friendRequestsSnapshot = await db.collection("friendRequests").get();
     console.log(friendRequestsSnapshot);
 
-    let usersAcceptedFriends = friendRequestsSnapshot.docs.map(doc => {
-        let data = doc.data();
-        if (data.fromDisplayName){
-            return { 
-            id: doc.id,
-            fromDisplayName: data.fromDisplayName,
-            fromUid: data.fromUid, 
-            to: data.to,
-            status: data.status  
-            };
+    // let usersAcceptedFriends = friendRequestsSnapshot.docs.map(doc => {
+    //     let data = doc.data();
+    //     if (data.fromDisplayName){
+    //         return { 
+    //         id: doc.id,
+    //         fromDisplayName: data.fromDisplayName,
+    //         fromUid: data.fromUid, 
+    //         to: data.to,
+    //         status: data.status  
+    //         };
+    //     }
+    //     return null;
+    //     }).filter(userRequest => userRequest !== null); 
+
+    // console.log(usersAcceptedFriends);
+
+    // let invitesResults = usersAcceptedFriends.filter(request =>
+    //     request.to.includes(currentUserUID) && request.status === "accepted"
+    // );  
+    // console.log(invitesResults);
+
+    const friendUids = new Set();
+
+    friendRequestsSnapshot.docs.forEach(doc => {
+        const data = doc.data();
+        if(data.status !== "accepted") return;
+
+        if(data.to === currentUserUID){
+            friendUids.add(data.fromUid);
         }
-        return null;
-        }).filter(userRequest => userRequest !== null); 
 
-    console.log(usersAcceptedFriends);
+        if(data.fromUid === currentUserUID){
+            friendUids.add(data.to);
+        }
+    });
 
-    let invitesResults = usersAcceptedFriends.filter(request =>
-        request.to.includes(currentUserUID) && request.status === "accepted"
-    );  
-    console.log(invitesResults);
+    friendsList = [];
 
-    for(let i = 0; i < invitesResults.length; i++){
-        let request = invitesResults[i];
+    for (const uid of friendUids) {
+        const userDoc = await db.collection("users").doc(uid).get();
+        if(userDoc.exists){
+            friendsList.push({
+                fromUid: uid,
+                fromDisplayName: userDoc.data().displayName
+            });
+        }
+    }
+
+    for(let i = 0; i < friendsList.length; i++){
+        let request = friendsList[i];
 
         let friendResultDisplay = document.createElement("li");
         

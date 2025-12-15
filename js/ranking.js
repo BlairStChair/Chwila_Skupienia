@@ -135,7 +135,7 @@ async function getUsersList(profileUid) {
 
     friendsList = [];
 
-    for (const uid of friendUids) {
+    for(const uid of friendUids){
         const userDoc = await db.collection("users").doc(uid).get();
         if(userDoc.exists){
             friendsList.push({
