@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chwila Skupienia</title>
+    <link rel="stylesheet" href="../css/styles.css">
+
+</head>
+<body>
+    <div class="dashboardMainContainer">
+        <button>darkmode<img src="../assets/img/moon-regular.svg"></button>
+        <button class="logoutBtn">Wróć do logowania</button>
+        <div class="navBar">
+            <ul>
+                <li><a href="dashboardPageForGuests.html">Minutnik</a></li>
+                <li><a href="profilePage.html" id="profileLink">Profil</a></li>
+            </ul>
+        </div>
+        <div class="timerContainer">
+            <div class="timerInfo">
+                <p>Ustaw jak długo ma trwać twoja sesja skupienia, a minutnik sam dobierze odpowiednią długość przerwy!</p>
+            </div>
+            <div class="timer">
+            </div>  
+            <button class="addTime">+</button>
+            <button class="subtractTime">-</button>
+            <button class="startTimer">Start</button><button class="stopTimer">Stop</button><button class="resetTimer">Resetuj</button>
+            <div class="message">
+            </div>
+            <div class="timerPresets">
+                <button id="FifteenMinutes">15 min</button>
+                <button id="ThirtyMinutes">30 min</button>
+                <button id="FortyFiveMinutes">45 min</button>
+            </div>
+        </div>
+        <div class="musicPlayer">
+            <div class="songInfo">
+                <p class="songTitle">lofi-background-music-314199</p>
+            </div>
+            <audio src="../assets/songs/lofi-background-music-314199.mp3" class="audio"></audio>
+            <div class="songNavigation">
+                <button class="previousSong">
+                    <p>Poprzednia piosenka</p>
+                    <img src="../assets/img/backward-solid-full.svg">
+                </button>
+                <button class="playStop">
+                    <p>Start/Stop</p>
+                    <img src="../assets/img/play-solid-full.svg" class="playSong">
+                    <img src="../assets/img/pause-solid-full.svg" class="pauseSong">
+                </button>
+                <button class="nextSong">
+                    <p>Następna piosenka</p>
+                    <img src="../assets/img/forward-solid-full.svg">
+                </button>
+            </div>
+        </div>
+    </div>
+    <footer><a href="tipsSources.html" style="color: red;">Źródła</a></footer>
+    
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+<script src="../js/firebase.js"></script> 
+<script src="../js/logout.js"></script>
+<script src="../js/guestsDashboardScript.js"></script>
+<script src="../js/musicPlayer.js"></script> 
+<script src="../js/timer.js"></script> 
+</body>
+</html>
