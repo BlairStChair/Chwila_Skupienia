@@ -55,18 +55,17 @@ registrationForm.addEventListener("submit", async(e) => {
         invalidEmail.remove();
     if(newPasswordValue !== newPasswordConfirmValue){
       if(!registrationForm.contains(invalidPassword)){
-          registrationForm.appendChild(invalidPassword);
+        registrationForm.appendChild(invalidPassword);
       }
     return;
     }else{
       if(registrationForm.contains(invalidPassword)){
         registrationForm.removeChild(invalidPassword);
       }
-}
-}
+    }
+    }
     
   try{
-   
     console.log("Rejestruję użytkownika...");
     const userCredential = await auth.createUserWithEmailAndPassword(newEmailValue, newPasswordValue);
     const user = userCredential.user;
