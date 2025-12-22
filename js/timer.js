@@ -141,22 +141,11 @@ function updateDisplay() {
 }
 
 async function startShortBreak() {
-    // shortBreakSeconds = Math.floor(originalSessionTime / 5);
-    // console.log(shortBreakSeconds);
-
     if(savedTime != 0 && savedTime < Math.floor(originalSessionTime / 5)){
         shortBreakSeconds = savedTime;
     }else{
         shortBreakSeconds = Math.floor(originalSessionTime / 5);
     }
-
-    console.log(timeInSeconds);
-    console.log(timeInMinutes);
-    console.log(shortBreak);
-    console.log(shortBreakSeconds);
-    console.log(currentShortBreakTime);
-    console.log(savedTime);
-    console.log(originalSessionTime);
 
     countMinutes(originalSessionTime / 60);
 
@@ -190,8 +179,6 @@ async function startShortBreak() {
 async function startLongBreak() {
     countMinutes(timeInSeconds / 60);
 
-    console.log("Ile minut się naliczyło: ", totalMinutes);
-
     if(savedTime != 0 && savedTime < Math.floor((originalSessionTime * 4) / 5)){
         longBreakSeconds = savedTime;
     }else{
@@ -199,8 +186,6 @@ async function startLongBreak() {
     }
 
     countMinutes(originalSessionTime / 60);
-
-    console.log("Ile minut się naliczyło: ", totalMinutes);
 
     currentLongBreakTime = longBreakSeconds;
 
@@ -225,7 +210,6 @@ async function startLongBreak() {
 
             tipContentDiv.style.display = "none";
             timeInSeconds = originalSessionTime;
-            // updateDisplay();
             startSession();
         }
     }, 1000);
@@ -327,14 +311,6 @@ startTimer.addEventListener("click", () => {
 });
 
 stopTimer.addEventListener("click", () => {
-    console.log(timeInSeconds);
-    console.log(timeInMinutes);
-    console.log(shortBreak);
-    console.log(shortBreakSeconds);
-    console.log(currentShortBreakTime);
-    console.log(savedTime);
-    console.log(originalSessionTime);
-
     addTime.disabled = true;
     subtractTime.disabled = true;
 
@@ -353,14 +329,9 @@ stopTimer.addEventListener("click", () => {
         longBreakInterval = null;
         savedTime = currentLongBreakTime;
     }
-
-    console.log("Zapisany czas: " + savedTime);
 });
 
 resetTimer.addEventListener("click", () => {
-    console.log(savedTime);
-    console.log(originalSessionTime);
-
     addTime.disabled = false;
     subtractTime.disabled = false;
 
