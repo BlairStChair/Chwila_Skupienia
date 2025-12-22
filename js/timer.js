@@ -112,7 +112,7 @@ loadStudyTipsJson().then(() => {
     console.error("Failed to load tips:", error);
 });
 
-function updateDisplay() {
+function updateDisplay(){
     let minutes;
     let seconds;
     
@@ -134,7 +134,7 @@ function updateDisplay() {
     }
 }
 
-async function startShortBreak() {
+async function startShortBreak(){
     if(savedTime != 0 && savedTime < Math.floor(originalSessionTime / 5)){
         shortBreakSeconds = savedTime;
     }else{
@@ -166,7 +166,7 @@ async function startShortBreak() {
     }, 1000);
 }
 
-async function startLongBreak() {
+async function startLongBreak(){
     countMinutes(timeInSeconds / 60);
 
     if(savedTime != 0 && savedTime < Math.floor((originalSessionTime * 4) / 5)){
@@ -204,7 +204,7 @@ async function startLongBreak() {
     }, 1000);
 }
 
-function startSession() {
+function startSession(){
     tipContentDiv.style.display = "none";
 
     mode = "session";

@@ -10,10 +10,17 @@ const pauseSong = document.querySelector(".pauseSong");
 const nextSong = document.querySelector(".nextSong");
 
 let songsArray = [
-    "lofi-background-music-314199",
-    "lofi-lofi-song-345371",
-    "lofi-rain-lofi-music-332732",
-    "rainy-lofi-city-lofi-music-332746"
+    "Artur_Aravidi_Music - Midnight",
+    "CFL_TurningPages - Winter Void",
+    "chill_background - Deep Focus",
+    "ChilltapeFM - Forest Memories ",
+    "ChilltapeFM - Jazzy Focus",
+    "ChilltapeFM - Sunny Stop",
+    "EchoMoore - Lazy Days in Focus",
+    "FASSounds - Satisfying",
+    "LofCosmos - Focus Lofi",
+    "NaturesEye - Slow Drift",
+    "Tunetank - Lofi Relax"
 ]
 
 let songIndex = 0;
