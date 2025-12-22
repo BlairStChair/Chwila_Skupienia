@@ -71,7 +71,6 @@ async function sendSavedTimeToFirebase(newMinutes){
     let uid = user.uid;
 
     let todayDate = new Date().toISOString().split("T")[0];
-    console.log(todayDate);
 
     let docRef = db.collection("sessionsInfo").doc(uid).collection("stats").doc(todayDate);
     let docSnap = await docRef.get();
@@ -99,17 +98,12 @@ async function sendSavedTimeToFirebase(newMinutes){
 async function loadStudyTipsJson(){
     const json = await fetch("../data/studyTips.json");
     tipPool = await json.json();
-
-    console.log(tipPool);
 }
 
 async function drawStudyTip(){
     const tipIndex = Math.floor(Math.random() * tipPool.length);
 
-    drawedTip = tipPool[tipIndex]
-
-    console.log(drawedTip);
-    
+    drawedTip = tipPool[tipIndex]    
 }
 
 loadStudyTipsJson().then(() => {
@@ -149,8 +143,6 @@ async function startShortBreak() {
 
     countMinutes(originalSessionTime / 60);
 
-    console.log("Ile minut się naliczyło: ", totalMinutes);
-
     currentShortBreakTime = shortBreakSeconds;
 
     mode = "shortBreak";
@@ -162,8 +154,6 @@ async function startShortBreak() {
             currentShortBreakTime--;
             shortBreakSeconds = currentShortBreakTime;
             updateDisplay();
-
-            console.log(shortBreakSeconds);
         }else{
             clearInterval(shortBreakInterval);
             shortBreakInterval = null;
@@ -201,7 +191,6 @@ async function startLongBreak() {
             currentLongBreakTime--;
             longBreakSeconds = currentLongBreakTime;
             updateDisplay();
-            console.log(longBreakSeconds);
         }else{
             clearInterval(longBreakInterval);
             longBreakInterval = null;
@@ -226,8 +215,6 @@ function startSession() {
             mode = "session";
             timeInSeconds = timeInSeconds - 1;
             updateDisplay();
-            console.log(timeInSeconds);
-            
         }else{
             clearInterval(intervalID);
             intervalID = null;
@@ -253,15 +240,11 @@ addTime.addEventListener("click", () => {
 
     startTimer.disabled = false;
     subtractTime.disabled = false;
-
-    console.log("time in seconds:" + timeInSeconds);
-    console.log("short break:" + shortBreak);
-    console.log("long break:" + longBreak);
 });
 
 subtractTime.addEventListener("click", () => {
     timeInMinutes = timeInMinutes - 1;
-    console.log("minuty:" + timeInMinutes);
+
     if(timeInSeconds <= 60){
         timeInSeconds = 60;
         startTimer.disabled = true;
@@ -276,10 +259,6 @@ subtractTime.addEventListener("click", () => {
         updateDisplay();
 
         startTimer.disabled = false;
-
-        console.log("time in seconds:" + timeInSeconds);
-        console.log("short break:" + shortBreak);
-        console.log("long break:" + longBreak);
     }
 });
 
