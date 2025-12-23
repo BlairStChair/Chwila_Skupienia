@@ -48,6 +48,73 @@ async function getAllUsernames(){
     return users;
 }
 
+let clickCounter = 0;
+
+usersFriends.addEventListener("click", async (e) => {
+   e.preventDefault();
+
+    if(clickCounter % 2 !== 0){
+        return;
+    }else{
+
+    const currentUserUID = auth.currentUser.uid;
+
+    console.log(currentUserUID);
+
+    let friendRequestsSnapshot = await db.collection("friendRequests").get();
+    console.log(friendRequestsSnapshot);
+
+    const friendUids = new Set();
+
+    friendRequestsSnapshot.docs.forEach(doc => {
+        const data = doc.data();
+        if(data.status !== "accepted") return;
+
+        if(data.to === currentUserUID){
+            friendUids.add(data.fromUid);
+        }
+
+        if(data.fromUid === currentUserUID){
+            friendUids.add(data.to);
+        }
+    });
+
+    friendsList = [];
+
+    for(const uid of friendUids){
+        const userDoc = await db.collection("users").doc(uid).get();
+        if(userDoc.exists){
+            friendsList.push({
+                fromUid: uid,
+                fromDisplayName: userDoc.data().displayName
+            });
+        }
+    }
+
+    for(let i = 0; i < friendsList.length; i++){
+        let request = friendsList[i];
+
+        let friendResultDisplay = document.createElement("li");
+        
+        nameSpan = document.createElement("span");
+        nameSpan.className = "nameSpan";
+        nameSpan.textContent = request.fromDisplayName;
+        nameSpan.dataset.uid = request.fromUid;
+
+        usersFriendsList.appendChild(friendResultDisplay);
+        friendResultDisplay.appendChild(nameSpan);
+
+        nameSpan.addEventListener("click", () => {
+            window.location.href = `../pages/diffrentUserProfilePage.html?uid=${request.fromUid}`;
+            console.log("fromUid:", request.fromUid);
+            
+        }); 
+    }
+    }
+    clickCounter++;
+    console.log(clickCounter);
+});
+
 let userSearchField = document.createElement("input");
 userSearchField.setAttribute("type", "text");
 userSearchField.id = "userSearchField"
@@ -190,70 +257,5 @@ userInvitesTitle.addEventListener("click", async (e) => {
     }
 });
 
-let clickCounter = 0;
 
-usersFriends.addEventListener("click", async (e) => {
-   e.preventDefault();
-
-    if(clickCounter % 2 !== 0){
-        return;
-    }else{
-
-    const currentUserUID = auth.currentUser.uid;
-
-    console.log(currentUserUID);
-
-    let friendRequestsSnapshot = await db.collection("friendRequests").get();
-    console.log(friendRequestsSnapshot);
-
-    const friendUids = new Set();
-
-    friendRequestsSnapshot.docs.forEach(doc => {
-        const data = doc.data();
-        if(data.status !== "accepted") return;
-
-        if(data.to === currentUserUID){
-            friendUids.add(data.fromUid);
-        }
-
-        if(data.fromUid === currentUserUID){
-            friendUids.add(data.to);
-        }
-    });
-
-    friendsList = [];
-
-    for(const uid of friendUids){
-        const userDoc = await db.collection("users").doc(uid).get();
-        if(userDoc.exists){
-            friendsList.push({
-                fromUid: uid,
-                fromDisplayName: userDoc.data().displayName
-            });
-        }
-    }
-
-    for(let i = 0; i < friendsList.length; i++){
-        let request = friendsList[i];
-
-        let friendResultDisplay = document.createElement("li");
-        
-        nameSpan = document.createElement("span");
-        nameSpan.className = "nameSpan";
-        nameSpan.textContent = request.fromDisplayName;
-        nameSpan.dataset.uid = request.fromUid;
-
-        usersFriendsList.appendChild(friendResultDisplay);
-        friendResultDisplay.appendChild(nameSpan);
-
-        nameSpan.addEventListener("click", () => {
-            window.location.href = `../pages/diffrentUserProfilePage.html?uid=${request.fromUid}`;
-            console.log("fromUid:", request.fromUid);
-            
-        }); 
-    }
-    }
-    clickCounter++;
-    console.log(clickCounter);
-});
 });
