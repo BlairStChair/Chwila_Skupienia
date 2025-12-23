@@ -4,7 +4,7 @@ const searchResults = document.querySelector(".searchResults")
 const userInvites = document.querySelector(".userInvites");
 const invitesList = document.querySelector(".invitesList");
 const userInvitesTitle = document.querySelector(".userInvitesTitle");
-const usersFriends = document.querySelector(".usersFriends");        // przycisk/sekcja, którą klikasz
+const usersFriends = document.querySelector(".usersFriends");       
 const usersFriendsList = document.querySelector(".usersFriendsList");
 
 const auth = firebase.auth();
