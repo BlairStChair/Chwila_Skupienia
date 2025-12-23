@@ -16,7 +16,7 @@ function getWeeklyDates(){
     console.log("monday -", monday);
     console.log(todayDate);
     console.log(dayOfWeek);
-
+    
     if(dayOfWeek == 0){
       DaysToMonday = 1;
     }else{

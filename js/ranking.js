@@ -92,9 +92,6 @@ async function countUsersMinutes(uid){
 }
 
 async function addMonthlyMinutesToFriendsList(friends){
-    let totalWholeHours = 0;
-    let totalMinutesRest = 0;
-    let totalMonthlyHours = 0;
     for(let friend of friends){
         friend.totalMonthlyMinutes = await countUsersMinutes(friend.fromUid);
         friend.totalMinutesRest = friend.totalMonthlyMinutes % 60;
