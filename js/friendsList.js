@@ -256,6 +256,4 @@ userInvitesTitle.addEventListener("click", async (e) => {
         inviteResultDisplay.appendChild(RejectBtn);
     }
 });
-
-
 });
