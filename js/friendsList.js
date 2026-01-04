@@ -79,6 +79,7 @@ usersFriends.addEventListener("click", async (e) => {
         }
     });
 
+    usersFriendsList.innerHTML = "";
     friendsList = [];
 
     for(const uid of friendUids){
