@@ -148,6 +148,11 @@ async function startShortBreak(){
     mode = "shortBreak";
     updateDisplay();
 
+    //do testów potem usunąć
+    await drawStudyTip();
+    tipContentText.textContent = drawedTip;
+    tipContentDiv.style.display = "block";
+
     shortBreakInterval = setInterval(() => {
 
         if(shortBreakSeconds > 0){
