@@ -18,55 +18,76 @@
             </ul>
         </div>
         <div class="timerContainer">
+            <div class="message"></div>
             <div class="timerInfo">
-                <p>Ustaw jak długo ma trwać twoja sesja skupienia, a minutnik sam dobierze odpowiednią długość przerwy!</p>
+                <p>✨Ustaw jak długo ma trwać twoja sesja skupienia, a minutnik sam dobierze odpowiednią długość przerwy!✨</p>
             </div>
-            <div class="timer">
-            </div>  
-            <button class="addTime">+</button>
-            <button class="subtractTime">-</button>
-            <button class="startTimer">Start</button><button class="stopTimer">Stop</button><button class="resetTimer">Resetuj</button>
-            <div class="message">
-            </div>
-            <div class="timerPresets">
-                <button id="FifteenMinutes">15 min</button>
-                <button id="ThirtyMinutes">30 min</button>
-                <button id="FortyFiveMinutes">45 min</button>
-            </div>
+            <div class="timer"></div> 
+                <div class="timerControls">
+                    <div class="topRow">
+                        <button class="subtractTime"><span class="gradient-text">-</span></button>
+                        <button class="addTime"><span class="gradient-text">+</span></button>
+                    </div>
+
+                    <div class="bottomRow">
+                        <button class="startTimer"><span class="gradient-text">Start</span></button>
+                        <button class="stopTimer"><span class="gradient-text">Stop</span></button>
+                        <button class="resetTimer"><span class="gradient-text">Resetuj</span></button>
+                    </div>
+                    <div class="timerPresets">
+                        <button id="FifteenMinutes"><span class="gradient-text">15 min</span></button>
+                        <button id="ThirtyMinutes"><span class="gradient-text">30 min</span></button>
+                        <button id="FortyFiveMinutes"><span class="gradient-text">45 min</span></button>
+                    </div>
+                </div>
         </div>
-        <div class="musicPlayer">
-            <div class="songInfo">
-                <p class="songTitle">Artur_Aravidi_Music - Midnight</p>
-            </div>
-            <audio src="../assets/songs/Artur_Aravidi_Music - Midnight.mp3" class="audio"></audio>
-            <div class="songNavigation">
-                <button class="previousSong">
-                    <p>Poprzednia piosenka</p>
-                    <img src="../assets/img/backward-solid-full.svg">
-                </button>
-                <button class="playStop">
-                    <p>Start/Stop</p>
-                    <img src="../assets/img/play-solid-full.svg" class="playSong">
-                    <img src="../assets/img/pause-solid-full.svg" class="pauseSong">
-                </button>
-                <button class="nextSong">
-                    <p>Następna piosenka</p>
-                    <img src="../assets/img/forward-solid-full.svg">
-                </button>
-            </div>
+        <footer><a href="tipsSources.html" style="color: red;">Źródła</a></footer>
+
+        <div class="musicPlayerWrapper">
+            <button class="togglePlayer">⮟</button>
+                <div class="musicPlayer">
+                    <div class="songInfo">
+                        <p class="songTitle">Artur_Aravidi_Music - Midnight</p>
+                    </div>
+
+                    <audio src="../assets/songs/Artur_Aravidi_Music - Midnight.mp3" class="audio"></audio>
+
+                    <div class="songNavigation">
+                        <button class="previousSong">
+                            <img src="../assets/img/backward-solid-full.svg">
+                            
+                        </button>
+
+                        <button class="playStop">
+                            <img src="../assets/img/play-solid-full.svg" class="playSong">
+                            <img src="../assets/img/pause-solid-full.svg" class="pauseSong">
+                            
+                        </button>
+
+                        <button class="nextSong">
+                            <img src="../assets/img/forward-solid-full.svg">
+                            
+                        </button>
+                    </div>
+                </div>
+        </div>
+        <div class="logoutWrapper">
+            <button class="logoutBtn">
+                <img src="../assets/img/login.svg" alt="Powrót do logowania">
+            </button>
         </div>
     </div>
-    <footer><a href="tipsSources.html" style="color: red;">Źródła</a></footer>
-    
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
-
-<script src="../js/firebase.js"></script> 
-<script src="../js/logout.js"></script>
-<script src="../js/guestsDashboardScript.js"></script>
-<script src="../js/musicPlayer.js"></script> 
-<script src="../js/timer.js"></script> 
+<!-- Firebase -->    
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<!-- skrypty -->
+    <script src="../js/firebase.js"></script> 
+    <script src="../js/logout.js"></script>
+    <script src="../js/guestsDashboardScript.js"></script>
+    <script src="../js/musicPlayer.js"></script> 
+    <script src="../js/timer.js"></script> 
+    <script src="../js/hidemusic.js"></script>
 </body>
 </html>

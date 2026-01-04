@@ -428,8 +428,6 @@ button:hover {
   transform: scale(1.2);
 }
 
-
-
 .divider-vertical {
     width: 0.15rem;
     background-color: #2F3147;
@@ -791,4 +789,6 @@ button:hover {
 .togglePlayer:hover {
   background: rgb(204, 204, 204);
 }
+
+/* Ustawienia */
 
