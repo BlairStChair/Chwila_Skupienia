@@ -7,13 +7,16 @@
   src: url(../assets/fonts/Big_Shoulders/BigShouldersDisplay-Regular.ttf);
 }
 
-html,body {
-    height: 100%;
+body {
+    min-height: 100vh; 
     width: 100%;
     margin: 0;
     padding: 0;
+    display: flex;          
+    flex-direction: column; 
     background: linear-gradient(243deg, #081935 0%, #31255B 72.18%, #65338A 99.99%);
 }
+
 
 h1 {
     color: #fff;
@@ -31,7 +34,6 @@ h1 {
   align-items: flex-start;
   gap: 4rem;
 }
-
 
 h2{
     margin-top: -4rem;
@@ -91,14 +93,14 @@ input::placeholder{
 
 .header-wrapper {
   display: flex;
-  align-items: center; /* wyrównanie pionowe */
+  align-items: center; 
   gap: 1vh;
 }
 
 .header-wrapper img.header-icon {
   height: 60px;
   object-fit: contain;
-  margin-top: -110px; /* nie wiem czemu nie chce sie to wyrównać normalnie */
+  margin-top: -110px; 
 }
 
 
@@ -162,14 +164,17 @@ form {
     text-transform: uppercase;
     text-decoration: none;
 }
+
 .button-link1:hover{
     background: none;
     text-decoration: underline;
 }
+
 .button-link2:hover{
     background: none;
     text-decoration: underline;
 }
+
 button:hover {
     background: #bdbdbd;
 }
@@ -213,6 +218,7 @@ button:hover {
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
+/* darkmode guziki */
 .darkmode-toggle {
   position: fixed;
   top: 2rem;
@@ -233,7 +239,6 @@ button:hover {
   position: absolute;
 }
 
-/* Domyślnie pokazujemy księżyc */
 .sun-icon {
   opacity: 0;
 }
@@ -242,7 +247,6 @@ button:hover {
   opacity: 1;
 }
 
-/* Po najechaniu pokazujemy słońce */
 .darkmode-toggle:hover .sun-icon {
   opacity: 1;
 }
@@ -250,39 +254,13 @@ button:hover {
 .darkmode-toggle:hover .moon-icon {
   opacity: 0;
 }
-
-.navBar {
-  width: 100%;
-  height: 60px;
-}
-
-.navBar-wrapper {
-  display: flex;
-  align-items: center;
-  padding: 0 20px;
-  box-sizing: border-box;
-  z-index: 999;
-}
-
-.navBtn {
-  color: #fff;
-  text-decoration: none;
-  font-size: 1.5rem;
-  margin-right: 20px;
-  font-family: 'BigShouldersDisplay';
-  text-transform: uppercase;
-}
-
-.navBar img {
-  height: 40px;
-  margin-right: 20px;
-}
+/* Profil */
 
 .userProfile{
-  margin: 5vh;
-  padding: 5vh;
+  margin: 2rem 5rem 2rem 5rem;
+  padding: 5rem;
   border-radius: 50px;
-  background: rgba(217, 217, 217, 0.50);
+  background: rgba(255, 255, 255, 0.39);
 }
 
 .userProfile img{
@@ -311,3 +289,314 @@ button:hover {
 .todoListContent{
   border: 2px solid #2F3147;
 }
+
+/* Nawigacja */
+.navBar {
+  width: 100%;
+  height: 60px;
+  margin-top: 2rem;
+}
+
+.navBar-wrapper {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5rem;
+}
+
+.navBtn {
+  color: #fff;
+  text-decoration: none;
+  font-size: 2rem;
+  font-family: 'BigShouldersDisplay';
+  text-transform: uppercase;
+}
+
+/* ikony navbara */
+.diamond{
+  height: 40px;
+}
+.bigdiamond{
+  height: 60px;
+}
+
+.nav-lines {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.nav-decor-line {
+  width: 90%;
+  height: 0.2rem;
+  background-color: #ffffff;
+  border-radius: 1px;
+}
+
+.navBtn {
+  position: relative;
+  text-decoration: none;
+  color: white;
+  padding-bottom: 0.5rem;
+}
+
+.navBtn.active::after {
+  content: "";
+  position: absolute;
+  bottom: -1.3rem; 
+  left: 50%;
+  transform: translateX(-50%);
+  width: 150px;
+  height: 0.4rem;
+  background-color: #ffffff;
+}
+
+/* Minutnik */
+.timerContainer{
+  margin: 5rem 20%;
+  padding: 2rem;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.39);
+  }
+
+  .timerInfo,
+  .message{
+    font-size: 2rem;
+    font-family: 'BigShouldersDisplay';
+    text-align: center;
+    color: #fff;
+    font-style: italic;
+  }
+
+  .timer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 6rem;
+    font-family: 'BigShouldersDisplay';
+    color: #ffffff;
+    margin: -2rem;
+  }
+
+.timerControls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.timerControls .topRow,
+.timerControls .bottomRow,
+.timerControls .timerPresets {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.timerControls button,
+.timerPresets button {
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  width: clamp(100px, 20vw, 140px);
+  height: clamp(32px, 6vh, 40px);
+
+  font-family: 'BigShouldersDisplay';
+  text-transform: uppercase;
+  border-radius: 10px;
+  border: none;
+  background: #D9D9D9;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  transition: transform 0.2s ease, background 0.2s ease, filter 0.2s ease;
+}
+
+
+.timerControls button:active,
+.timerPresets button:active {
+  transform: scale(0.95);
+  background: #c4c4c4;
+  filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25));
+}
+
+.timerControls button:hover,
+.timerPresets button:hover {
+  transform: scale(1.05);
+  background: #e0e0e0;
+}
+
+.logoutWrapper {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 9999; /* żeby był nad wszystkim */
+}
+
+.logoutBtn {
+  background: rgba(255, 255, 255, 0.35);
+  border: none;
+  border-radius: 100%;
+  padding: 0.6rem;
+  cursor: pointer;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 55px;
+  height: 55px;
+
+  transition: 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.logoutBtn:hover {
+  background: rgb(255, 255, 255);
+  transform: scale(1.08);
+}
+
+.logoutBtn:active {
+  transform: scale(0.92);
+}
+
+.logoutBtn img {
+  width: 40px;
+  height: 40px;
+  filter: brightness(0) saturate(100%) invert(17%) sepia(22%) saturate(900%) hue-rotate(230deg) brightness(90%) contrast(90%);
+}
+
+/* odtwarzacz muzyki */
+
+.musicPlayerWrapper {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 300px;
+  background: linear-gradient(243deg, #081935 0%, #31255B 72.18%, #65338A 99.99%);
+  backdrop-filter: blur(0.1px);  /* to jest ważne żeby nie usuwać bo zepsuje playera XDDD */
+  border-radius: 25px;
+  padding: 1rem 1.2rem;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+  font-family: 'BigShouldersDisplay';
+  z-index: 9999;
+  transition: height 0.3s ease, padding 0.3s ease;
+}
+
+.musicPlayerWrapper.collapsed {
+  height: 50px;
+  padding: 0;
+  background: none; 
+  box-shadow: none;
+}
+
+.musicPlayerWrapper.collapsed .togglePlayer {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  transform: none;
+}
+.musicPlayerWrapper.collapsed .musicPlayer,
+.musicPlayerWrapper.collapsed .songInfo {
+  display: none;
+}
+
+.songInfo {
+  background: rgba(255, 255, 255, 0.678);
+  border-radius: 15px;
+  padding: 0.5rem 0.8rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  color: #31255B;
+  font-size: 2rem;
+  letter-spacing: 1px;
+}
+
+.songNavigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.songNavigation button {
+  width: 65px;
+  height: 65px;
+  background: rgba(255, 255, 255, 0.678);
+  border: none;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.songNavigation button:active {
+  transform: scale(0.92);
+}
+
+.songNavigation button:hover {
+  background: rgb(255, 255, 255);
+  transform: scale(1.08);
+}
+.songNavigation img {
+  width: 28px;
+  height: 28px;
+  filter: brightness(0) saturate(100%) invert(17%) sepia(22%) saturate(900%) hue-rotate(230deg) brightness(90%) contrast(90%);
+}
+
+.playStop {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.playStop img {
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.playSong {
+  display: block;
+}
+
+.pauseSong {
+  display: none;
+}
+
+.playing .playSong {
+  display: none;
+}
+
+.playing .pauseSong {
+  display: block;
+}
+
+.togglePlayer {
+  position: absolute;
+  left: -16px;  
+  top: 20px;     
+  transform: none;
+  width: 32px;
+  height: 32px;
+  background: white;
+  border: none;
+  border-radius: 50%;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+}
+
+.togglePlayer:hover {
+  background: rgb(204, 204, 204);
+}
+
