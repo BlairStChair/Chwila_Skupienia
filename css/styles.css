@@ -277,8 +277,14 @@ button:hover {
 .profileHeader {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-between; 
     padding: 1.2rem 2rem;
+}
+
+.profileHeader .left {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
 }
 
 .avatar img {
@@ -293,8 +299,14 @@ button:hover {
     font-weight: 400;
 }
 
+.settings {
+    display: flex;
+    align-items: center;
+}
+
 .settings img {
     width: 30px;
+    cursor: pointer;
 }
 
 .profiledecorline {
