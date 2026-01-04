@@ -365,7 +365,7 @@ button:hover {
 .todoListContent {
     border: 2px solid #2F3147;
     padding: 1rem;
-  height: 100%;
+  max-height: auto;
 }
 
 .taskName {
@@ -468,16 +468,6 @@ button:hover {
     font-family: "BigShouldersDisplay";
     font-weight: 400;
     text-transform: uppercase;
-}
-@media (max-width: 900px) {
-    .profileColumns {
-        grid-template-columns: 1fr;
-    }
-
-    .userProfile {
-        margin: 1rem;
-        padding: 2rem;
-    }
 }
 
 /* Nawigacja */
