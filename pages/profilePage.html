@@ -7,88 +7,120 @@
     <link rel="stylesheet" href="../css/styles.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
 </head>
+
 <body>
     <div class="profileMainContainer">
         <button class="darkmode-toggle">
-            <img src="../assets/img/moon-regular.svg" alt="Tryb nocny" class="moon-icon" />
-            <img src="../assets/img/sun-solid-white.svg" alt="Tryb dzienny" class="sun-icon" />
+            <img src="../assets/img/moon-regular.svg" class="moon-icon" />
+            <img src="../assets/img/sun-solid-white.svg" class="sun-icon" />
         </button>
         <div class="navBar">
-                <div class="navBar-wrapper">
-                <img class="diamond" src="../assets/img/diament-white.svg" alt="diament" />
+            <div class="navBar-wrapper">
+                <img class="diamond" src="../assets/img/diament-white.svg" />
                 <a href="dashboardPage.html" class="navBtn">Minutnik</a>
-                <img class="bigdiamond" src="../assets/img/diament-diament-white.svg" alt="diament" />
+                <img class="bigdiamond" src="../assets/img/diament-diament-white.svg" />
                 <a href="profilePage.html" class="navBtn">Profil</a>
-                <img class="diamond"  src="../assets/img/diament-white.svg" alt="diament" />
-                </div>
+                <img class="diamond" src="../assets/img/diament-white.svg" />
+            </div>
         </div>
+
         <div class="nav-lines">
-        <div class="nav-decor-line"></div>
+            <div class="nav-decor-line"></div>
         </div>
         <div class="userProfile">
             <div class="profileHeader">
                 <div class="avatar"><img src="../assets/img/user-solid.svg"></div>
                 <div class="username">@ placeholder</div>
-                <div class="settings"><a href="profileSettings.html"><img src="../assets/img/gear-solid.svg"></a></div>
-            </div>
-            <div class="profileStatistics">
-                <div class="weeklyStatistics">
-                    <div class="weeklyStatisticsHeader">
-                    <h1>Ostatni Tydzień</h1>
-                    </div>
-                    <div class="weeklyStatisticsContent">
-                        <canvas id="weeklyChart" style="width:100%;max-width:700px"></canvas>
-                    </div>
-                <div class="monthlyStatistics">
-                    <div class="monthlyStatisticsHeader">
-                    <h1>Ostatni Miesiąc</h1>
-                    </div>
-                    <div class="monthlyStatisticsContent">
-                        <ol id="monthlyRankingList">
-                        </ol>
-                    </div>
+                <div class="settings">
+                    <a href="profileSettings.html">
+                        <img class="ustawienia" src="../assets/img/gear-solid.svg">
+                    </a>
                 </div>
             </div>
-            <div class="profileTodoList">
-                <div class="todoListHeader">
-                    <h1>Cele</h1>
-                </div>
-                <div class="todoListContent">
-                    <input type="text" class="taskName" placeholder="Podaj nazwę zadania">
-                    <button type="submit" class="addTask">+</button>
-                    <div class="taskList"> </div>  
-                </div>
-            </div>
-            <div class="friendsList">
-                <h1>Znajomi</h1>
-                <ul>
-                    <li>
-                        <h3 class="usersFriends">Twoi znajomi</h3>
-                        <ul class="usersFriendsList">
-                        </ul>
-                    </li>
-                    <li class="userSearch">
-                        <h3>Wyszukaj użytkownika</h3>
-                        <div>
-                            <ul class="searchResults"></ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="userInvites">
-                        <h3 class="userInvitesTitle">Zaproszenia</h3>
-                        <ul class="invitesList"></ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
 
-        <!-- Firebase SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+            <div class="profiledecorline"></div>
+            <div class="profileColumns">
+                <div class="leftColumn">
+                    <div class="weeklyStatistics">
+                        <div class="weeklyStatisticsHeader">
+                            <div class="header-wrapper">
+                                <img class="bigdiamond" src="../assets/img/diament-diament.svg">
+                                <h1>Ten Tydzień</h1>
+                            </div>
+                        </div>
+
+                        <div class="weeklyStatisticsContent">
+                            <canvas id="weeklyChart" style="width:100%;max-width:700px"></canvas>
+                        </div>
+                    </div>
+                    <div class="monthlyStatistics">
+                        <div class="monthlyStatisticsHeader">
+                            <div class="header-wrapper">
+                                <img class="bigdiamond" src="../assets/img/diament-diament.svg">
+                                <h1>Ten Miesiąc</h1>
+                            </div>
+                        </div>
+
+                        <div class="monthlyStatisticsContent">
+                            <ol id="monthlyRankingList"></ol>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="centerColumn">
+                    <div class="profileTodoList">
+                        <div class="todoListHeader">
+                            <div class="header-wrapper">
+                                <img class="bigdiamond" src="../assets/img/diament-diament.svg">
+                                <h1>Cele</h1>
+                            </div>
+                        </div>
+
+                        <div class="todoListContent">
+                            <input type="text" class="taskName" placeholder="Podaj nazwę zadania">
+                            <button type="submit" class="addTask">+</button>
+                            <div class="taskList"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rightColumn">
+                    <div class="divider-vertical"></div>
+                    <div class="friendsList">
+                        <div class="header-wrapper">
+                            <img class="bigdiamond" src="../assets/img/diament-diament.svg">
+                            <h1>Znajomi</h1>
+                        </div>
+
+                        <ul>
+                            <li class="userSearch">
+                                <ul class="searchResults">Wyszukaj użytkownika</ul>
+                            </li>
+                            <li>
+                                <h3 class="usersFriends">Twoi znajomi</h3>
+                                <ul class="usersFriendsList"></ul>
+                            </li>
+                            <li>
+                                <div class="userInvites">
+                                    <h3 class="userInvitesTitle">Zaproszenia</h3>
+                                    <ul class="invitesList"></ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div> 
+
+        </div> 
+
+    </div> 
+
+    <!-- FIREBASE -->
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
 
     <script src="../js/firebase.js" defer></script>
     <script src="../js/charts.js"></script>
@@ -97,5 +129,6 @@
     <script src="../js/friendsList.js"></script>
     <script src="../js/ranking.js" defer></script>
     <script src="../js/navbar.js"></script>
+
 </body>
 </html>

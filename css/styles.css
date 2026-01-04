@@ -17,17 +17,6 @@ body {
     background: linear-gradient(243deg, #081935 0%, #31255B 72.18%, #65338A 99.99%);
 }
 
-
-h1 {
-    color: #fff;
-    font-size: 8rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    letter-spacing: 12.8px;
-    font-family: 'SAOWelcomeTTRegular';
-}
-
 .formContainer {
   display: flex;
   justify-content: space-between; 
@@ -207,10 +196,18 @@ button:hover {
   border-radius: 50px;
   background: rgba(217, 217, 217, 0.50);
 }
-.title {
+.title h1{
   display: flex;
   flex-direction: column;
   justify-content: center;
+    color: #fff;
+    font-size: 8rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: 12.8px;
+    font-family: 'SAOWelcomeTTRegular';
+    text-transform: uppercase;
 }
 
 .diamondPattern {
@@ -254,40 +251,235 @@ button:hover {
 .darkmode-toggle:hover .moon-icon {
   opacity: 0;
 }
+
 /* Profil */
 
-.userProfile{
-  margin: 2rem 5rem 2rem 5rem;
-  padding: 5rem;
-  border-radius: 50px;
-  background: rgba(255, 255, 255, 0.39);
+.userProfile {
+    margin: 2rem 5rem;
+    padding: 3rem;
+    border-radius: 50px;
+    background: rgba(217, 217, 217, 0.50);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
 }
 
-.userProfile img{
-  width: 25px;
+.ustawienia,
+.profileTodoList img,
+.friendsList img,
+.weeklyStatistics img,
+.monthlyStatistics img {
+    filter: brightness(0) saturate(100%) invert(17%) sepia(22%) saturate(900%) hue-rotate(230deg) brightness(90%) contrast(90%);
 }
 
-.userProfile h1{
-  font-size: 25px;
+.profileHeader {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 2rem;
 }
-.profileHeader{
+
+.avatar img {
+    width: 5rem;
+    border-radius: 100%;
+}
+
+.username {
+    font-size: 2rem;
+    color: #2F3147;
+    font-family: "BigShouldersDisplay";
+    font-weight: 400;
+}
+
+.settings img {
+    width: 30px;
+}
+
+.profiledecorline {
+    width: 100%;
+    height: 2px;
+    background-color: #2F3147;
+    margin-top: -4rem;
+}
+
+.profileColumns {
+    display: grid;
+    grid-template-columns: 1fr 1fr 0.5fr;
+    width: 100%;
+}
+
+.leftColumn {
+    display: flex;
+    flex-direction: column;
+    margin-top: -2.5rem;
+}
+
+.centerColumn {
+    display: flex;
+    flex-direction: column;
+    margin-top: -4rem;
+}
+
+.rightColumn {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    margin-top: -4rem;
+}
+
+
+.weeklyStatisticsContent,
+.monthlyStatisticsContent {
+    border: 2px solid #2F3147;
+    padding: 1rem;
+    width: 93%;
+}
+
+.header-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.header-wrapper h1 {
+    font-size: 3rem;
+    color: #2F3147;
+    font-family: "BigShouldersDisplay";
+    font-weight: 400;
+    text-transform: uppercase;
+}
+.monthlyRankingList ol{
+    font-size: 2rem;
+    color: #2F3147;
+    font-family: "BigShouldersDisplay";
+    font-weight: 400;
+}
+
+.profileTodoList {
+    padding: 1.5rem;
+    
+}
+
+.todoListContent {
+    border: 2px solid #2F3147;
+    padding: 1rem;
+  height: 100%;
+}
+
+.taskName {
+    width: 80%;
+    padding: 0.5rem 1rem;
+    border-radius: 12px;
+    border: none;
+    font-size: 2rem;
+    font-family: "BigShouldersDisplay";
+    font-weight: 400;
+}
+
+.addTask {
+  height: 3rem;
+  width: 3rem;
+  font-family: 'BigShouldersDisplay';
+  font-size: 2rem;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  color: #2F3147;
+}
+
+.addTask:hover {
+    transform: scale(1.1);
+    background: #fff;
+}
+
+/* Pojedyncze zadanie */
+
+.taskList > div {
   display: flex;
   align-items: center;
-  gap: 2rem;
-  margin-bottom: 2rem;
+  gap: 1rem;
+  padding: 0.8rem 1.2rem;
+  margin-bottom: 1rem;
 }
-.profileStatistics{
-  display: flex;
-  flex-direction: column;
+
+.taskList p {
+  flex: 1;
+  margin: 0;
+  font-size: 1.4rem;
+  color: #2F3147;
+  font-family: "BigShouldersDisplay";
 }
-.weeklyStatisticsContent{
-  border: 2px solid #2F3147;
+
+.taskList button {
+  height: 3rem;
+  width: 3rem;
+  font-family: 'BigShouldersDisplay';
+  font-size: 2rem;
+  border-radius: 50%;
+  border: none;
+  background: #fff;
+  color: #2F3147;
 }
-.monthlyStatisticsContent{
-  border: 2px solid #2F3147;
+
+.taskList button:hover {
+  color: #65338A;
+  transform: scale(1.2);
 }
-.todoListContent{
-  border: 2px solid #2F3147;
+
+
+
+.divider-vertical {
+    width: 0.15rem;
+    background-color: #2F3147;
+    height: 100%;
+    margin-top: 2rem;
+}
+
+.friendsList {
+    padding: 1.5rem;
+    height: 100%;
+}
+
+.usersFriendsList,
+.searchResults,
+.invitesList {
+    list-style: none;
+    padding-left: 0;
+    font-size: 3rem;
+    color: #2F3147;
+    font-family: "BigShouldersDisplay";
+    font-weight: 400;
+}
+
+.usersFriendsList li,
+.searchResults li,
+.invitesList li {
+    padding: 0.5rem 0;
+        font-size: 2rem;
+    color: #2F3147;
+    font-family: "BigShouldersDisplay";
+    font-weight: 400;
+}
+.userInvites h3,
+.searchResults,
+.usersFriends{
+    font-size: 2rem;
+    color: #2F3147;
+    font-family: "BigShouldersDisplay";
+    font-weight: 400;
+    text-transform: uppercase;
+}
+@media (max-width: 900px) {
+    .profileColumns {
+        grid-template-columns: 1fr;
+    }
+
+    .userProfile {
+        margin: 1rem;
+        padding: 2rem;
+    }
 }
 
 /* Nawigacja */
