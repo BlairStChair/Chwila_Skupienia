@@ -9,20 +9,38 @@
 </head>
 <body>
     <div class="profileSettingsMainContainer">
-        <button>darkmode<img src="../assets/img/moon-regular.svg"></button>
-        <div class="navBar">
-            <ul>
-                <li><a href="dashboardPage.html">Minutnik</a></li>
-                <li><a href="profilePage.html">Profil</a></li>
-            </ul>
+        <button class="darkmode-toggle">
+            <img src="../assets/img/moon-regular.svg" alt="Tryb nocny" class="moon-icon" />
+            <img src="../assets/img/sun-solid-white.svg" alt="Tryb dzienny" class="sun-icon" />
+            </button>
+                <div class="navBar">
+                <!-- Zamiast listy są buttony normalnie, zamieniłam żeby było wygodniej układać w css  -->
+                <div class="navBar-wrapper">
+                <img class="diamond" src="../assets/img/diament-white.svg" alt="diament" />
+                <a href="dashboardPage.html" class="navBtn" >Minutnik</a>
+                <img class="bigdiamond" src="../assets/img/diament-diament-white.svg" alt="diament" />
+                <a href="profilePage.html" class="navBtn">Profil</a>
+                <img class="diamond"  src="../assets/img/diament-white.svg" alt="diament" />
+                </div>
         </div>
-        <div class="userProfile">
-            <div class="profileHeader">
-                <div class="avatar"><img src="../assets/img/user-solid.svg" id="avatar"></div>
-                <div class="userName"><p id="userName">@TypowyUser</p></div>
+            <div class="nav-lines">
+                <div class="nav-decor-line"></div>
             </div>
+        <div class="profileSettingsContainer">
+            <div class="profileHeader">
+                <div class="left">
+                    <div class="avatar"><img src="../assets/img/user-solid.svg" id="avatar"></div>
+                    <div class="userName"><p id="userName">@TypowyUser</p></div>
+                </div>
+                <div class="settings">
+                    <a href="profileSettings.html">
+                        <img class="ustawienia" src="../assets/img/gear-solid.svg">
+                    </a>
+                </div>
+            </div>
+                        <div class="profiledecorline"></div>
             <div class="settingsContainer">
-                <a href="profilePage.html">Wróć do profilu</a>
+                <a href="profilePage.html" class="button-link2">Wróć do profilu</a>
                 <label>Zmień zdjęcie profilowe:</label>
                     <input type="file" accept="image/jpeg,image/png,image/jpg" id="avatarFile" name="avatarFile"></input>
                     <button id="submitAvatar">Potwierdź</button>
@@ -51,5 +69,7 @@
 
     <script src="../js/firebase.js" defer></script>
     <script src="../js/profileSettings.js"></script>
+   
+
 </body>
 </html>

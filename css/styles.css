@@ -794,3 +794,66 @@ button:hover {
 
 /* Ustawienia */
 
+.profileSettingsContainer {
+    margin: 2rem 5rem;
+    padding: 3rem;
+    border-radius: 50px;
+    background: rgba(217, 217, 217, 0.50);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+}
+
+.settingsContainer {
+    font-size: 1.6rem;
+    color: #2F3147;
+    font-family: "Big Shoulders Display";
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    column-gap: 2rem;
+    row-gap: 1.5rem;
+
+}
+
+.settingsContainer input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border-radius: 12px;
+    font-size: 1.4rem;
+    font-family: "BigShouldersDisplay";
+    color: #2F3147;
+    background: rgba(255,255,255,0.8);
+    grid-column: 2;
+}
+.settingsContainer label {
+    grid-column: 1;
+    align-self: center;
+        color: #2F3147;
+    font-family: "Big Shoulders Display";
+}
+
+.settingsContainer button {
+  grid-column: 2;
+    width: fit-content;
+    padding: 0.6rem 1.4rem;
+    border-radius: 12px;
+    border: none;
+    background: #fff;
+    color: #2F3147;
+    font-size: 1.4rem;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: "BigShouldersDisplay";
+}
+
+.settingsContainer button:hover {
+    transform: scale(1.05);
+    color: #65338A;
+}
+
+.settingsContainer .button-link2 {
+    grid-column: 1 / -1;
+    margin-bottom: 1rem;
+}
