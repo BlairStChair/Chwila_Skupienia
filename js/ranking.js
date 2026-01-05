@@ -31,6 +31,11 @@ function getMonth(){
     let todayDate = new Date();
     let year = todayDate.getFullYear()
     let month = todayDate.getMonth() + 1;
+
+    if(month < 10){
+        month = "0" + 1;
+    }
+
     rankingDate = year + "-" + month;
 
     console.log("rankingDate: ", rankingDate);
