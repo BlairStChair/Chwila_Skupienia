@@ -603,7 +603,6 @@ button:hover {
   width: 100%;
 }
 
-/* Pole tekstowe */
 #userSearchField {
   width: 100%;
   max-width: 25rem;
@@ -612,11 +611,10 @@ button:hover {
   border: none;
   font-size: 1.6rem;
   font-family: "BigShouldersDisplay";
-  background: rgba(217, 217, 217, 0.5);
+  background: #fff;
   color: #2F3147;
 }
 
-/* Przycisk */
 #userSearchBtn {
   width: fit-content;
   padding: 0.6rem 1.4rem;
