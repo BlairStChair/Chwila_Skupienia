@@ -33,14 +33,12 @@
                     <div class="userName"><p id="userName">@TypowyUser</p></div>
                 </div>
                 <div class="settings">
-                    <a href="profileSettings.html">
-                        <img class="ustawienia" src="../assets/img/gear-solid.svg">
-                    </a>
+                    <a href="profilePage.html" class="button-link2">Wróć do profilu</a>
                 </div>
             </div>
                         <div class="profiledecorline"></div>
+            
             <div class="settingsContainer">
-                <a href="profilePage.html" class="button-link2">Wróć do profilu</a>
                 <label>Zmień zdjęcie profilowe:</label>
                     <input type="file" accept="image/jpeg,image/png,image/jpg" id="avatarFile" name="avatarFile"></input>
                     <button id="submitAvatar">Potwierdź</button>
@@ -59,7 +57,10 @@
             </div>
         </div>
     </div>
-
+                <div class="logoutWrapper">
+            <button class="logoutBtn">
+                <img src="../assets/img/logout.svg" alt="Wyloguj">
+            </button>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>

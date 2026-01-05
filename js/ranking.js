@@ -114,14 +114,40 @@ async function addCurrentUserToList(uid){
     };
 }
 
-function setRanking(){
+// function setRanking(){
+//     friendsList.sort((a, b) => b.totalMonthlyMinutes - a.totalMonthlyMinutes);
+
+//     for(let i = 0; i < friendsList.length; i++) {
+//         console.log(`${i + 1}. ${friendsList[i].fromDisplayName} - ${friendsList[i].totalMonthlyHours}`);
+//         let rankingListItem = document.createElement("li");
+//         rankingListItem.textContent = `${friendsList[i].fromDisplayName} - ${friendsList[i].totalMonthlyHours}`;
+//         monthlyRankingList.appendChild(rankingListItem);
+//     }
+// }
+
+// zamieniłam to ^ na to v żeby Topka była bardziej wyróżniona
+
+function setRanking() {
     friendsList.sort((a, b) => b.totalMonthlyMinutes - a.totalMonthlyMinutes);
 
-    for(let i = 0; i < friendsList.length; i++) {
-        console.log(`${i + 1}. ${friendsList[i].fromDisplayName} - ${friendsList[i].totalMonthlyHours}`);
-        let rankingListItem = document.createElement("li");
-        rankingListItem.textContent = `${friendsList[i].fromDisplayName} - ${friendsList[i].totalMonthlyHours}`;
-        monthlyRankingList.appendChild(rankingListItem);
+    for (let i = 0; i < friendsList.length; i++) {
+        let li = document.createElement("li");
+
+        let left = document.createElement("span");
+        left.textContent = friendsList[i].fromDisplayName;
+
+        let right = document.createElement("span");
+        right.textContent = friendsList[i].totalMonthlyHours;
+
+        li.appendChild(left);
+        li.appendChild(right);
+
+        if (i === 0) li.classList.add("first-place");
+        if (i === 1) li.classList.add("second-place");
+        if (i === 2) li.classList.add("third-place");
+
+        monthlyRankingList.appendChild(li);
     }
 }
+
 });

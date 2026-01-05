@@ -62,25 +62,37 @@ async function getUserStats(uid){
   console.log(downloadedMinutes);
   return downloadedMinutes;
 }
-
-async function createChart(statsArray){
+  // troche zmieniłam to żeby ten 
+  // gradient działał poprawnie ogólnie nie wiem czy czegoś nie zepsułam
+async function createChart(statsArray) {
   const labels = getWeeklyDates();
-  var barColors = "#e4d4f8ff";
+  const ctx = document.getElementById("weeklyChart").getContext("2d");
 
-  new Chart("weeklyChart", {
+  const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+  gradient.addColorStop(0, "#381D5C");
+  gradient.addColorStop(1, "#141414");
+
+  new Chart(ctx, {
     type: "bar",
     data: {
       labels: labels,
       datasets: [{
-        backgroundColor: barColors,
+        backgroundColor: gradient,
+        borderRadius: 8,
         data: statsArray
       }]
     },
     options: {
-      legend: {display: false}
+      legend: {
+        display: false  
+      },
+      scales: {
+        yAxes: [{
+          ticks: { beginAtZero: true }
+        }]
+      }
     }
   });
-  
 }
 
 window.getUserStats = getUserStats;

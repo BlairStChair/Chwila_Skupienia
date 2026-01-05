@@ -10,6 +10,7 @@
 body {
     min-height: 100vh; 
     width: 100%;
+    overflow-x: hidden;
     margin: 0;
     padding: 0;
     display: flex;          
@@ -255,6 +256,7 @@ button:hover {
 /* Profil */
 
 .userProfile {
+    max-width: 100%;
     margin: 2rem 5rem;
     padding: 3rem;
     border-radius: 50px;
@@ -341,12 +343,11 @@ button:hover {
     margin-top: -4rem;
 }
 
-
 .weeklyStatisticsContent,
 .monthlyStatisticsContent {
     border: 2px solid #2F3147;
     padding: 1rem;
-    width: 93%;
+
 }
 
 .header-wrapper {
@@ -362,22 +363,48 @@ button:hover {
     font-weight: 400;
     text-transform: uppercase;
 }
-.monthlyRankingList ol{
-    font-size: 2rem;
-    color: #2F3147;
+
+#monthlyRankingList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    row-gap: 0.8rem;
+}
+
+#monthlyRankingList li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
     font-family: "BigShouldersDisplay";
-    font-weight: 400;
+    color: #2F3147;
+    font-size: 1.6rem;
+}
+
+#monthlyRankingList li.first-place {
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #2F3147;
+}
+
+#monthlyRankingList li.second-place,
+#monthlyRankingList li.third-place {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #2F3147;
 }
 
 .profileTodoList {
     padding: 1.5rem;
-    
 }
 
 .todoListContent {
     border: 2px solid #2F3147;
     padding: 1rem;
-  max-height: auto;
+    overflow-y: auto;      
+    overflow-x: hidden;    
+    scrollbar-width: thin; 
+    height: 46.2rem;
 }
 
 .taskName {
@@ -391,22 +418,21 @@ button:hover {
 }
 
 .addTask {
-  height: 3rem;
-  width: 3rem;
+  height: 2rem;
+  width: 2rem;
   font-family: 'BigShouldersDisplay';
-  font-size: 2rem;
+  font-size: 1.5rem;
   border-radius: 50%;
   border: none;
   background: #fff;
   color: #2F3147;
+  margin-left: 0.5rem;
 }
 
 .addTask:hover {
     transform: scale(1.1);
     background: #fff;
 }
-
-/* Pojedyncze zadanie */
 
 .taskList > div {
   display: flex;
@@ -425,10 +451,10 @@ button:hover {
 }
 
 .taskList button {
-  height: 3rem;
-  width: 3rem;
+  height: 2rem;
+  width: 2rem;
   font-family: 'BigShouldersDisplay';
-  font-size: 2rem;
+  font-size: 1.5rem;
   border-radius: 50%;
   border: none;
   background: #fff;
@@ -436,15 +462,46 @@ button:hover {
 }
 
 .taskList button:hover {
-  color: #65338A;
+  color: #2F3147;
   transform: scale(1.2);
 }
 
+.taskList input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #2F3147;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    background: transparent;
+    transition: 0.2s ease;
+}
+
+.taskList input[type="checkbox"]:hover {
+    border-color: #2F3147;
+}
+
+.taskList input[type="checkbox"]:checked {
+    background: #2F3147;
+    border-color: #2F3147;
+}
+
+.taskList input[type="checkbox"]:checked::after {
+    content: "✔";
+    color: white;
+    font-size: 16px;
+    position: absolute;
+    top: -2px;
+    left: 3px;
+}
+
 .divider-vertical {
-    width: 0.15rem;
+    width: 0.1rem;
     background-color: #2F3147;
-    height: 100%;
-    margin-top: 2rem;
+    height: 82%;
+    margin-top: 9rem;
 }
 
 .friendsList {
@@ -472,15 +529,124 @@ button:hover {
     font-family: "BigShouldersDisplay";
     font-weight: 400;
 }
-.userInvites h3,
-.searchResults,
-.usersFriends{
+
+.usersFriends,
+.userInvitesTitle,
+.searchTitle {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.friendsList ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+.friendsList h3 {
+    position: relative;
+    cursor: pointer;
+    text-decoration: none;
+    margin: 2rem 0 1rem;
+    list-style: none;
     font-size: 2rem;
     color: #2F3147;
     font-family: "BigShouldersDisplay";
     font-weight: 400;
     text-transform: uppercase;
 }
+
+.friendsList h3::after {
+    content: "";
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: #2F3147;
+    transition: width 0.25s ease;
+}
+
+.friendsList h3:hover::after {
+    width: 100%;
+}
+
+.userSearch {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.searchTitle {
+  font-size: 2rem;
+  font-family: "BigShouldersDisplay";
+  color: #2F3147;
+  text-transform: uppercase;
+  position: relative;
+  cursor: pointer;
+  margin: 1rem 0 0.5rem;
+  padding: 0;
+}
+
+.searchTitle::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #2F3147;
+  transition: width 0.25s ease;
+}
+
+.searchTitle:hover::after {
+  width: 100%;
+}
+
+/* Pole tekstowe */
+#userSearchField {
+  width: 100%;
+  max-width: 25rem;
+  padding: 0.6rem 1rem;
+  border-radius: 12px;
+  border: none;
+  font-size: 1.6rem;
+  font-family: "BigShouldersDisplay";
+  background: rgba(217, 217, 217, 0.5);
+  color: #2F3147;
+}
+
+/* Przycisk */
+#userSearchBtn {
+  width: fit-content;
+  padding: 0.6rem 1.4rem;
+  border-radius: 12px;
+  border: none;
+  background: #fff;
+  color: #2F3147;
+  font-size: 1.6rem;
+  font-family: "BigShouldersDisplay";
+  cursor: pointer;
+  transition: 0.2s ease;
+    text-transform: uppercase;
+}
+
+#userSearchBtn:hover {
+  transform: scale(1.05);
+  background: #e0e0e0;
+
+}
+
+/* Lista wyników */
+.searchResults {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+  font-size: 1.6rem;
+  font-family: "BigShouldersDisplay";
+  color: #2F3147;
+}
+
 
 /* Nawigacja */
 .navBar {
@@ -553,8 +719,7 @@ button:hover {
   background: rgba(255, 255, 255, 0.39);
   }
 
-  .timerInfo,
-  .message{
+  .timerInfo{
     font-size: 2rem;
     font-family: 'BigShouldersDisplay';
     text-align: center;
@@ -562,14 +727,34 @@ button:hover {
     font-style: italic;
   }
 
-  .timer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 6rem;
+.tipContentDiv {
+    padding: 1rem 1.5rem;
+    font-size: 2rem;
+    text-align: center;
+    color: #fff;
     font-family: 'BigShouldersDisplay';
-    color: #ffffff;
-    margin: -2rem;
+    font-style: italic;
+    max-width: 40rem;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: none; 
+}
+
+.tipContentText {
+    margin: 0;
+    padding: 0;
+    line-height: 1.4;
+}
+
+.timer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 6rem;
+  font-family: 'BigShouldersDisplay';
+  color: #ffffff;
   }
 
 .timerControls {
@@ -621,7 +806,7 @@ button:hover {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  z-index: 9999; /* żeby był nad wszystkim */
+  z-index: 9999;
 }
 
 .logoutBtn {
@@ -630,14 +815,11 @@ button:hover {
   border-radius: 100%;
   padding: 0.6rem;
   cursor: pointer;
-
   display: flex;
   justify-content: center;
   align-items: center;
-
   width: 55px;
   height: 55px;
-
   transition: 0.2s ease;
   box-shadow: 0 4px 10px rgba(0,0,0,0.25);
 }
@@ -794,6 +976,10 @@ button:hover {
 
 /* Ustawienia */
 
+.profileHeader .userName{
+    font-size: 2.4rem;
+    font-family: "BigShouldersDisplay";
+}
 .profileSettingsContainer {
     margin: 2rem 5rem;
     padding: 3rem;
@@ -805,22 +991,25 @@ button:hover {
     flex-direction: column;
     gap: 3rem;
 }
-
+.settings .button-link2 {
+    font-size: 2rem;
+}
 .settingsContainer {
+    margin: 0 0 0 20%;
     font-size: 1.6rem;
     color: #2F3147;
-    font-family: "Big Shoulders Display";
+    font-family: "BigShouldersDisplay";
     display: grid;
     grid-template-columns: 250px 1fr;
     column-gap: 2rem;
     row-gap: 1.5rem;
-
 }
 
 .settingsContainer input {
-    width: 100%;
+    width: 50%;
     padding: 0.8rem 1rem;
     border-radius: 12px;
+    border: none;
     font-size: 1.4rem;
     font-family: "BigShouldersDisplay";
     color: #2F3147;
@@ -830,8 +1019,9 @@ button:hover {
 .settingsContainer label {
     grid-column: 1;
     align-self: center;
-        color: #2F3147;
-    font-family: "Big Shoulders Display";
+    color: #2F3147;
+    font-family: "BigShouldersDisplay";
+    text-transform: uppercase;
 }
 
 .settingsContainer button {
@@ -846,6 +1036,7 @@ button:hover {
     cursor: pointer;
     transition: 0.2s;
     font-family: "BigShouldersDisplay";
+    text-transform: uppercase;
 }
 
 .settingsContainer button:hover {
@@ -856,4 +1047,105 @@ button:hover {
 .settingsContainer .button-link2 {
     grid-column: 1 / -1;
     margin-bottom: 1rem;
+}
+
+/* responsywność próba na innych urządzeniach */
+
+@media (max-width: 768px) {
+
+  .formContainer {
+    flex-direction: column;
+    gap: 2rem;
+    padding: 0 2rem;
+  }
+
+  .input-wrapper input {
+    width: 100%;
+    font-size: 1.6rem;
+  }
+
+  .rightSection {
+    margin: 2rem 0;
+    padding: 0;
+  }
+
+  .imagePlaceholder {
+    max-width: 300px;
+    height: auto;
+  }
+
+  .title h1 {
+    font-size: 4rem;
+    letter-spacing: 4px;
+  }
+
+  .profileColumns {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  .weeklyStatisticsContent,
+  .monthlyStatisticsContent {
+    width: 100%;
+  }
+
+  .todoListContent {
+    width: 100%;
+    height: 30rem;
+  }
+
+  .friendsList {
+    width: 100%;
+  }
+
+  .navBar-wrapper {
+    gap: 2rem;
+  }
+
+  .timerContainer {
+    margin: 2rem;
+  }
+}
+@media (max-width: 480px) {
+
+  h2 {
+    font-size: 2.4rem;
+  }
+
+  .input-wrapper input {
+    font-size: 1.4rem;
+    padding-left: 2.5rem;
+  }
+
+  .gradient-btn {
+    width: 100%;
+    height: auto;
+    font-size: 1.8rem;
+  }
+
+  .taskName {
+    width: 100%;
+    font-size: 1.6rem;
+  }
+
+  .taskList p {
+    font-size: 1.2rem;
+  }
+
+  .profileHeader {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .avatar img {
+    width: 4rem;
+  }
+
+  .username {
+    font-size: 1.6rem;
+  }
+
+  .navBtn {
+    font-size: 1.4rem;
+  }
 }
