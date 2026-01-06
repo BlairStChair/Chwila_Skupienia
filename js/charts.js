@@ -1,8 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
 const db = firebase.firestore();
 
-let weeklyDatesToGetData = [];
-
 function getWeeklyDates(){
     let todayDate = new Date();
     let weeklyDatesToDisplay = [];
@@ -39,7 +37,6 @@ function getWeeklyDates(){
     }
 
     console.log(weeklyDatesToDisplay);
-    console.log(weeklyDatesToGetData);
     return {displayDates, isoDates};
 }
 
@@ -82,17 +79,16 @@ async function createChart(statsArray) {
         data: statsArray
       }]
     },
-options: {
-  legend: {
-    display: false 
-  },
-  scales: {
-    y: {
-      beginAtZero: true
+    options: {
+      legend: {
+      display: false 
+      },
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
     }
-  }
-}
-
   });
 }
 
