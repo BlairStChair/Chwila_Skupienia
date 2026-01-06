@@ -9,14 +9,23 @@
 </head>
 <body>
     <div class="dashboardMainContainer">
-        <button>darkmode<img src="../assets/img/moon-regular.svg"></button>
-        <button class="logoutBtn">Wróć do logowania</button>
-        <div class="navBar">
-            <ul>
-                <li><a href="dashboardPageForGuests.html">Minutnik</a></li>
-                <li><a href="profilePage.html" id="profileLink">Profil</a></li>
-            </ul>
+        <button class="darkmode-toggle">
+            <img src="../assets/img/moon-regular.svg" alt="Tryb nocny" class="moon-icon" />
+            <img src="../assets/img/sun-solid-white.svg" alt="Tryb dzienny" class="sun-icon" />
+            </button>
+            <!-- myśle że to nie jest potrzebne -->
+        <!-- <div class="navBar">
+                <div class="navBar-wrapper">
+                <img class="diamond" src="../assets/img/diament-white.svg" alt="diament" />
+                <a href="dashboardPage.html" class="navBtn" >Minutnik</a>
+                <img class="bigdiamond" src="../assets/img/diament-diament-white.svg" alt="diament" />
+                <a href="profilePage.html" class="navBtn">Profil</a>
+                <img class="diamond"  src="../assets/img/diament-white.svg" alt="diament" />
+                </div>
         </div>
+            <div class="nav-lines">
+                <div class="nav-decor-line"></div>
+            </div> -->
         <div class="timerContainer">
             <div class="message"></div>
             <div class="timerInfo">
@@ -73,7 +82,7 @@
         </div>
         <div class="logoutWrapper">
             <button class="logoutBtn">
-                <img src="../assets/img/login.svg" alt="Powrót do logowania">
+                <img src="../assets/img/login.svg" alt="Wróć do logowania">
             </button>
         </div>
     </div>
@@ -88,6 +97,7 @@
     <script src="../js/guestsDashboardScript.js"></script>
     <script src="../js/musicPlayer.js"></script> 
     <script src="../js/timer.js"></script> 
+    <script src="../js/navbar.js"></script>
     <script src="../js/hidemusic.js"></script>
 </body>
 </html>

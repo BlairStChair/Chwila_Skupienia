@@ -524,7 +524,7 @@ button:hover {
 .searchResults li,
 .invitesList li {
     padding: 0.5rem 0;
-        font-size: 2rem;
+      font-size: 2rem;
     color: #2F3147;
     font-family: "BigShouldersDisplay";
     font-weight: 400;
@@ -537,6 +537,34 @@ button:hover {
     margin: 0;
     padding: 0;
 }
+
+.invitesList button {
+  padding: 0.5rem 0.5rem;
+  margin-left: 1rem;
+  margin-top: 1rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.6rem;
+  font-family: "BigShouldersDisplay";
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: 0.2s ease;
+  background: #fff;
+  color: #2F3147;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.invitesList button:hover {
+  background: #e0e0e0;
+  transform: scale(1.05);
+}
+
+.invitesList button:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+}
+
+
 .friendsList ul {
     list-style: none;
     padding-left: 0;
@@ -617,7 +645,7 @@ button:hover {
 
 #userSearchBtn {
   width: fit-content;
-  padding: 0.6rem 1.4rem;
+  padding: 0.5rem 0.5rem;
   border-radius: 12px;
   border: none;
   background: #fff;
