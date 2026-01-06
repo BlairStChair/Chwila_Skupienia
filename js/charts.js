@@ -83,11 +83,6 @@ async function createChart(statsArray) {
       legend: {
       display: false 
       },
-      scales: {
-        y: {
-          beginAtZero: true
-        }
-      }
     }
   });
 }
