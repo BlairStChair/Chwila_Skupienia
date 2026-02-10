@@ -18,11 +18,13 @@ loginForm.addEventListener("submit", async(e) => {
     console.log(passwordValue);
 
     try{
+        //używam funkcji wbudowanej do firebase, który sprawdza czy hasło pasuje do podanego konta
         const userCredential = await auth.signInWithEmailAndPassword(emailValue, passwordValue);
         console.log("Zalogowano:", userCredential.user);
         alert("Zalogowano pomyślnie!");
         window.location.href = "dashboardPage.html";
     }catch(error){
+            //jak nie pasuje to wywala błąd
             loginForm.appendChild(invalidLogin);
     }
 });
