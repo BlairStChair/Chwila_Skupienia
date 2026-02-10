@@ -14,6 +14,7 @@ let currentUserName = "";
 let usersGlobal = [];
 let nameSpan;
 
+//autentykacja użytkownika
 auth.onAuthStateChanged(async (user) => {
     currentUserName = await db.collection("users").doc(user.uid).get();
     const userData = currentUserName.data();
@@ -21,6 +22,7 @@ auth.onAuthStateChanged(async (user) => {
     const userName = currentUserName.data();
 });
 
+//event przekierowuje na stronę innego użytkownika jak się kliknie jego nazwę
 document.addEventListener("click", (e) => {
     if (e.target.classList.contains("friend-name")) {
         const uid = e.target.dataset.uid;
@@ -28,6 +30,7 @@ document.addEventListener("click", (e) => {
     }
 });
 
+//pobranie nazw użytkowników z bazy, żeby potem wyszukiwać wśród tej tablicy obiektów użytkowników do zaproszenia
 async function getAllUsernames(){
     let snapshot = await db.collection("users").get();
     console.log(snapshot);
@@ -50,9 +53,11 @@ async function getAllUsernames(){
 
 let clickCounter = 0;
 
+//wyświetlenie listy znajomych
 usersFriends.addEventListener("click", async (e) => {
    e.preventDefault();
 
+   //upośledzony sposób, żeby lista nie generowała się w nieskończoność tylko raz
     if(clickCounter % 2 !== 0){
         return;
     }else{
@@ -66,6 +71,7 @@ usersFriends.addEventListener("click", async (e) => {
 
     const friendUids = new Set();
 
+    //szukanie znajomych na podstawie czy w kolekcji z zaproszeniami ma status zaakceptowany
     friendRequestsSnapshot.docs.forEach(doc => {
         const data = doc.data();
         if(data.status !== "accepted") return;
@@ -82,6 +88,7 @@ usersFriends.addEventListener("click", async (e) => {
     usersFriendsList.innerHTML = "";
     friendsList = [];
 
+    //dodanie wynajdzionych ludzi co mają z tobą status accepted do tablicy ze znajomymi
     for(const uid of friendUids){
         const userDoc = await db.collection("users").doc(uid).get();
         if(userDoc.exists){
@@ -92,6 +99,7 @@ usersFriends.addEventListener("click", async (e) => {
         }
     }
 
+    //wyświetlenie wyniku tej tablicy w DOM
     for(let i = 0; i < friendsList.length; i++){
         let request = friendsList[i];
 
@@ -105,6 +113,7 @@ usersFriends.addEventListener("click", async (e) => {
         usersFriendsList.appendChild(friendResultDisplay);
         friendResultDisplay.appendChild(nameSpan);
 
+        //jak klikasz imię to przenosi na profil użytkownika
         nameSpan.addEventListener("click", () => {
             window.location.href = `../pages/diffrentUserProfilePage.html?uid=${request.fromUid}`;
             console.log("fromUid:", request.fromUid);
@@ -130,16 +139,19 @@ userSearch.addEventListener("click", () => {
     userSearchField.focus();
 });
 
+//wyszukiwanie użytkownika
 userSearchBtn.addEventListener("click", async () => {
     let usernameInput = userSearchField.value.toLowerCase();
     console.log(usernameInput);
 
+    //zabezpieczenie, żeby nie wyszukiwać pustego rekordu
     if(usernameInput === null || usernameInput.length === 0){
         alert("Pole wyszukiwania nie może być puste!")
         return;
     }else{
     await getAllUsernames();
 
+    //przejście przez kolekcję użytkowników i sprawdzenie czy nazwa któraś się zawiera we wpisanym tekście w wyszukiwaniu
     let results = usersGlobal.filter(user => 
         user.displayName.toLowerCase().includes(usernameInput)
     );
@@ -148,6 +160,7 @@ userSearchBtn.addEventListener("click", async () => {
 
     searchResults.textContent = "";
 
+    //te wyniki dodaje do DOM i je widać
     for(let i = 0; i < results.length; i++){
         let user = results[i];
 
@@ -159,6 +172,7 @@ userSearchBtn.addEventListener("click", async () => {
         inviteUserBtn.textContent = "Zaproś";
         inviteUserBtn.dataset.uid = user.uid;
 
+        //jak klikniesz zaproś to tworzy rekord w kolekcji z zaproszeniami i potem ktoś będzie mógł zobaczyć zaproszenie
         inviteUserBtn.addEventListener("click", async () => {
             console.log("Zaproszono użytkownika:", user.displayName, " o uid:", inviteUserBtn.dataset.uid);
 
@@ -182,6 +196,7 @@ userSearchBtn.addEventListener("click", async () => {
     }
 });
 
+//zaproszenia 
 userInvitesTitle.addEventListener("click", async (e) => {
     e.preventDefault();
 
@@ -189,9 +204,11 @@ userInvitesTitle.addEventListener("click", async (e) => {
 
     console.log(currentUserUID);
 
+    //pobranie rekordów z kolekcji z zaproszeniami
     let friendRequestsSnapshot = await db.collection("friendRequests").get();
     console.log(friendRequestsSnapshot);
 
+    //kod bierze dokumenty z Firestore, wyciąga tylko te poprawne, formatuje je do prostych obiektów i odrzuca śmieci - ktoś nie ma nazwy użytkownika 
     let usersFriendsRequests = friendRequestsSnapshot.docs.map(doc => {
         let data = doc.data();
         if (data.fromDisplayName){
@@ -207,11 +224,13 @@ userInvitesTitle.addEventListener("click", async (e) => {
 
     console.log(usersFriendsRequests);
 
+    //wyszukuje z tablicy obiektów które mają status pending i wtedy dodaje rekord do invitesResults
     let invitesResults = usersFriendsRequests.filter(request =>
         request.to.includes(currentUserUID) && request.status === "pending"
     );  
     console.log(invitesResults);
 
+    //generuje listę zaproszeń
     for(let i = 0; i < invitesResults.length; i++){
         let request = invitesResults[i];
 
@@ -220,11 +239,13 @@ userInvitesTitle.addEventListener("click", async (e) => {
         let nameSpan = document.createElement("span");
         nameSpan.textContent = request.fromDisplayName; 
 
+        //dodaje przyciski do zaakceptowania i odrzucenia
         let AcceptBtn = document.createElement("button");
         AcceptBtn.textContent = "Akceptuj";
         let RejectBtn = document.createElement("button");
         RejectBtn.textContent = "Odrzuć";
 
+        //jak klikniesz akceptuj to zmienia status w rekordzie na zaakceptowany i wtedy zapraszający wyświetli się w znajomych
         AcceptBtn.addEventListener("click", async (e) => {
             e.preventDefault();
 
@@ -235,9 +256,10 @@ userInvitesTitle.addEventListener("click", async (e) => {
             let updatedDoc = await db.collection("friendRequests").doc(request.id).get();
             console.log(updatedDoc.data().status);
 
+            //po kliknięciu zaproszenie się usuwa
             inviteResultDisplay.remove();
         });
-
+        //tu tak samo tylko z odrzuceniem zaproszenia
         RejectBtn.addEventListener("click", async (e) => {
             e.preventDefault();
 

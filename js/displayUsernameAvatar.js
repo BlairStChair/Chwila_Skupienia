@@ -5,6 +5,7 @@ const auth = firebase.auth();
 const db = firebase.firestore();
 
 auth.onAuthStateChanged(async (user) => {
+    //pobiera z bazy danych nazwę użytkownika i ogólnie inne informacje
     const name = await db.collection("users").doc(user.uid).get();
     const userData = name.data();
 
@@ -12,6 +13,7 @@ auth.onAuthStateChanged(async (user) => {
 
     username.textContent = userName.displayName;
 
+    //pobiera z bazy profilowe a jak ktoś go nie ma to daje default awatar
     const avatarImg = document.querySelector(".userProfile .avatar img");
     if (userData.photoURL) {
         avatarImg.src = userData.photoURL;
@@ -22,7 +24,7 @@ auth.onAuthStateChanged(async (user) => {
     let stats = await getUserStats(userData.uid);
 
     console.log("Statystyki znajomego:", stats);
-
+    //generuje statystyki
     createChart(stats);
 });
 });
