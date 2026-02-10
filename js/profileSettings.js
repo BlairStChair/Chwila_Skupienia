@@ -163,12 +163,14 @@ passwordChangeBtn.addEventListener("click", async(e) => {
     const newPasswordConfirmValue = newPasswordConfirmField.value.trim();
 
     try{
+        //sprawdza, czy użytkownik na pewno jest zalogowany
         const user = auth.currentUser;
         if(!user){
             alert("Zaloguj się, aby zmienić hasło");
             return;
         }
         
+        //sprawdza podobieństwo haseł 
         if(newPasswordValue !== newPasswordConfirmValue){
             alert("Nowe hasła nie są takie same!");
             oldPasswordField.value = "";
@@ -177,10 +179,12 @@ passwordChangeBtn.addEventListener("click", async(e) => {
             return;
         }
 
+        //autentykacja
         const credential = firebase.auth.EmailAuthProvider.credential(user.email, oldPasswordValue);
 
         await user.reauthenticateWithCredential(credential);
     
+        //aktualizacja hasła
         await user.updatePassword(newPasswordValue);
 
         alert("Hasło zostało zmienione pomyślnie!");
