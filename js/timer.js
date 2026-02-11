@@ -50,12 +50,15 @@ timer.appendChild(tipContentDiv);
 
 let totalMinutes = 0;
 
+//funkcja do sumowania minut spędzonych na pracy: po każdej zakończonej sesji minione w niej minuty są dodawane do sumy danego dnia
 async function countMinutes(addedMinutes){
     totalMinutes = totalMinutes + addedMinutes;
+    //używam lokalnego przechowywania tej sumy, że się nie usunęła jak się przeładuje stronę albo przejdzie do innej zakładki
     localStorage.setItem("todaySavedMinutes", totalMinutes);
     console.log(localStorage.getItem("todaySavedMinutes"));
 }
 
+//jak użytkownik wyjdzie i wejdzie do minutnika to funkcja pobiera sumę minut z lokalnego storage
 async function loadSavedTime(){
     let saved = localStorage.getItem("todaySavedMinutes");
     if(saved){
@@ -63,25 +66,29 @@ async function loadSavedTime(){
     }
     console.log("Wczytany czas: " + localStorage.getItem("todaySavedMinutes"));
 }
-
+//wywołuje to już na początku kodu, żeby wczytał czas od razu po wejściu na stronę
 loadSavedTime();
 
+//funkcja przesyła sumę minut do firebase
 async function sendSavedTimeToFirebase(newMinutes){
     auth.onAuthStateChanged(async (user) => {
     let uid = user.uid;
 
+    //pobiera dzisiejszą datę, która będzie nazwą rekordu w kolekcji sessions i formatuje ją do formatu ISO bo tak stwierdziłam, że zapisuje datę
     let todayDate = new Date().toISOString().split("T")[0];
 
+    //pobiera tworzy rekord z dziejszą datą
     let docRef = db.collection("sessionsInfo").doc(uid).collection("stats").doc(todayDate);
     let docSnap = await docRef.get();
 
     let currentMinutes = 0;
+    //jeśli rekord z danego dnia już istnieje to dodaje sumę naliczoną obecnie do tej zapisanej w rekordzie
     if(docSnap.exists){
         currentMinutes = docSnap.data().minutes || 0;
     }
 
     let minutesToAdd = newMinutes - currentMinutes;
-
+    //jak dla danego dnia jeszcze nic nie jest zapisane to dodaje do niego dane jaka jest data i jaka jest suma minut
     if(minutesToAdd > 0){
         await docRef.set({
             minutes: firebase.firestore.FieldValue.increment(minutesToAdd),
@@ -95,11 +102,13 @@ async function sendSavedTimeToFirebase(newMinutes){
     });
 }
 
+//ładowanie porad z pliku json
 async function loadStudyTipsJson(){
     const json = await fetch("../data/studyTips.json");
     tipPool = await json.json();
 }
 
+//losowe wybranie porady
 async function drawStudyTip(){
     const tipIndex = Math.floor(Math.random() * tipPool.length);
 
@@ -112,10 +121,12 @@ loadStudyTipsJson().then(() => {
     console.error("Failed to load tips:", error);
 });
 
+//funkcja do wyświetlania czasu
 function updateDisplay(){
     let minutes;
     let seconds;
     
+    //podział czasu na minuty i sekundy do wyświetlenia na zegarku
     if(mode == "session"){
         minutes = Math.floor(timeInSeconds / 60);
         seconds = timeInSeconds % 60;
@@ -127,6 +138,7 @@ function updateDisplay(){
         seconds = longBreakSeconds % 60;
     }
 
+    //jak czas jest krótszy niż 10 minut np. 2 minuty to dodaje z przodu tej liczby 0, żeby się ładnie wyświetliło i było np. 02:01
     if(minutes < 10){
         displayTime.textContent = `0${minutes}:${seconds.toString().padStart(2, "0")}`;
     }else{
@@ -134,6 +146,7 @@ function updateDisplay(){
     }
 }
 
+//funkcja, która oblicza długość krótkiej przerwy, która trwa 1/5 czasu sesji
 async function startShortBreak(){
     if(savedTime != 0 && savedTime < Math.floor(originalSessionTime / 5)){
         shortBreakSeconds = savedTime;
@@ -153,6 +166,7 @@ async function startShortBreak(){
     tipContentText.textContent = drawedTip;
     tipContentDiv.style.display = "block";
 
+    //tutaj dzieje się interwał, który zmienia co sekundę czas na zegarku, żeby z każdą sekundą malał o sekundę
     shortBreakInterval = setInterval(() => {
 
         if(shortBreakSeconds > 0){
@@ -168,9 +182,11 @@ async function startShortBreak(){
             timeInSeconds = originalSessionTime;
             startSession();
             }
+    //wartość 1000 oznacza 1 sekundę
     }, 1000);
 }
 
+//to samo tylko obsługa długiej przerwy, która trwa 4/5 czasu trwania sesji
 async function startLongBreak(){
     countMinutes(timeInSeconds / 60);
 
@@ -209,6 +225,7 @@ async function startLongBreak(){
     }, 1000);
 }
 
+//funkcja obsługuje trwanie sesji i przerw
 function startSession(){
     tipContentDiv.style.display = "none";
 
@@ -217,18 +234,21 @@ function startSession(){
 
     intervalID = setInterval(() => {
         if(timeInSeconds > 0){
+            //jak czas się odlicza tu czas to trwa sesja skupienia
             mode = "session";
             timeInSeconds = timeInSeconds - 1;
             updateDisplay();
         }else{
             clearInterval(intervalID);
             intervalID = null;
+            //obliczanie liczby ukończonych sesji
             sessionsCounter++;
             console.log("liczba sesji:" + sessionsCounter);
-
+            //jak minęło do 3 sesji to po zakończeniu sesji zaczyna się krótka przerwa
             if(sessionsCounter < 4){
                 startShortBreak();
             }else{
+                //jak już miną 4 sesje to odpala się długa przerwa
                 startLongBreak();
             }
         }
@@ -237,6 +257,7 @@ function startSession(){
 
 updateDisplay();
 
+//dodanie po minucie przyciskiem
 addTime.addEventListener("click", () => {
     timeInSeconds = timeInSeconds + 60;
     savedTime = timeInSeconds;
@@ -247,6 +268,7 @@ addTime.addEventListener("click", () => {
     subtractTime.disabled = false;
 });
 
+//skrócenie czasu
 subtractTime.addEventListener("click", () => {
     timeInMinutes = timeInMinutes - 1;
 
@@ -267,6 +289,7 @@ subtractTime.addEventListener("click", () => {
     }
 });
 
+//przycisk, który rozpoczyna działanie zegarka
 startTimer.addEventListener("click", () => {
     stopTimer.disabled = false;
     resetTimer.disabled = false;
@@ -294,10 +317,12 @@ startTimer.addEventListener("click", () => {
     }
 });
 
+//zatrzymanie minutnika
 stopTimer.addEventListener("click", () => {
     addTime.disabled = true;
     subtractTime.disabled = true;
 
+    //tutaj sprawdza czy jest sesja czy któraś z przerw i zapisuje czas, na którym zatrzymało się minutnik, żeby był zachowany przy ponownym wciśnięciu start, aby kontynuować
     if(intervalID){
         clearInterval(intervalID);
         intervalID = null;
@@ -315,6 +340,7 @@ stopTimer.addEventListener("click", () => {
     }
 });
 
+//całkowite zresetowanie naliczonych sesji i odliczonego czasu
 resetTimer.addEventListener("click", () => {
     addTime.disabled = false;
     subtractTime.disabled = false;
@@ -352,6 +378,7 @@ resetTimer.addEventListener("click", () => {
     tipContentDiv.style.display = "none";
 });
 
+//tutaj zrobiłam presety dla 15, 30 i 45 minut
 FifteenMinutes.addEventListener("click", ()=> {
     subtractTime.disabled = false;
     startTimer.disabled = false;
@@ -381,6 +408,6 @@ FortyFiveMinutes.addEventListener("click", ()=> {
     originalSessionTime = timeInSeconds;
     updateDisplay();
 });
-
+//wysłanie sumy naliczonych minut do firebase
 sendSavedTimeToFirebase(totalMinutes);
 });
