@@ -9,7 +9,9 @@ let rankingDate;
 let friendsList = [];
 
 let profileUid;
+//jak jesteś na czyimś profilu to pobiera jego uid z adresu strony
 const urlParams = new URLSearchParams(window.location.search);
+//jak jesteś na swoim profilu to pobiera uid od ciebie idk
 const profileUidFromUrl = urlParams.get("uid");
 
 auth.onAuthStateChanged(async (user) => {
@@ -19,19 +21,23 @@ auth.onAuthStateChanged(async (user) => {
     
     await getUsersList(profileUid);
 
+    //dodaje zalogowane użytkownika do jego listy znajomych bo używam jej do pobrania danych na ranking a jak go nie dodam to nie będzie brany pod uwagę
     const profileOwner = await addCurrentUserToList(profileUid);
     friendsList.push(profileOwner);
 
+    //dodaje do każdej osoby z listy znajomych jego wynik do rankingu
     friendsList = await addMonthlyMinutesToFriendsList(friendsList);
     monthlyRankingList.innerHTML = "";
     setRanking();
 });
 
+//znalezienie aktualnego miesiąca, bo z niego ma pokazać wyniki ranking
 function getMonth(){
     let todayDate = new Date();
     let year = todayDate.getFullYear()
     let month = todayDate.getMonth() + 1;
 
+    //dodaje zero z przodu do jednocyfrowych miesięcy bo inaczej psuje się format daty bo musi być 01 a nie 1 bo tego wymaga format
     if(month < 10){
         month = "0" + 1;
     }
@@ -82,9 +88,11 @@ async function getUsersList(profileUid) {
 async function countUsersMinutes(uid){
     let totalMonthlyMinutes = 0;
 
+    //pobiera dane z kolekcji o sesjach pracy
     let userRef = db.collection("sessionsInfo").doc(uid).collection("stats");
     let userSnapshot = await userRef.get();
 
+    //dodaje minuty z każdego rekordu zapisane z danego miesiąca
     userSnapshot.forEach(doc => {
     let data = doc.data();
     if(data.date && data.date.startsWith(rankingDate)){
@@ -96,6 +104,7 @@ async function countUsersMinutes(uid){
   return totalMonthlyMinutes;
 }
 
+//dodaje do listy znajomych ile czasu spędzili na pracy ale zamieniam to też na godziny, żeby ładnie wyświetlić w rankingu
 async function addMonthlyMinutesToFriendsList(friends){
     for(let friend of friends){
         friend.totalMonthlyMinutes = await countUsersMinutes(friend.fromUid);
@@ -106,6 +115,7 @@ async function addMonthlyMinutesToFriendsList(friends){
     return friends;
 }
 
+//dodaje właściciela profilu do listy do rankingu
 async function addCurrentUserToList(uid){
     const userDoc = await db.collection("users").doc(uid).get();
     const userData = userDoc.data();
@@ -133,8 +143,10 @@ async function addCurrentUserToList(uid){
 // zamieniłam to ^ na to v żeby Topka była bardziej wyróżniona
 
 function setRanking() {
+    //sortowanie listy malejąco
     friendsList.sort((a, b) => b.totalMonthlyMinutes - a.totalMonthlyMinutes);
 
+    //wygenerowanie listy znajomych
     for (let i = 0; i < friendsList.length; i++) {
         let li = document.createElement("li");
 
